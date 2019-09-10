@@ -1,0 +1,10 @@
+package.xml
+
+AppSwitcher.appMenu
+
+**profiles
+
+src/main/default/settings
+
+**/jsconfig.json
+**/.eslintrc.json

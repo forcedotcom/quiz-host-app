@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unique_nickname</fullName>
+    <active>true</active>
+    <errorConditionFormula>LOWER(Name) = LOWER(VLOOKUP($ObjectType.Quiz_Player__c.Fields.Name, $ObjectType.Quiz_Player__c.Fields.Name, Name))</errorConditionFormula>
+    <errorDisplayField>Name</errorDisplayField>
+    <errorMessage>Nickname must be unique</errorMessage>
+</ValidationRule>

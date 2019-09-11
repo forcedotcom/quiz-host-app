@@ -3,7 +3,7 @@
     <fullName>All</fullName>
     <columns>NAME</columns>
     <columns>Phase__c</columns>
-    <columns>Quiz_Question__c</columns>
+    <columns>Current_Question__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>

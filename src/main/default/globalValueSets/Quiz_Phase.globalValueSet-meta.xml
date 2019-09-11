@@ -6,9 +6,9 @@
         <label>Registration</label>
     </customValue>
     <customValue>
-        <fullName>Pre-question</fullName>
+        <fullName>PreQuestion</fullName>
         <default>false</default>
-        <label>Pre-question</label>
+        <label>PreQuestion</label>
     </customValue>
     <customValue>
         <fullName>Question</fullName>
@@ -16,9 +16,19 @@
         <label>Question</label>
     </customValue>
     <customValue>
-        <fullName>Results</fullName>
+        <fullName>PostQuestion</fullName>
         <default>false</default>
-        <label>Results</label>
+        <label>PostQuestion</label>
+    </customValue>
+    <customValue>
+        <fullName>QuestionResults</fullName>
+        <default>false</default>
+        <label>QuestionResults</label>
+    </customValue>
+    <customValue>
+        <fullName>GameResults</fullName>
+        <default>false</default>
+        <label>GameResults</label>
     </customValue>
     <masterLabel>Quiz Phase</masterLabel>
     <sorted>false</sorted>

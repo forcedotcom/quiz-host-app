@@ -1,0 +1,32 @@
+<template>
+    <lightning-card>
+        <p>Current Phase: {gameSessionPhase}</p>
+        <template if:true={error}>
+            {error}
+        </template>
+        <template if:true={isRegistration}>
+            <button onclick={goToNextPhase}>Start</button>
+        </template>
+        <template if:true={isPreQuestion}>
+            Get Ready
+            <button onclick={goToNextPhase}>Ready!</button>
+        </template>
+        <template if:true={isQuestionPhase}>
+            <c-question question-object={currentQuestion}></c-question>
+            <template if:true={isQuestion}>
+                Timer
+            </template>
+            <template if:true={isPostQuestion}>
+                <p>Correct answer is: {currentQuestion.Correct_Answer__c}</p>
+            </template>
+            <template if:true={isQuestionResults}>
+                Leaderboard so far
+            </template>
+            <button onclick={goToNextPhase}>Next</button>
+        </template>
+        <template if:true={isGameResults}>
+            The winner is
+            <button onclick={restart}>Re-Start</button>
+        </template>
+    </lightning-card>
+</template>

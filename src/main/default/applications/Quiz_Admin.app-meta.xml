@@ -10,6 +10,7 @@
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
     <label>Quiz Admin</label>
     <navType>Standard</navType>
+    <tabs>Game</tabs>
     <tabs>Quiz_Player__c</tabs>
     <tabs>Quiz_Question__c</tabs>
     <tabs>Quiz_Answer__c</tabs>

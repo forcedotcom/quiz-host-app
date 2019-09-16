@@ -6,17 +6,17 @@ export default class CountDownTimer extends LightningElement {
     timerID;
     
     connectedCallback() {
+        // eslint-disable-next-line @lwc/lwc/no-async-operation
         this.timerID = setInterval(() => {
             this.countDown();
-          }, 1000);   
+        }, 1000);   
     }
 
     countDown() { 
-        this.numberOfSeconds =
-            this.numberOfSeconds > 0 ? this.numberOfSeconds -= 1 : 0;
+        this.numberOfSeconds --;
         if (this.numberOfSeconds === 0) {
             this.dispatchEvent(new CustomEvent('timeout'));
-            clearTimeout(this.timerID);
+            clearInterval(this.timerID);
         }
     }
 }

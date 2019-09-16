@@ -5,46 +5,12 @@
                 Scoreboard
             </h1>
             <ol>
-                <li>
-                    Jerry Wood
-                    <span>315</span>
-                </li>
-                <li>
-                    Brandon Barnes
-                    <span>301</span>
-                </li>
-                <li>
-                    Raymond Knight
-                    <span>292</span>
-                </li>
-                <li>
-                    Trevor McCormick
-                    <span>245</span>
-                </li>
-                <li>
-                    Andrew Fox
-                    <span>203</span>
-                </li>
-                <li>
-                    Andrew Fox
-                    <span>203</span>
-                </li>
-                <li>
-                    Andrew Fox
-                    <span>203</span>
-                </li>
-                <li>
-                    Andrew Fox
-                    <span>203</span>
-                </li>
-                <li>
-                    Andrew Fox
-                    <span>203</span>
-                </li>
-                <li>
-                    Andrew Fox
-                    <span>203</span>
-                </li>
+                <template for:each={players} for:item="player">
+                    <li key={player.name}>
+                        {player.name}
+                        <span>{player.score}</span>
+                    </li>
+                </template>
             </ol>
         </div>
     </lightning-card>

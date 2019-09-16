@@ -1,0 +1,30 @@
+*,
+*::before,
+*::after {
+    font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+    box-sizing: border-box;
+}
+.leaderboard {
+    padding: 5%;
+    width: 90%;
+    margin: 0 auto;
+}
+h1 {
+    font-weight: bold;
+    text-align: center;
+    font-size: 3rem;
+}
+ol {
+    list-style-type: decimal;
+}
+/* highlight first row */
+li:first-child {
+    background: yellow;
+}
+li {
+    border-bottom: 1px solid gray;
+}
+/* move score to right */
+span {
+    float: right;
+}

@@ -1,6 +1,7 @@
 import { LightningElement, track, wire } from 'lwc'
 import getQuestionList from '@salesforce/apex/QuizComponentService.getQuestionList'
 import updateQuestionSessionPhase from '@salesforce/apex/QuizComponentService.updateQuestionSessionPhase'
+import { reduceErrors } from 'c/ldsUtils';
 // - Registration,
 // for each question:
 //    - PreQuestion, Question, PostQuestion
@@ -57,14 +58,14 @@ export default class GameApp extends LightningElement {
     }
     updatePhase() {
         updateQuestionSessionPhase({ updatedPhase: this.gameSessionPhase })
-            .then(result => {
+            .then(() => {
                 this.error = undefined;
             })
             .catch(error => {
-                this.error = JSON.stringify(error);
+                this.error = reduceErrors(error);
             });
     }
-    goToNextPhase() {
+    handleNextPhaseClick() {
         // if it is a question phase, go to the next phase OR next question
         if (this.questionPhases.includes(this.gameSessionPhase)) {
             if (this.gameSessionPhase === 'QuestionResults') {
@@ -72,9 +73,8 @@ export default class GameApp extends LightningElement {
                     this.gameSessionPhase = 'GameResults';
                     this.updatePhase();
                     return;
-                } else {
-                    this.questionIndex += 1;
-                }
+                } 
+                this.questionIndex += 1;
             }
             // loop through question Phases
             this.gameSessionPhase = this.questionPhases[

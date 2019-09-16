@@ -6,7 +6,9 @@ export default class CountDownTimer extends LightningElement {
     timerID;
     
     connectedCallback() {
-        this.countDown();
+        this.timerID = setInterval(() => {
+            this.countDown();
+          }, 1000);   
     }
 
     countDown() { 
@@ -15,11 +17,6 @@ export default class CountDownTimer extends LightningElement {
         if (this.numberOfSeconds === 0) {
             this.dispatchEvent(new CustomEvent('timeout'));
             clearTimeout(this.timerID);
-        } else {
-            const self = this;
-            this.timerID = window.setTimeout(function() {
-                self.countDown();
-            }, 1000);    
         }
     }
 }

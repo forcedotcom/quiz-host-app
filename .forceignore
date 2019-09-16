@@ -1,10 +1,14 @@
+# Standard metadata
 package.xml
-
-AppSwitcher.appMenu
-
+**appMenu
+**appSwitcher
+**objectTranslations
 **profiles
+**settings
 
-src/main/default/settings
-
+# LWC configuration files
 **/jsconfig.json
 **/.eslintrc.json
+
+# LWC Jest
+**/__tests__/**

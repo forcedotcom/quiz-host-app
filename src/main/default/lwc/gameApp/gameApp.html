@@ -4,12 +4,8 @@
         <template if:true={error}>
             {error}
         </template>
-        <template if:true={isRegistration}>
-            <button onclick={handleNextPhaseClick}>Start</button>
-        </template>
         <template if:true={isPreQuestion}>
             Get Ready
-            <button onclick={handleNextPhaseClick}>Ready!</button>
         </template>
         <template if:true={isQuestionPhase}>
             <c-question question-object={currentQuestion}></c-question>
@@ -22,7 +18,9 @@
             <template if:true={isQuestionResults}>
                 Leaderboard so far
             </template>
-            <button onclick={handleNextPhaseClick}>Next</button>
+        </template>
+        <template if:false={isGameResults}>
+            <button onclick={handleNextPhaseClick}>{nextButtonText}</button>
         </template>
         <template if:true={isGameResults}>
             The winner is

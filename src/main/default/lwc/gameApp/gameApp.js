@@ -1,7 +1,7 @@
-import { LightningElement, track, wire } from 'lwc'
-import getQuestionList from '@salesforce/apex/QuizComponentService.getQuestionList'
-import updateQuestionSessionPhase from '@salesforce/apex/QuizComponentService.updateQuestionSessionPhase'
-import { reduceErrors } from 'c/ldsUtils';
+import { LightningElement, track, wire } from 'lwc';
+import getQuestionList from '@salesforce/apex/QuizComponentService.getQuestionList';
+import updateQuestionSessionPhase from '@salesforce/apex/QuizComponentService.updateQuestionSessionPhase';
+import { reduceErrors } from 'c/errorUtils';
 // - Registration,
 // for each question:
 //    - PreQuestion, Question, PostQuestion
@@ -20,7 +20,11 @@ export default class GameApp extends LightningElement {
         'QuestionResults',
     ];
     phases = ['Registration', ...this.questionPhases, 'GameResults'];
-
+    get nextButtonText() {
+        if (this.isRegistration) return 'Start!';
+        if (this.isPreQuestion) return 'Ready!';
+        return 'Next';
+    }
     get currentQuestion() {
         return this.questions.data
             ? this.questions.data[this.questionIndex]

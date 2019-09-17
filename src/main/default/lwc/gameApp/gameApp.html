@@ -1,5 +1,12 @@
 <template>
     <lightning-card title={gameSessionPhase}>
+        <div slot="actions">
+            <lightning-button
+                label={nextButtonText}
+                variant="brand"
+                onclick={handleNextPhaseClick}
+            ></lightning-button>
+        </div>
         <template if:true={error}>
             {error}
         </template>
@@ -21,10 +28,5 @@
                 The winner is
             </template>
         </template>
-        <lightning-button
-            slot="footer"
-            label={nextButtonText}
-            onclick={handleNextPhaseClick}
-        ></lightning-button>
     </lightning-card>
 </template>

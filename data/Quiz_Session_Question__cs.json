@@ -1,0 +1,34 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "Quiz_Session_Question__c",
+                "referenceId": "Quiz_Session_Question__cRef1"
+            },
+            "Name": "QSQ-00001",
+            "Question_Index__c": 1,
+            "Session__c": "@Quiz_Session__cRef1",
+            "Question__c": "@Quiz_Question__cRef1"
+        },
+        {
+            "attributes": {
+                "type": "Quiz_Session_Question__c",
+                "referenceId": "Quiz_Session_Question__cRef2"
+            },
+            "Name": "QSQ-00003",
+            "Question_Index__c": 3,
+            "Session__c": "@Quiz_Session__cRef1",
+            "Question__c": "@Quiz_Question__cRef2"
+        },
+        {
+            "attributes": {
+                "type": "Quiz_Session_Question__c",
+                "referenceId": "Quiz_Session_Question__cRef3"
+            },
+            "Name": "QSQ-00002",
+            "Question_Index__c": 2,
+            "Session__c": "@Quiz_Session__cRef1",
+            "Question__c": "@Quiz_Question__cRef3"
+        }
+    ]
+}

@@ -1,6 +1,5 @@
 <template>
-    <lightning-card>
-        <p>Current Phase: {gameSessionPhase}</p>
+    <lightning-card title={gameSessionPhase}>
         <template if:true={error}>
             {error}
         </template>
@@ -18,13 +17,14 @@
             <template if:true={isQuestionResults}>
                 Leaderboard so far
             </template>
+            <template if:true={isGameResults}>
+                The winner is
+            </template>
         </template>
-        <template if:false={isGameResults}>
-            <button onclick={handleNextPhaseClick}>{nextButtonText}</button>
-        </template>
-        <template if:true={isGameResults}>
-            The winner is
-            <button onclick={restart}>Re-Start</button>
-        </template>
+        <lightning-button
+            slot="footer"
+            label={nextButtonText}
+            onclick={handleNextPhaseClick}
+        ></lightning-button>
     </lightning-card>
 </template>

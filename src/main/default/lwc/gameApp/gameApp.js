@@ -1,6 +1,8 @@
 import { LightningElement, track, wire } from 'lwc';
 import getQuestionList from '@salesforce/apex/QuizComponentService.getQuestionList';
-import updateQuestionSessionPhase from '@salesforce/apex/QuizComponentService.updateQuestionSessionPhase';
+import getQuizSession from '@salesforce/apex/QuizComponentService.getQuizSession';
+import { updateRecord } from 'lightning/uiRecordApi';
+
 import { reduceErrors } from 'c/errorUtils';
 // - Registration,
 // for each question:
@@ -9,20 +11,34 @@ import { reduceErrors } from 'c/errorUtils';
 // - GameResults
 export default class GameApp extends LightningElement {
     @wire(getQuestionList) questions;
-    questionIndex = 0;
-    // track status of update phase
     @track error;
+    @track quizSession;
     @track gameSessionPhase = 'Registration';
+    questionIndex = 0;
     questionPhases = [
         'PreQuestion',
         'Question',
         'PostQuestion',
-        'QuestionResults',
+        'QuestionResults'
     ];
-    phases = ['Registration', ...this.questionPhases, 'GameResults'];
+    phases = ['Registration', ...this.questionPhases, 'GameResults'];    
+    
+    @wire(getQuizSession)
+    wiredQuizSession({ error, data }) {
+        if (data) {
+            this.quizSession = data;
+            this.gameSessionPhase = data.Phase__c;
+            this.error = undefined;
+        } else if (error) {
+            this.error = error;
+            this.contacts = undefined;
+        }
+    }        
+
     get nextButtonText() {
         if (this.isRegistration) return 'Start!';
         if (this.isPreQuestion) return 'Ready!';
+        if (this.isGameResults) return 'Re-Start';
         return 'Next';
     }
     get currentQuestion() {
@@ -35,7 +51,7 @@ export default class GameApp extends LightningElement {
         return (
             this.gameSessionPhase !== 'PreQuestion' &&
             this.questionPhases.includes(this.gameSessionPhase)
-        )
+        );
     }
     get isRegistration() {
         return this.gameSessionPhase === 'Registration';
@@ -60,8 +76,16 @@ export default class GameApp extends LightningElement {
     get isGameResults() {
         return this.gameSessionPhase === 'GameResults';
     }
+
     updatePhase() {
-        updateQuestionSessionPhase({ updatedPhase: this.gameSessionPhase })
+        const record = {
+            fields: {
+                Id: this.quizSession.Id,
+                Phase__c: this.gameSessionPhase,
+                Current_Question__c: this.questions.data[this.questionIndex].Id
+            }
+        };
+        updateRecord(record)
             .then(() => {
                 this.error = undefined;
             })
@@ -69,16 +93,28 @@ export default class GameApp extends LightningElement {
                 this.error = reduceErrors(error);
             });
     }
+
     handleNextPhaseClick() {
+        if (this.gameSessionPhase === 'GameResults') {
+            this.questionIndex = 0;
+            this.gameSessionPhase = 'Registration';
+            this.updatePhase();
+            return;
+        }
         // if it is a question phase, go to the next phase OR next question
         if (this.questionPhases.includes(this.gameSessionPhase)) {
+            // go to PreQuestion or GameResults
             if (this.gameSessionPhase === 'QuestionResults') {
                 if (this.questionIndex === this.questions.data.length - 1) {
                     this.gameSessionPhase = 'GameResults';
                     this.updatePhase();
                     return;
-                } 
+                }
+                // Go to PreQuestion
                 this.questionIndex += 1;
+                this.gameSessionPhase = 'PreQuestion';
+                this.updatePhase();
+                return;
             }
             // loop through question Phases
             this.gameSessionPhase = this.questionPhases[
@@ -91,11 +127,6 @@ export default class GameApp extends LightningElement {
             ];
         }
 
-        this.updatePhase();
-    }
-    restart() {
-        this.questionIndex = 0;
-        this.gameSessionPhase = 'Registration';
         this.updatePhase();
     }
 }

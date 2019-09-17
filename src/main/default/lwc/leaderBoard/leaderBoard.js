@@ -1,4 +1,4 @@
-import { LightningElement } from 'lwc'
+import { LightningElement } from 'lwc';
 
 export default class LeaderBoard extends LightningElement {
     players = [
@@ -7,5 +7,5 @@ export default class LeaderBoard extends LightningElement {
         { name: 'Raymond Knight', score: 292 },
         { name: 'Trevor McCormick', score: 245 },
         { name: 'Andrew Fox', score: 203 }
-    ]
+    ];
 }

@@ -14,6 +14,7 @@ export default class GameApp extends LightningElement {
     @track error;
     @track quizSession;
     @track gameSessionPhase = 'Registration';
+    @track disableNextButton = false;
     questionIndex = 0;
     questionPhases = [
         'PreQuestion',
@@ -21,19 +22,26 @@ export default class GameApp extends LightningElement {
         'PostQuestion',
         'QuestionResults'
     ];
-    phases = ['Registration', ...this.questionPhases, 'GameResults'];    
-    
+    phases = ['Registration', ...this.questionPhases, 'GameResults'];
+
     @wire(getQuizSession)
     wiredQuizSession({ error, data }) {
         if (data) {
             this.quizSession = data;
-            this.gameSessionPhase = data.Phase__c;
-            this.error = undefined;
+            // no session and no error returned
+            if (data.length === 0) {
+                this.error = 'No game session found.';
+                this.disableNextButton = true;            
+            }
+            else {
+                this.gameSessionPhase = data.Phase__c;
+                this.error = undefined;
+            }
         } else if (error) {
-            this.error = error;
-            this.contacts = undefined;
+            this.error = reduceErrors(error);
+            this.quizSession = undefined;
         }
-    }        
+    }
 
     get nextButtonText() {
         if (this.isRegistration) return 'Start!';

@@ -1,0 +1,17 @@
+<template>
+    <lightning-card>
+        <div class="leaderboard">
+            <h1>
+                Scoreboard
+            </h1>
+            <ol>
+                <template for:each={players} for:item="player">
+                    <li key={player.name}>
+                        {player.name}
+                        <span>{player.score}</span>
+                    </li>
+                </template>
+            </ol>
+        </div>
+    </lightning-card>
+</template>

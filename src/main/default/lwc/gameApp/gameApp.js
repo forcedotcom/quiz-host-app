@@ -1,6 +1,6 @@
 import { LightningElement, track, wire } from 'lwc';
-import getQuestionList from '@salesforce/apex/QuizComponentService.getQuestionList';
-import getQuizSession from '@salesforce/apex/QuizComponentService.getQuizSession';
+import getQuestionList from '@salesforce/apex/QuizController.getQuestionList';
+import getQuizSession from '@salesforce/apex/QuizController.getQuizSession';
 import { updateRecord } from 'lightning/uiRecordApi';
 
 import { reduceErrors } from 'c/errorUtils';
@@ -10,11 +10,23 @@ import { reduceErrors } from 'c/errorUtils';
 // - QuestionResults
 // - GameResults
 export default class GameApp extends LightningElement {
-    @wire(getQuestionList) questions;
     @track error;
     @track quizSession;
     @track gameSessionPhase = 'Registration';
     @track isNextButtonDisabled = false;
+    @track questions;
+    @track quizSessionId;
+    @wire(getQuestionList, { sessionId: '$quizSessionId' })
+    wiredQuestions({ error, data }) {
+        if (data) {
+            this.questions = data;
+            this.error = undefined;
+        } else if (error) {
+            this.error = reduceErrors(error);
+            this.questions = undefined;
+        }
+    }
+
     questionIndex = 0;
     questionPhases = [
         'PreQuestion',
@@ -33,6 +45,7 @@ export default class GameApp extends LightningElement {
                 this.error = 'No game session found.';
                 this.isNextButtonDisabled = true;
             } else {
+                this.quizSessionId = data.Id;
                 this.gameSessionPhase = data.Phase__c;
                 this.error = undefined;
             }
@@ -49,9 +62,7 @@ export default class GameApp extends LightningElement {
         return 'Next';
     }
     get currentQuestion() {
-        return this.questions.data
-            ? this.questions.data[this.questionIndex]
-            : undefined;
+        return this.questions ? this.questions[this.questionIndex] : undefined;
     }
     get isQuestionPhase() {
         // use to show the <Question />. Exclude the pre question phase
@@ -89,7 +100,7 @@ export default class GameApp extends LightningElement {
             fields: {
                 Id: this.quizSession.Id,
                 Phase__c: this.gameSessionPhase,
-                Current_Question__c: this.questions.data[this.questionIndex].Id
+                Current_Question__c: this.questions[this.questionIndex].Id
             }
         };
         updateRecord(record)
@@ -112,7 +123,7 @@ export default class GameApp extends LightningElement {
         if (this.questionPhases.includes(this.gameSessionPhase)) {
             // go to PreQuestion or GameResults
             if (this.gameSessionPhase === 'QuestionResults') {
-                if (this.questionIndex === this.questions.data.length - 1) {
+                if (this.questionIndex === this.questions.length - 1) {
                     this.gameSessionPhase = 'GameResults';
                     this.updatePhase();
                     return;

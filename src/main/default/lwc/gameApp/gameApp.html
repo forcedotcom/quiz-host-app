@@ -15,7 +15,9 @@
             Get Ready
         </template>
         <template if:true={isQuestionPhase}>
-            <c-question question-object={currentQuestion}></c-question>
+            <template if:true={currentQuestion}>
+                <c-question question-object={currentQuestion}></c-question>
+            </template>
             <template if:true={isQuestion}>
                 Timer
             </template>

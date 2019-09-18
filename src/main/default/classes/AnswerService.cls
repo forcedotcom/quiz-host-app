@@ -23,7 +23,7 @@ public class AnswerService extends AbstractDataService {
     }
 
     public Quiz_Answer__c getFromPlayer(Id playerId, Id questionId) {
-        return (Quiz_Answer__c) getSingleRecord([SELECT Id, Player__c, Question__c, Answer__c FROM Quiz_Answer__c WHERE Player__c = :playerId AND Question__c = :questionId]);
+        return (Quiz_Answer__c) getSingleRecord([SELECT Id, Player__c, Question__c, Answer__c, Score__c FROM Quiz_Answer__c WHERE Player__c = :playerId AND Question__c = :questionId]);
     }
 
     public class InvalidPhaseException extends Exception {}

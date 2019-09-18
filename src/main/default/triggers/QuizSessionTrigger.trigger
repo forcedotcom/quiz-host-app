@@ -22,12 +22,13 @@ trigger QuizSessionTrigger on Quiz_Session__c (after update) {
         Quiz_Question__c currentQuestion = [SELECT Id, Name, Correct_Answer__c FROM Quiz_Question__c WHERE Id =: currentQuestionID];
         String correctAnswer = currentQuestion.Correct_Answer__c;
         
-        List<Quiz_Player__c> players = [SELECT ID FROM Quiz_Player__c];
+        List<Quiz_Player__c> players = [SELECT ID, Score__c FROM Quiz_Player__c];
         List<Quiz_Answer__c> currentQuestionAnswers = new List<Quiz_Answer__c>();
         
         // get answers linked to current question
         AnswerService answerService = new AnswerService();
         for (Quiz_Player__c player : players) {
+            System.debug('update player score? ' + player.Score__c);
             Quiz_Answer__c answer = answerService.getFromPlayer(player.ID, currentQuestionID);
             // compute score
             if (answer.Answer__c == correctAnswer) {
@@ -35,13 +36,11 @@ trigger QuizSessionTrigger on Quiz_Session__c (after update) {
                 Integer score = 1000;
                 answer.Score__c = score; 
                 player.Score__c = player.Score__c + score;
-                System.debug('about to update player score: ' + player.Score__c);
             }
             currentQuestionAnswers.add(answer);
         }
         
         update currentQuestionAnswers;
-        // update on player score is not working
         update players;
     }
 

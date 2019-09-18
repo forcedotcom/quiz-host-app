@@ -17,7 +17,7 @@ public class AnswerService extends AbstractDataService {
         } catch (NoRecordFoundException e) {}
 
         // Save answer
-        Quiz_Answer__c answerRecord = new Quiz_Answer__c(Player__c = playerId, Question__c = questionId, Answer__c=  answer);
+        Quiz_Answer__c answerRecord = new Quiz_Answer__c(Player__c = playerId, Question__c = questionId, Answer__c = answer);
         insert answerRecord;
         return answerRecord;
     }

@@ -1,6 +1,8 @@
 trigger QuizSessionTrigger on Quiz_Session__c (after update) {
     Boolean deletePlayer = false;
     Boolean updateAnswerToCurrentQuestion = false;
+    private static PlayerService playerService = new PlayerService();
+    private static QuizSessionService quizSessionService = new QuizSessionService();
 
     for (Quiz_Session__c updatedQS : Trigger.new) {
         Quiz_Session__c oldQS = Trigger.oldMap.get(updatedQS.Id);
@@ -13,23 +15,20 @@ trigger QuizSessionTrigger on Quiz_Session__c (after update) {
             deletePlayer = true;
         }
     }
+
     if (updateAnswerToCurrentQuestion) {
         // get all players, since all players are in the current game
-        QuizSessionService quizSessionService = new QuizSessionService();
-        Quiz_Session__c quizSession = quizSessionService.getQuizSession();
-        String currentQuestionID = quizSession.Current_Question__c;
-        
-        Quiz_Question__c currentQuestion = [SELECT Id, Name, Correct_Answer__c FROM Quiz_Question__c WHERE Id =: currentQuestionID];
+        Quiz_Session__c quizSession = quizSessionService.getQuizSession();        
+        Quiz_Question__c currentQuestion = quizSessionService.getCurrentQuestion(quizSession.Id);
         String correctAnswer = currentQuestion.Correct_Answer__c;
         
-        List<Quiz_Player__c> players = [SELECT ID, Score__c FROM Quiz_Player__c];
+        List<Quiz_Player__c> players = playerService.getPlayers();
         List<Quiz_Answer__c> currentQuestionAnswers = new List<Quiz_Answer__c>();
         
         // get answers linked to current question
         AnswerService answerService = new AnswerService();
         for (Quiz_Player__c player : players) {
-            System.debug('update player score? ' + player.Score__c);
-            Quiz_Answer__c answer = answerService.getFromPlayer(player.ID, currentQuestionID);
+            Quiz_Answer__c answer = answerService.getFromPlayer(player.ID, currentQuestion.Id);
             // compute score
             if (answer.Answer__c == correctAnswer) {
                 // TODO: make it 1000/sorted order
@@ -45,11 +44,6 @@ trigger QuizSessionTrigger on Quiz_Session__c (after update) {
     }
 
     if (deletePlayer) {
-        // need delete answers before delete players
-        List<Quiz_Answer__c> answers = [SELECT ID FROM Quiz_Answer__c];
-        delete answers;
-
-        List<Quiz_Player__c> players = [SELECT ID FROM Quiz_Player__c];
-        delete players;
+        playerService.deleteAnswersAndPlayers();
     }
 }

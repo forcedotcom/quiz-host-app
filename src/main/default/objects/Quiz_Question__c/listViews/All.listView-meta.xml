@@ -3,6 +3,7 @@
     <fullName>All</fullName>
     <columns>NAME</columns>
     <columns>Label__c</columns>
+    <columns>Correct_Answer__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>

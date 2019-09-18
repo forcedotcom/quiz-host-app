@@ -7,11 +7,11 @@ trigger QuizSessionTrigger on Quiz_Session__c (after update) {
     for (Quiz_Session__c updatedQS : Trigger.new) {
         Quiz_Session__c oldQS = Trigger.oldMap.get(updatedQS.Id);
         // on Phase__c change to PostQuestion, compute score and update the score field on Quiz_Answer__c and Quiz_Player__c
-        if (oldQS.Phase__c != updatedQS.Phase__c && updatedQS.Phase__c == 'PostQuestion') {
+        if (oldQS.Phase__c != updatedQS.Phase__c && updatedQS.Phase__c == quizSessionService.Phase.PostQuestion) {
             updateAnswerToCurrentQuestion = true;
         }
         // on Phase__c change to Registration, delete all players and answers
-        if (oldQS.Phase__c != updatedQS.Phase__c && updatedQS.Phase__c == 'Registration') {
+        if (oldQS.Phase__c != updatedQS.Phase__c && updatedQS.Phase__c == quizSessionService.Phase.Registration) {
             deletePlayer = true;
         }
     }

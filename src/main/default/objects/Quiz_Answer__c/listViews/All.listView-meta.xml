@@ -4,6 +4,7 @@
     <columns>NAME</columns>
     <columns>Player__c</columns>
     <columns>Question__c</columns>
+    <columns>Score__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>

@@ -1,0 +1,43 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef1"
+            },
+            "Name": "Q-0000",
+            "Label__c": "What does SLDS stand for?",
+            "Answer_A__c": "Super Light Debugging Solution",
+            "Answer_B__c": "Salesforce Lightning Design System",
+            "Answer_C__c": "Salesforce Limited Design System",
+            "Answer_D__c": "Salesforce Lightning Design Solution",
+            "Correct_Answer__c": "b"
+        },
+        {
+            "attributes": {
+                "type": "Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef2"
+            },
+            "Name": "Q-0002",
+            "Label__c": "What is the API version for Winter 20?",
+            "Answer_A__c": "45.0",
+            "Answer_B__c": "47.0",
+            "Answer_C__c": "46.0",
+            "Answer_D__c": "48.0",
+            "Correct_Answer__c": "b"
+        },
+        {
+            "attributes": {
+                "type": "Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef3"
+            },
+            "Name": "Q-0001",
+            "Label__c": "How many streaming APIs exist?",
+            "Answer_A__c": "1",
+            "Answer_B__c": "2",
+            "Answer_C__c": "3",
+            "Answer_D__c": "4",
+            "Correct_Answer__c": "d"
+        }
+    ]
+}

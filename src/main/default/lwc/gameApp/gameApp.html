@@ -1,0 +1,35 @@
+<template>
+    <lightning-card title={gameSessionPhase}>
+        <div slot="actions">
+            <lightning-button
+                disabled={isNextButtonDisabled}
+                label={nextButtonText}
+                variant="brand"
+                onclick={handleNextPhaseClick}
+            ></lightning-button>
+        </div>
+        <template if:true={error}>
+            {error}
+        </template>
+        <template if:true={isPreQuestion}>
+            Get Ready
+        </template>
+        <template if:true={isQuestionPhase}>
+            <template if:true={currentQuestion}>
+                <c-question question-object={currentQuestion}></c-question>
+            </template>
+            <template if:true={isQuestion}>
+                Timer
+            </template>
+            <template if:true={isPostQuestion}>
+                <p>Correct answer is: {currentQuestion.Correct_Answer__c}</p>
+            </template>
+            <template if:true={isQuestionResults}>
+                Leaderboard so far
+            </template>
+            <template if:true={isGameResults}>
+                The winner is
+            </template>
+        </template>
+    </lightning-card>
+</template>

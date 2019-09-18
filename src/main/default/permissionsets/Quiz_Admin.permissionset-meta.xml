@@ -57,6 +57,10 @@
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <tabSettings>
+        <tab>Game</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
         <tab>Quiz_Answer__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>

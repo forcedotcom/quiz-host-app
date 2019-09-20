@@ -25,9 +25,9 @@ public with sharing class QuizSessionTestFactory {
         return question;
     }    
 
-    public static Quiz_Player__c createQuizPlayer() {
+    public static Quiz_Player__c createQuizPlayer(String name) {
         Quiz_Player__c player1 = new Quiz_Player__c(
-            Name = 'QS-0001',
+            Name = name,
             Score__c = 0
         );            
         insert player1;

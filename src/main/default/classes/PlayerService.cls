@@ -10,8 +10,8 @@ public class PlayerService extends AbstractDataService  {
         return player;
     }
 
-    public List<Quiz_Player__c> getPlayers() {
-        return [SELECT ID, Score__c FROM Quiz_Player__c];
+    public Map<ID, Quiz_Player__c> getPlayers() {
+        return new Map<ID, Quiz_Player__c>([SELECT Id, Score__c FROM Quiz_Player__c]);
     }
 
     public void deleteAnswersAndPlayers() {

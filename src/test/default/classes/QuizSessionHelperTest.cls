@@ -1,44 +1,103 @@
 @isTest 
 public with sharing class QuizSessionHelperTest {
-    
     @isTest static void quizSessionStartsWithRegistration() {
         Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
-        List<Quiz_Question__c> questions = new List<Quiz_Question__c>();
-
-        questions = [SELECT Id FROM Quiz_Question__c];
+        List<Quiz_Question__c> questions = [SELECT Id FROM Quiz_Question__c];
         System.assert(questions.size() > 0);
         System.assertEquals('Registration', quizSession.Phase__c);
     }
 
     @isTest static void playerCreatedWithZeroScore() {
-        List<Quiz_Player__c> players = new List<Quiz_Player__c>();
-        Quiz_Player__c player1 = QuizSessionTestFactory.createQuizPlayer();
-
-        players = [SELECT Id FROM Quiz_Player__c];
+        Quiz_Player__c player1 = QuizSessionTestFactory.createQuizPlayer('player');
+        List<Quiz_Player__c> players = [SELECT Id FROM Quiz_Player__c];
         System.assert(players.size() > 0);
         System.assertEquals(0, player1.Score__c);
     }      
 
-    @isTest static void updateScoreOnPlayerWithFullMarks() {
+    @isTest static void stressTestCorrectAnswerIncrementScorePlayer() {
         Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
-        Quiz_Question__c question = [SELECT Id, Correct_Answer__c FROM Quiz_Question__c LIMIT 1];        
-        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayer();
+        Quiz_Question__c question = [SELECT Id, Correct_Answer__c FROM Quiz_Question__c LIMIT 1]; 
+        Integer NUM_PLAYERS = 150;
+        List<Quiz_Player__c> players = new List<Quiz_Player__c>();
+        List<Quiz_Answer__c> answers = new List<Quiz_Answer__c>();
+
+        for (Integer j=0;j<NUM_PLAYERS;j++) {      
+            players.add(new Quiz_Player__c(
+                Name = 'player' + j,
+                Score__c = 0
+            ));
+        }
+        insert players;
+
+        for (Integer j=0;j<NUM_PLAYERS;j++) {               
+            answers.add(new Quiz_Answer__c(
+                Player__c = players[j].Id, 
+                Question__c = question.Id, 
+                Answer__c = question.Correct_Answer__c,
+                Score__c = 0
+            )); 
+        }        
 
         Test.startTest();
+        insert answers;
         quizSession.Phase__c = 'PostQuestion';
-        Quiz_Answer__c quizAnswer = QuizSessionTestFactory.createQuizAnswer(player.Id, question.Id, question.Correct_Answer__c); 
         update quizSession;
         Test.stopTest();   
 
         System.assertEquals('PostQuestion', quizSession.Phase__c);
-        Integer score = [SELECT Id, Score__c FROM Quiz_Player__c WHERE ID = :player.Id LIMIT 1].Score__c.intValue();
-        System.assertEquals(1000, score);
+        // get answers ordered by oldest first, loop through them to get player IDs
+        List<Quiz_Answer__c> updatedAnswers = [SELECT Id, Player__c, Score__c FROM Quiz_Answer__c];
+        Set<ID> updatedPlayerIds = new Set<ID>();
+        for (Integer i = 0; i < updatedAnswers.size(); i++) {
+            updatedPlayerIds.add(updatedAnswers[i].Player__c);
+        }
+        List<Quiz_Player__c> updatedPlayers = [SELECT Id, Score__c FROM Quiz_Player__c WHERE Id IN :updatedPlayerIds];
+        for (Integer i = 1; i <= updatedPlayers.size(); i++) {
+            System.assert(updatedPlayers[i-1].Score__c > 0);            
+        }        
     }
+
+    @isTest static void stressTestCorrectAnswerIncrementScoreAnswer() {
+        Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
+        Quiz_Question__c question = [SELECT Id, Correct_Answer__c FROM Quiz_Question__c LIMIT 1]; 
+        Integer NUM_PLAYERS = 150;
+        List<Quiz_Player__c> players = new List<Quiz_Player__c>();
+        List<Quiz_Answer__c> answers = new List<Quiz_Answer__c>();
+
+        for (Integer j=0;j<NUM_PLAYERS;j++) {      
+            players.add(new Quiz_Player__c(
+                Name = 'player' + j,
+                Score__c = 0
+            ));
+        }
+        insert players;
+
+        for (Integer j=0;j<NUM_PLAYERS;j++) {               
+            answers.add(new Quiz_Answer__c(
+                Player__c = players[j].Id, 
+                Question__c = question.Id, 
+                Answer__c = question.Correct_Answer__c,
+                Score__c = 0
+            )); 
+        }        
+
+        Test.startTest();
+        insert answers;
+        quizSession.Phase__c = 'PostQuestion';
+        update quizSession;
+        Test.stopTest();   
+
+        System.assertEquals('PostQuestion', quizSession.Phase__c);
+        List<Quiz_Answer__c> updatedAnswers = [SELECT Id, Score__c FROM Quiz_Answer__c];
+        for (Integer i = 1; i <= updatedAnswers.size(); i++) {
+            System.assert(updatedAnswers[i-1].Score__c > 0);            
+        }
+    }    
 
     @isTest static void updateScoreOnAnswerWithFullMarks() {
         Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
         Quiz_Question__c question = [SELECT Id, Correct_Answer__c FROM Quiz_Question__c LIMIT 1];        
-        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayer();
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayer('player');
 
         Test.startTest();
         quizSession.Phase__c = 'PostQuestion';
@@ -54,7 +113,7 @@ public with sharing class QuizSessionHelperTest {
     @isTest static void doNotUpdatePlayerScoreIfAnswerWrong() {
         Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
         Quiz_Question__c question = [SELECT Id, Correct_Answer__c FROM Quiz_Question__c LIMIT 1];        
-        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayer();
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayer('player');
 
         Test.startTest();
         quizSession.Phase__c = 'PostQuestion';
@@ -70,7 +129,7 @@ public with sharing class QuizSessionHelperTest {
     @isTest static void doNotUpdateAnswerScoreIfAnswerWrong() {
         Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
         Quiz_Question__c question = [SELECT Id, Correct_Answer__c FROM Quiz_Question__c LIMIT 1];        
-        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayer();
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayer('player');
 
         Test.startTest();
         quizSession.Phase__c = 'PostQuestion';

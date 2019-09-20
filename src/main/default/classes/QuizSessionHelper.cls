@@ -6,23 +6,23 @@ public with sharing class QuizSessionHelper {
         String correctAnswer = currentQuestion.Correct_Answer__c;
         
         PlayerService playerService = new PlayerService();        
-        List<Quiz_Player__c> players = playerService.getPlayers();
-        List<Quiz_Answer__c> currentQuestionAnswers = new List<Quiz_Answer__c>();
+        Map<ID, Quiz_Player__c> players = playerService.getPlayers();
+        Set<Id> playerIds = players.keySet();
         
-        AnswerService answerService = new AnswerService();
-        for (Quiz_Player__c player : players) {
-            Quiz_Answer__c answer = answerService.getFromPlayer(player.ID, currentQuestion.Id);
-            // compute score
+        AnswerService answerService = new AnswerService();                
+        List<Quiz_Answer__c> answers = answerService.getAnswersOfPlayerIdsAndQuestionId(playerIds, currentQuestion.Id);
+        Integer divisor = 1;
+        for (Quiz_Answer__c answer : answers) {
             if (answer.Answer__c == correctAnswer) {
-                // TODO: make it 1000/sorted order
-                Integer score = 1000;
+                Integer score = 1000/divisor;
                 answer.Score__c = score; 
+                Quiz_Player__c player = players.get(answer.Player__c);
                 player.Score__c = player.Score__c + score;
+                divisor = divisor + 1;
             }
-            currentQuestionAnswers.add(answer);
         }
         
-        update currentQuestionAnswers;
-        update players;
+        update answers;
+        update players.values();
     }
 }

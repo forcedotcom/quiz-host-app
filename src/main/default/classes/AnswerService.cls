@@ -17,13 +17,22 @@ public class AnswerService extends AbstractDataService {
         } catch (NoRecordFoundException e) {}
 
         // Save answer
-        Quiz_Answer__c answerRecord = new Quiz_Answer__c(Player__c = playerId, Question__c = questionId, Answer__c=  answer);
+        Quiz_Answer__c answerRecord = new Quiz_Answer__c(Player__c = playerId, Question__c = questionId, Answer__c = answer);
         insert answerRecord;
         return answerRecord;
     }
 
+    public List<Quiz_Answer__c> getAnswersOfPlayerIdsAndQuestionId(Set<Id>playerIds, Id questionId) {
+        // get answers ordered by oldest records first: ID values are created in ascending order
+        return [SELECT Id, Player__c, Question__c, Answer__c, 
+            Score__c FROM Quiz_Answer__c WHERE Player__c IN :playerIds AND Question__c = :questionId 
+            ORDER BY Id ASC
+        ];        
+    }
+
     public Quiz_Answer__c getFromPlayer(Id playerId, Id questionId) {
-        return (Quiz_Answer__c) getSingleRecord([SELECT Id, Player__c, Question__c, Answer__c FROM Quiz_Answer__c WHERE Player__c = :playerId AND Question__c = :questionId]);
+        return (Quiz_Answer__c) getSingleRecord([SELECT Id, Player__c, Question__c, Answer__c, 
+            Score__c FROM Quiz_Answer__c WHERE Player__c = :playerId AND Question__c = :questionId]);
     }
 
     public class InvalidPhaseException extends Exception {}

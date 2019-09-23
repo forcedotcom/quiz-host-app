@@ -1,11 +1,18 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, track, wire } from 'lwc';
+import getPlayerList from '@salesforce/apex/QuizController.getPlayerList';
+import { reduceErrors } from 'c/errorUtils';
 
 export default class LeaderBoard extends LightningElement {
-    players = [
-        { name: 'Jerry Wood', score: 315 },
-        { name: 'Brandon Barnes', score: 301 },
-        { name: 'Raymond Knight', score: 292 },
-        { name: 'Trevor McCormick', score: 245 },
-        { name: 'Andrew Fox', score: 203 }
-    ];
+    @track error;
+    @track players;
+
+    @wire(getPlayerList)
+    getPlayerList({ error, data }) {
+        if (data) {
+            this.players = data;
+        } else if (error) {
+            this.error = reduceErrors(error);
+            this.quizSession = undefined;
+        }
+    }    
 }

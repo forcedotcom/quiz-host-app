@@ -6,9 +6,9 @@
             </h1>
             <ol>
                 <template for:each={players} for:item="player">
-                    <li key={player.name}>
-                        {player.name}
-                        <span>{player.score}</span>
+                    <li key={player.Id}>
+                        {player.Name}
+                        <span>{player.Score__c}</span>
                     </li>
                 </template>
             </ol>

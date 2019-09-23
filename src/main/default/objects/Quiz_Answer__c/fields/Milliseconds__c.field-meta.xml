@@ -4,7 +4,7 @@
     <defaultValue>0</defaultValue>
     <externalId>false</externalId>
     <label>Milliseconds</label>
-    <precision>3</precision>
+    <precision>14</precision>
     <required>false</required>
     <scale>0</scale>
     <trackTrending>false</trackTrending>

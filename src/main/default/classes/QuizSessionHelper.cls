@@ -1,9 +1,6 @@
 public with sharing class QuizSessionHelper {
-    public Integer computeScore(Decimal totalMilliseconds, 
+    public Long computeScore(Decimal totalMilliseconds, 
         Decimal smallestMilliseconds, Decimal differenceBetweenLargestAndSmallestMilliseconds) {
-            System.debug('totalMilliseconds: ' + totalMilliseconds);
-            System.debug('smallestMilliseconds: ' + smallestMilliseconds);
-            System.debug('differenceBetweenLargestAndSmallestMilliseconds: ' + differenceBetweenLargestAndSmallestMilliseconds);
         // When totalMilliseconds == smallestMilliseconds, score = 1000. With maximum totalMilliseconds, score = 500
         if (differenceBetweenLargestAndSmallestMilliseconds == 0) {
             return 1000;
@@ -11,7 +8,7 @@ public with sharing class QuizSessionHelper {
         
         Decimal scoreDifference = totalMilliseconds - smallestMilliseconds;
         Decimal afterFirstDivision = (1.00 * scoreDifference)/differenceBetweenLargestAndSmallestMilliseconds;
-        return (Integer)(1000 * ( 1.00 - (afterFirstDivision / 2.00 )));
+        return (Long)(1000 * ( 1.00 - (afterFirstDivision / 2.00 )));
     }
 
     public void updateScore() {
@@ -46,7 +43,7 @@ public with sharing class QuizSessionHelper {
         Decimal differenceBetweenLargestAndSmallestMilliseconds = largestMiliseconds - smallestMilliseconds;
         for (Quiz_Answer__c answer : answers) {
             if (answer.Answer__c == correctAnswer) {
-                Integer score = computeScore(
+                Long score = computeScore(
                     answer.Milliseconds__c, 
                     smallestMilliseconds, differenceBetweenLargestAndSmallestMilliseconds);
                 answer.Score__c = score; 

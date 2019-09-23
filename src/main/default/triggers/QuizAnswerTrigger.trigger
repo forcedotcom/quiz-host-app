@@ -1,5 +1,6 @@
 trigger QuizAnswerTrigger on Quiz_Answer__c (before insert) {
     for (Quiz_Answer__c answer : Trigger.new) {
-        answer.Milliseconds__c = Datetime.now().millisecond();
+        // # of milliseconds since January 1, 1970, 00:00:00 GMT, ie. 1569261277045
+        answer.Milliseconds__c = Datetime.now().getTime();
     }
 }

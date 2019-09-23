@@ -85,7 +85,8 @@ public with sharing class QuizSessionHelperTest {
         Quiz_Answer__c quizAnswer = QuizSessionTestFactory.createQuizAnswer(player.Id, question.Id, question.Correct_Answer__c); 
 
         Decimal numberOfMilliseconds = [SELECT Id, Score__c, Milliseconds__c FROM Quiz_Answer__c WHERE ID = :quizAnswer.Id LIMIT 1].Milliseconds__c;
-        System.assert(numberOfMilliseconds < 1000);
+        Long baseline = Long.valueOf('1569261277045');
+        System.assert(numberOfMilliseconds > baseline);
     }    
 
     @isTest static void updateScoreOnAnswerWithFullMarks() {

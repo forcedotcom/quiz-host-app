@@ -1,4 +1,19 @@
 public with sharing class QuizSessionHelper {
+    public Integer computeScore(Decimal totalMilliseconds, 
+        Decimal smallestMilliseconds, Decimal differenceBetweenLargestAndSmallestMilliseconds) {
+            System.debug('totalMilliseconds: ' + totalMilliseconds);
+            System.debug('smallestMilliseconds: ' + smallestMilliseconds);
+            System.debug('differenceBetweenLargestAndSmallestMilliseconds: ' + differenceBetweenLargestAndSmallestMilliseconds);
+        // When totalMilliseconds == smallestMilliseconds, score = 1000. With maximum totalMilliseconds, score = 500
+        if (differenceBetweenLargestAndSmallestMilliseconds == 0) {
+            return 1000;
+        }
+        
+        Decimal scoreDifference = totalMilliseconds - smallestMilliseconds;
+        Decimal afterFirstDivision = (1.00 * scoreDifference)/differenceBetweenLargestAndSmallestMilliseconds;
+        return (Integer)(1000 * ( 1.00 - (afterFirstDivision / 2.00 )));
+    }
+
     public void updateScore() {
         QuizSessionService quizSessionService = new QuizSessionService();
         Quiz_Session__c quizSession = quizSessionService.getQuizSession();        
@@ -11,16 +26,32 @@ public with sharing class QuizSessionHelper {
         
         AnswerService answerService = new AnswerService();                
         List<Quiz_Answer__c> answers = answerService.getAnswersOfPlayerIdsAndQuestionId(playerIds, currentQuestion.Id);
-        Integer divisor = 1;
+        if (answers.isEmpty()) {
+            return;
+        }
+        
+        // find smallest and largest milliseconds
+        Decimal smallestMilliseconds = answers[0].Milliseconds__c;
+        Decimal largestMiliseconds = answers[0].Milliseconds__c;
+        for (Quiz_Answer__c answer : answers) {
+            if (answer.Milliseconds__c > largestMiliseconds) {
+                largestMiliseconds = answer.Milliseconds__c;
+            }
+           if (answer.Milliseconds__c < smallestMilliseconds) {
+                smallestMilliseconds = answer.Milliseconds__c;
+            } 
+        }        
+
+        // compute and assign scores
+        Decimal differenceBetweenLargestAndSmallestMilliseconds = largestMiliseconds - smallestMilliseconds;
         for (Quiz_Answer__c answer : answers) {
             if (answer.Answer__c == correctAnswer) {
-                Integer score = 1000/divisor;
+                Integer score = computeScore(
+                    answer.Milliseconds__c, 
+                    smallestMilliseconds, differenceBetweenLargestAndSmallestMilliseconds);
                 answer.Score__c = score; 
                 Quiz_Player__c player = players.get(answer.Player__c);
-                Long totalMilliseconds = answer.CreatedDate.getTime() + answer.Milliseconds__c.longValue();
-                System.debug('Total ms: ' + totalMilliseconds);
                 player.Score__c = player.Score__c + score;
-                divisor = divisor + 1;
             }
         }
         

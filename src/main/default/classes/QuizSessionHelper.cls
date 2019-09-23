@@ -17,6 +17,8 @@ public with sharing class QuizSessionHelper {
                 Integer score = 1000/divisor;
                 answer.Score__c = score; 
                 Quiz_Player__c player = players.get(answer.Player__c);
+                Long totalMilliseconds = answer.CreatedDate.getTime() + answer.Milliseconds__c.longValue();
+                System.debug('Total ms: ' + totalMilliseconds);
                 player.Score__c = player.Score__c + score;
                 divisor = divisor + 1;
             }

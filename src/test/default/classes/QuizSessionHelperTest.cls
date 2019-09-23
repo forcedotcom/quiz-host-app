@@ -94,6 +94,48 @@ public with sharing class QuizSessionHelperTest {
         System.assertEquals(1000, score);
     }    
 
+    @isTest static void lastAnswerGets500Points() {
+        Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
+        Quiz_Question__c question = [SELECT Id, Correct_Answer__c FROM Quiz_Question__c LIMIT 1];        
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayer('player1');
+        Quiz_Player__c lastPlayer = QuizSessionTestFactory.createQuizPlayer('player2');
+
+        Test.startTest();
+        quizSession.Phase__c = POST_QUESTION;
+        Quiz_Answer__c quizAnswer = QuizSessionTestFactory.createQuizAnswer(player.Id, question.Id, question.Correct_Answer__c); 
+        Quiz_Answer__c lastQuizAnswer = QuizSessionTestFactory.createQuizAnswer(lastPlayer.Id, question.Id, question.Correct_Answer__c); 
+        Set<ID> quizAnswerIds = new Set<ID>();
+        quizAnswerIds.add(quizAnswer.Id);
+        quizAnswerIds.add(lastQuizAnswer.Id);
+        update quizSession;
+        Test.stopTest();   
+
+        System.assertEquals(POST_QUESTION, quizSession.Phase__c);
+        List<Quiz_Answer__c> updatedQuizAnswers = [SELECT Id, Score__c FROM Quiz_Answer__c WHERE ID IN :quizAnswerIds];
+        System.assertEquals(500, updatedQuizAnswers[1].Score__c);
+    }    
+
+    @isTest static void middleAnswerGets500Points() {
+        Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
+        Quiz_Question__c question = [SELECT Id, Correct_Answer__c FROM Quiz_Question__c LIMIT 1];        
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayer('player1');
+        Quiz_Player__c lastPlayer = QuizSessionTestFactory.createQuizPlayer('player2');
+
+        Test.startTest();
+        quizSession.Phase__c = POST_QUESTION;
+        Quiz_Answer__c quizAnswer = QuizSessionTestFactory.createQuizAnswer(player.Id, question.Id, question.Correct_Answer__c); 
+        Quiz_Answer__c lastQuizAnswer = QuizSessionTestFactory.createQuizAnswer(lastPlayer.Id, question.Id, question.Correct_Answer__c); 
+        Set<ID> quizAnswerIds = new Set<ID>();
+        quizAnswerIds.add(quizAnswer.Id);
+        quizAnswerIds.add(lastQuizAnswer.Id);
+        update quizSession;
+        Test.stopTest();   
+
+        System.assertEquals(POST_QUESTION, quizSession.Phase__c);
+        List<Quiz_Answer__c> updatedQuizAnswers = [SELECT Id, Score__c FROM Quiz_Answer__c WHERE ID IN :quizAnswerIds];
+        System.assertEquals(500, updatedQuizAnswers[1].Score__c);
+    }       
+
     @isTest static void doNotUpdatePlayerScoreIfAnswerWrong() {
         Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
         Quiz_Question__c question = [SELECT Id, Correct_Answer__c FROM Quiz_Question__c LIMIT 1];        

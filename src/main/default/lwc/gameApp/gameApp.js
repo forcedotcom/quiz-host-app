@@ -62,7 +62,10 @@ export default class GameApp extends LightningElement {
         return 'Next';
     }
     get showQuestion() {
-        return this.gameSessionPhase === 'Question' || this.gameSessionPhase === 'PostQuestion';
+        return (
+            this.gameSessionPhase === 'Question' ||
+            this.gameSessionPhase === 'PostQuestion'
+        );
     }
     get currentQuestion() {
         return this.questions ? this.questions[this.questionIndex] : undefined;

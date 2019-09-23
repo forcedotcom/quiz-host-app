@@ -13,19 +13,20 @@
         </template>
         <template if:true={isPreQuestion}>
             Get Ready
+            <c-count-down-timer ontimeout={handleNextPhaseClick}></c-count-down-timer>
         </template>
+        <template if:true={isQuestionResults}>
+            <c-leader-board></c-leader-board>
+        </template>        
         <template if:true={isQuestionPhase}>
             <template if:true={currentQuestion}>
                 <c-question question-object={currentQuestion}></c-question>
             </template>
             <template if:true={isQuestion}>
-                Timer
+                <c-count-down-timer ontimeout={handleNextPhaseClick}></c-count-down-timer>
             </template>
             <template if:true={isPostQuestion}>
                 <p>Correct answer is: {currentQuestion.Correct_Answer__c}</p>
-            </template>
-            <template if:true={isQuestionResults}>
-                Leaderboard so far
             </template>
             <template if:true={isGameResults}>
                 The winner is

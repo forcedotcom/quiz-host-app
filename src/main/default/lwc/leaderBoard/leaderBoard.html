@@ -1,17 +1,35 @@
 <template>
     <lightning-card>
-        <div class="leaderboard">
-            <h1>
-                Scoreboard
-            </h1>
-            <ol>
-                <template for:each={players} for:item="player">
-                    <li key={player.name}>
-                        {player.name}
-                        <span>{player.score}</span>
-                    </li>
+        <template if:true={error}>
+            {error}
+        </template>
+        <template if:false={error}>
+            <!-- show winner -->
+            <template if:true={showWinner}>
+                <template if:true={winner}>
+                    <p>Winner is {winner.Name}</p>
+                    <p>With a score of {winner.Score__c}</p>
                 </template>
-            </ol>
-        </div>
+                <template if:false={winner}>
+                    No players found.
+                </template>
+            </template>
+            <!-- show leaderboard -->
+            <template if:true={showLeaderboard}>
+                <div class="leaderboard">
+                    <h1>
+                        Scoreboard
+                    </h1>
+                    <ol>
+                        <template for:each={players} for:item="player">
+                            <li key={player.Id}>
+                                {player.Name}
+                                <span>{player.Score__c}</span>
+                            </li>
+                        </template>
+                    </ol>
+                </div>
+            </template>
+        </template>
     </lightning-card>
 </template>

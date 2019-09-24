@@ -25,6 +25,15 @@ public with sharing class QuizSessionTestFactory {
         return question;
     }    
 
+    public static Quiz_Player__c createQuizPlayerWithScore(String name, Integer Score) {
+        Quiz_Player__c player1 = new Quiz_Player__c(
+            Name = name,
+            Score__c = score
+        );            
+        insert player1;
+        return player1;
+    }        
+
     public static Quiz_Player__c createQuizPlayer(String name) {
         Quiz_Player__c player1 = new Quiz_Player__c(
             Name = name

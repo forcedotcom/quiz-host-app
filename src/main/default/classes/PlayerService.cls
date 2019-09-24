@@ -31,4 +31,30 @@ public class PlayerService extends AbstractDataService  {
         List<Quiz_Player__c> players = [SELECT ID FROM Quiz_Player__c];
         delete players;
     }
+
+    public void assignRanking() {
+        List<Quiz_Player__c> updatedPlayers = getPlayersSortedByScore(null);
+        if (updatedPlayers.isEmpty()) {
+            return;
+        } else {
+            // assign first place, regardless of how many records
+            updatedPlayers[0].Ranking__c = 1;
+            if (updatedPlayers.size() == 1) {
+                update updatedPlayers;
+                return;
+            }
+        }
+
+        Integer ranking = 1;
+        for (Integer i = 1; i < updatedPlayers.size(); i++) {
+            // if previous score differs from current score, increment ranking
+            if (updatedPlayers[i-1].Score__c < updatedPlayers[i].Score__c) {
+                ranking += 1;
+            }
+                
+            updatedPlayers[i].Ranking__c = ranking;
+        }
+
+        update updatedPlayers;        
+    }
 }

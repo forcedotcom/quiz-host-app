@@ -54,5 +54,6 @@ public with sharing class QuizSessionHelper {
         
         update answers;
         update players.values();
+        playerService.assignRanking();
     }
 }

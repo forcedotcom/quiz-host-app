@@ -1,5 +1,11 @@
 @isTest 
 public with sharing class QuizSessionHelperScoreTest {
+    @isTest static void noDecimalPlaces() {
+        QuizSessionHelper quizSessionHelper = new QuizSessionHelper();
+        Long score = quizSessionHelper.computeScore(5, 1, 17);
+        System.assertEquals(882, score);
+    }
+
     @isTest static void maximumScoreWhereMaxIsMin() {
         QuizSessionHelper quizSessionHelper = new QuizSessionHelper();
         Long score = quizSessionHelper.computeScore(1, 1, 0);

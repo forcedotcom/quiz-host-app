@@ -30,7 +30,6 @@ public with sharing class QuizSessionHelperTest {
         update quizSession;
         Test.stopTest();   
 
-        System.assertEquals(POST_QUESTION, quizSession.Phase__c);
         // get answers ordered by oldest first, loop through them to get player IDs
         List<Quiz_Answer__c> updatedAnswers = [SELECT Id, Player__c, Score__c FROM Quiz_Answer__c];
         Set<ID> updatedPlayerIds = new Set<ID>();
@@ -71,7 +70,6 @@ public with sharing class QuizSessionHelperTest {
         update quizSession;
         Test.stopTest();   
 
-        System.assertEquals(POST_QUESTION, quizSession.Phase__c);
         List<Quiz_Answer__c> updatedAnswers = [SELECT Id, Score__c FROM Quiz_Answer__c];
         for (Integer i = 1; i <= updatedAnswers.size(); i++) {
             System.assert(updatedAnswers[i-1].Score__c > 0);            
@@ -84,7 +82,7 @@ public with sharing class QuizSessionHelperTest {
         Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayer('player');
         Quiz_Answer__c quizAnswer = QuizSessionTestFactory.createQuizAnswer(player.Id, question.Id, question.Correct_Answer__c); 
 
-        Decimal numberOfMilliseconds = [SELECT Id, Score__c, Milliseconds__c FROM Quiz_Answer__c WHERE ID = :quizAnswer.Id LIMIT 1].Milliseconds__c;
+        Decimal numberOfMilliseconds = [SELECT Id, Score__c, Timestamp__c FROM Quiz_Answer__c WHERE ID = :quizAnswer.Id LIMIT 1].Timestamp__c;
         Long baseline = Long.valueOf('1569261277045');
         System.assert(numberOfMilliseconds > baseline);
     }    
@@ -100,7 +98,6 @@ public with sharing class QuizSessionHelperTest {
         update quizSession;
         Test.stopTest();   
 
-        System.assertEquals(POST_QUESTION, quizSession.Phase__c);
         Integer score = [SELECT Id, Score__c FROM Quiz_Answer__c WHERE ID = :quizAnswer.Id LIMIT 1].Score__c.intValue();
         System.assertEquals(1000, score);
     }    
@@ -121,7 +118,6 @@ public with sharing class QuizSessionHelperTest {
         update quizSession;
         Test.stopTest();   
 
-        System.assertEquals(POST_QUESTION, quizSession.Phase__c);
         List<Quiz_Answer__c> updatedQuizAnswers = [SELECT Id, Score__c FROM Quiz_Answer__c WHERE ID IN :quizAnswerIds];
         System.assertEquals(500, updatedQuizAnswers[1].Score__c);
     }     
@@ -137,7 +133,6 @@ public with sharing class QuizSessionHelperTest {
         update quizSession;
         Test.stopTest();   
 
-        System.assertEquals(POST_QUESTION, quizSession.Phase__c);
         Integer score = [SELECT Id, Score__c FROM Quiz_Player__c WHERE ID = :player.Id LIMIT 1].Score__c.intValue();
         System.assertEquals(0, score);
     }
@@ -153,7 +148,6 @@ public with sharing class QuizSessionHelperTest {
         update quizSession;
         Test.stopTest();        
 
-        System.assertEquals(POST_QUESTION, quizSession.Phase__c);
         Integer score = [SELECT Id, Score__c FROM Quiz_Answer__c WHERE ID = :quizAnswer.Id LIMIT 1].Score__c.intValue();
         System.assertEquals(0, score);
     }        

@@ -1,13 +1,13 @@
 public with sharing class QuizSessionHelper {
+    // When totalMilliseconds == smallestMilliseconds, score = 1000. With maximum totalMilliseconds, score = 500
     public Long computeScore(Decimal totalMilliseconds, 
         Decimal smallestMilliseconds, Decimal differenceBetweenLargestAndSmallestMilliseconds) {
-        // When totalMilliseconds == smallestMilliseconds, score = 1000. With maximum totalMilliseconds, score = 500
         if (differenceBetweenLargestAndSmallestMilliseconds == 0) {
             return 1000;
         }
         
         Decimal scoreDifference = totalMilliseconds - smallestMilliseconds;
-        Decimal afterFirstDivision = (1.00 * scoreDifference)/differenceBetweenLargestAndSmallestMilliseconds;
+        Decimal afterFirstDivision = scoreDifference/differenceBetweenLargestAndSmallestMilliseconds;
         return (Long)(1000 * ( 1.00 - (afterFirstDivision / 2.00 )));
     }
 
@@ -28,14 +28,14 @@ public with sharing class QuizSessionHelper {
         }
         
         // find smallest and largest milliseconds
-        Decimal smallestMilliseconds = answers[0].Milliseconds__c;
-        Decimal largestMiliseconds = answers[0].Milliseconds__c;
+        Decimal smallestMilliseconds = answers[0].Timestamp__c;
+        Decimal largestMiliseconds = answers[0].Timestamp__c;
         for (Quiz_Answer__c answer : answers) {
-            if (answer.Milliseconds__c > largestMiliseconds) {
-                largestMiliseconds = answer.Milliseconds__c;
+            if (answer.Timestamp__c > largestMiliseconds) {
+                largestMiliseconds = answer.Timestamp__c;
             }
-           if (answer.Milliseconds__c < smallestMilliseconds) {
-                smallestMilliseconds = answer.Milliseconds__c;
+           if (answer.Timestamp__c < smallestMilliseconds) {
+                smallestMilliseconds = answer.Timestamp__c;
             } 
         }        
 
@@ -44,11 +44,11 @@ public with sharing class QuizSessionHelper {
         for (Quiz_Answer__c answer : answers) {
             if (answer.Answer__c == correctAnswer) {
                 Long score = computeScore(
-                    answer.Milliseconds__c, 
+                    answer.Timestamp__c, 
                     smallestMilliseconds, differenceBetweenLargestAndSmallestMilliseconds);
                 answer.Score__c = score; 
                 Quiz_Player__c player = players.get(answer.Player__c);
-                player.Score__c = player.Score__c + score;
+                player.Score__c += score;
             }
         }
         

@@ -4,7 +4,7 @@ public with sharing class QuizSessionHelperTest {
     private static String REGISTRATION = 'Registration';
     private static String QUESTION = 'Question';
     private static String POST_QUESTION = 'PostQuestion';
-
+    
     @isTest static void playerAccumulatesScore() {
         Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
         Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayer('player');

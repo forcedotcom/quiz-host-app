@@ -24,7 +24,7 @@ public class AnswerService extends AbstractDataService {
 
     public List<Quiz_Answer__c> getAnswersOfPlayerIdsAndQuestionId(Set<Id>playerIds, Id questionId) {
         // get answers ordered by oldest records first: ID values are created in ascending order
-        return [SELECT Id, Player__c, Question__c, Answer__c, 
+        return [SELECT Id, Player__c, Question__c, Answer__c, Timestamp__c,
             Score__c FROM Quiz_Answer__c WHERE Player__c IN :playerIds AND Question__c = :questionId 
             ORDER BY Id ASC
         ];        

@@ -27,8 +27,7 @@ public with sharing class QuizSessionTestFactory {
 
     public static Quiz_Player__c createQuizPlayer(String name) {
         Quiz_Player__c player1 = new Quiz_Player__c(
-            Name = name,
-            Score__c = 0
+            Name = name
         );            
         insert player1;
         return player1;
@@ -39,8 +38,7 @@ public with sharing class QuizSessionTestFactory {
         Quiz_Answer__c answer1 = new Quiz_Answer__c(
             Player__c = playerId, 
             Question__c = questionId, 
-            Answer__c = answer,
-            Score__c = 0
+            Answer__c = answer
         );
         insert answer1;
         return answer1;

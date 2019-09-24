@@ -10,23 +10,24 @@ export default class LeaderBoard extends LightningElement {
     @track players;
     wiredResult;
 
-    @wire(getPlayerList)
+    @wire(getPlayerList, { maxFetchCount: 10 })
     wiredPlayers(result) {
         this.wiredResult = result;
         const { error, data } = result;
         if (data) {
             this.players = data;
+            this.error = undefined;
         } else if (error) {
             this.error = reduceErrors(error);
-            this.quizSession = undefined;
+            this.players = undefined;
         }
     }
 
     connectedCallback() {
         if (this.wiredResult) refreshApex(this.wiredResult);
-    }    
+    }
 
     get winner() {
         return this.players ? this.players[0] : undefined;
-    }    
+    }
 }

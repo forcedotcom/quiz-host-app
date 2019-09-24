@@ -23,7 +23,7 @@
                 <c-leader-board show-leaderboard></c-leader-board>
             </template>
             <template if:true={isGameResults}>
-                <c-leader-board show-winner></c-leader-board>                
+                <c-leader-board show-winner></c-leader-board>
             </template>
             <template if:true={showQuestion}>
                 <template if:true={currentQuestion}>
@@ -35,7 +35,9 @@
                     ></c-count-down-timer>
                 </template>
                 <template if:true={isPostQuestion}>
-                    <p>Correct answer is: {currentQuestion.Correct_Answer__c}</p>
+                    <p>
+                        Correct answer is: {currentQuestion.Correct_Answer__c}
+                    </p>
                 </template>
             </template>
         </template>

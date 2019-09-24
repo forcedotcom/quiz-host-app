@@ -1,8 +1,56 @@
 @isTest 
 public with sharing class QuizSessionHelperTest {
     private static Integer NUM_PLAYERS = 150;
+    private static String REGISTRATION = 'Registration';
+    private static String QUESTION = 'Question';
     private static String POST_QUESTION = 'PostQuestion';
-    
+
+    @isTest static void playerAccumulatesScore() {
+        Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayer('player');
+        Quiz_Question__c question1 = [SELECT Id, Correct_Answer__c FROM Quiz_Question__c LIMIT 1];        
+        Quiz_Question__c question2 = QuizSessionTestFactory.createQuizQuestion();
+        Quiz_Answer__c quizAnswer1 = QuizSessionTestFactory.createQuizAnswer(player.Id, question1.Id, question1.Correct_Answer__c); 
+        Quiz_Answer__c quizAnswer2 = QuizSessionTestFactory.createQuizAnswer(player.Id, question2.Id, question2.Correct_Answer__c); 
+
+        Test.startTest();
+        quizSession.Phase__c = POST_QUESTION;
+        update quizSession;
+
+        // update quiz session's 'current question
+        quizSession.Phase__c = QUESTION;
+        quizSession.Current_Question__c = question2.Id;
+        update quizSession;
+        
+        quizSession.Phase__c = POST_QUESTION;
+        update quizSession;        
+        Test.stopTest();           
+
+        Integer score = [SELECT Id, Score__c FROM Quiz_Player__c WHERE Id = :player.Id LIMIT 1].Score__c.intValue();
+        System.assertEquals(2000, score);
+    }
+
+    @isTest static void changePhaseToRegistrationRemovesPlayersAndAnswers() {
+        Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
+        Quiz_Question__c question = [SELECT Id, Correct_Answer__c FROM Quiz_Question__c LIMIT 1];        
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayer('player');
+        Quiz_Answer__c quizAnswer = QuizSessionTestFactory.createQuizAnswer(player.Id, question.Id, question.Correct_Answer__c); 
+
+        // change to Registration from non-Registration phase
+        quizSession.Phase__c = POST_QUESTION;
+        update quizSession;
+
+        Test.startTest();
+        quizSession.Phase__c = REGISTRATION;
+        update quizSession;
+        Test.stopTest();   
+
+        Integer playerCount = [SELECT COUNT() FROM Quiz_Player__c];
+        Integer answerCount = [SELECT COUNT() FROM Quiz_Answer__c];
+        System.assertEquals(0, playerCount);
+        System.assertEquals(0, answerCount);
+    }    
+
     @isTest static void stressTestCorrectAnswerIncrementScorePlayer() {
         Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
         Quiz_Question__c question = [SELECT Id, Correct_Answer__c FROM Quiz_Question__c LIMIT 1]; 

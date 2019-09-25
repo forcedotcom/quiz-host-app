@@ -31,4 +31,19 @@ public class PlayerService extends AbstractDataService  {
         List<Quiz_Player__c> players = [SELECT ID FROM Quiz_Player__c];
         delete players;
     }
+
+    public void assignRanking() {
+        List<Quiz_Player__c> players = getPlayersSortedByScore(null);        
+        Decimal lastScore = 9223372036854775807L; // Long max value
+        Integer rank = 0;
+        for (Quiz_Player__c player: players) {
+            // if previous score is larger than current score, increment rank
+            if (lastScore > player.Score__c) {
+                rank ++;
+            }
+            player.Ranking__c = rank;
+            lastScore = player.Score__c;
+        }
+        update players;        
+    }
 }

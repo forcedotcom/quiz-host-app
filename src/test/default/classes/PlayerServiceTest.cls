@@ -16,8 +16,8 @@ public with sharing class PlayerServiceTest {
         PlayerService playerService = new PlayerService();
         playerService.assignRanking();
 
-        Integer ranking1 = [SELECT Id, Ranking__c FROM Quiz_Player__c WHERE Id = :player1.Id LIMIT 1].Ranking__c.intValue();
-        Integer ranking2 = [SELECT Id, Ranking__c FROM Quiz_Player__c WHERE Id = :player2.Id LIMIT 1].Ranking__c.intValue();
+        Integer ranking1 = [SELECT Id, Ranking__c FROM Quiz_Player__c WHERE Id = :player1.Id].Ranking__c.intValue();
+        Integer ranking2 = [SELECT Id, Ranking__c FROM Quiz_Player__c WHERE Id = :player2.Id].Ranking__c.intValue();
 
         System.assertEquals(1, ranking1);
         System.assertEquals(1, ranking2);
@@ -29,8 +29,8 @@ public with sharing class PlayerServiceTest {
         PlayerService playerService = new PlayerService();
         playerService.assignRanking();
 
-        Integer ranking1 = [SELECT Id, Ranking__c FROM Quiz_Player__c WHERE Id = :player1.Id LIMIT 1].Ranking__c.intValue();
-        Integer ranking2 = [SELECT Id, Ranking__c FROM Quiz_Player__c WHERE Id = :player2.Id LIMIT 1].Ranking__c.intValue();
+        Integer ranking1 = [SELECT Id, Ranking__c FROM Quiz_Player__c WHERE Id = :player1.Id].Ranking__c.intValue();
+        Integer ranking2 = [SELECT Id, Ranking__c FROM Quiz_Player__c WHERE Id = :player2.Id].Ranking__c.intValue();
 
         System.assertEquals(1, ranking1);
         System.assertEquals(2, ranking2);
@@ -43,9 +43,9 @@ public with sharing class PlayerServiceTest {
         PlayerService playerService = new PlayerService();
         playerService.assignRanking();
 
-        Integer ranking1 = [SELECT Id, Ranking__c FROM Quiz_Player__c WHERE Id = :player1.Id LIMIT 1].Ranking__c.intValue();
-        Integer ranking2 = [SELECT Id, Ranking__c FROM Quiz_Player__c WHERE Id = :player2.Id LIMIT 1].Ranking__c.intValue();
-        Integer ranking3 = [SELECT Id, Ranking__c FROM Quiz_Player__c WHERE Id = :player3.Id LIMIT 1].Ranking__c.intValue();
+        Integer ranking1 = [SELECT Id, Ranking__c FROM Quiz_Player__c WHERE Id = :player1.Id].Ranking__c.intValue();
+        Integer ranking2 = [SELECT Id, Ranking__c FROM Quiz_Player__c WHERE Id = :player2.Id].Ranking__c.intValue();
+        Integer ranking3 = [SELECT Id, Ranking__c FROM Quiz_Player__c WHERE Id = :player3.Id].Ranking__c.intValue();
 
         System.assertEquals(1, ranking1);
         System.assertEquals(1, ranking2);

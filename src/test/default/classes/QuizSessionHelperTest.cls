@@ -26,7 +26,7 @@ public with sharing class QuizSessionHelperTest {
         update quizSession;        
         Test.stopTest();           
 
-        Integer score = [SELECT Id, Score__c FROM Quiz_Player__c WHERE Id = :player.Id LIMIT 1].Score__c.intValue();
+        Integer score = [SELECT Id, Score__c FROM Quiz_Player__c WHERE Id = :player.Id].Score__c.intValue();
         System.assertEquals(2000, score);
     }
 
@@ -130,7 +130,7 @@ public with sharing class QuizSessionHelperTest {
         Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayer('player');
         Quiz_Answer__c quizAnswer = QuizSessionTestFactory.createQuizAnswer(player.Id, question.Id, question.Correct_Answer__c); 
 
-        Decimal numberOfMilliseconds = [SELECT Id, Score__c, Timestamp__c FROM Quiz_Answer__c WHERE ID = :quizAnswer.Id LIMIT 1].Timestamp__c;
+        Decimal numberOfMilliseconds = [SELECT Id, Score__c, Timestamp__c FROM Quiz_Answer__c WHERE ID = :quizAnswer.Id].Timestamp__c;
         Long baseline = Long.valueOf('1569261277045');
         System.assert(numberOfMilliseconds > baseline);
     }    
@@ -146,7 +146,7 @@ public with sharing class QuizSessionHelperTest {
         update quizSession;
         Test.stopTest();   
 
-        Integer score = [SELECT Id, Score__c FROM Quiz_Answer__c WHERE ID = :quizAnswer.Id LIMIT 1].Score__c.intValue();
+        Integer score = [SELECT Id, Score__c FROM Quiz_Answer__c WHERE ID = :quizAnswer.Id].Score__c.intValue();
         System.assertEquals(1000, score);
     }    
 
@@ -181,7 +181,7 @@ public with sharing class QuizSessionHelperTest {
         update quizSession;
         Test.stopTest();   
 
-        Integer score = [SELECT Id, Score__c FROM Quiz_Player__c WHERE ID = :player.Id LIMIT 1].Score__c.intValue();
+        Integer score = [SELECT Id, Score__c FROM Quiz_Player__c WHERE ID = :player.Id].Score__c.intValue();
         System.assertEquals(0, score);
     }
 
@@ -196,7 +196,7 @@ public with sharing class QuizSessionHelperTest {
         update quizSession;
         Test.stopTest();        
 
-        Integer score = [SELECT Id, Score__c FROM Quiz_Answer__c WHERE ID = :quizAnswer.Id LIMIT 1].Score__c.intValue();
+        Integer score = [SELECT Id, Score__c FROM Quiz_Answer__c WHERE ID = :quizAnswer.Id].Score__c.intValue();
         System.assertEquals(0, score);
     }        
 }

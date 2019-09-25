@@ -1,9 +1,9 @@
 @isTest 
 public with sharing class QuizSessionHelperTest {
     private static Integer NUM_PLAYERS = 150;
-    private static String REGISTRATION = 'Registration';
-    private static String QUESTION = 'Question';
-    private static String POST_QUESTION = 'PostQuestion';
+    private static String REGISTRATION = QuizSessionService.Phase.Registration.name();
+    private static String QUESTION = QuizSessionService.Phase.Question.name();
+    private static String POST_QUESTION = QuizSessionService.Phase.PostQuestion.name();
     
     @isTest static void playerAccumulatesScore() {
         Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();

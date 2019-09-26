@@ -134,6 +134,39 @@ public with sharing class QuizSessionHelperTest {
         Long baseline = Long.valueOf('1569261277045');
         System.assert(numberOfMilliseconds > baseline);
     }    
+    
+    @isTest static void deleteDuplicateAnswersRemovesDuplicates() {
+        Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
+        Quiz_Question__c question = [SELECT Id, Correct_Answer__c FROM Quiz_Question__c LIMIT 1];        
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayer('player');
+        Quiz_Answer__c quizAnswer1 = QuizSessionTestFactory.createQuizAnswer(player.Id, question.Id, question.Correct_Answer__c); 
+        Quiz_Answer__c quizAnswer2 = QuizSessionTestFactory.createQuizAnswer(player.Id, question.Id, question.Correct_Answer__c); 
+        
+        Test.startTest();
+        QuizSessionHelper quizSessionHelper = new QuizSessionHelper();
+        Integer numDeleted = quizSessionHelper.deleteDuplicateAnswers();        
+        Test.stopTest();   
+
+        Integer answerCount = [SELECT COUNT() FROM Quiz_Answer__c];
+        System.assertEquals(1, answerCount);
+        System.assertEquals(1, numDeleted);
+    }
+
+    @isTest static void duplicateAnswersRemovedOnPhasePostQuestion() {
+        Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
+        Quiz_Question__c question = [SELECT Id, Correct_Answer__c FROM Quiz_Question__c LIMIT 1];        
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayer('player');
+        Quiz_Answer__c quizAnswer1 = QuizSessionTestFactory.createQuizAnswer(player.Id, question.Id, question.Correct_Answer__c); 
+        Quiz_Answer__c quizAnswer2 = QuizSessionTestFactory.createQuizAnswer(player.Id, question.Id, question.Correct_Answer__c); 
+        
+        Test.startTest();
+        quizSession.Phase__c = POST_QUESTION;
+        update quizSession;
+        Test.stopTest();   
+
+        Integer answerCount = [SELECT COUNT() FROM Quiz_Answer__c];
+        System.assertEquals(1, answerCount);
+    }
 
     @isTest static void updateScoreOnAnswerWithFullMarks() {
         Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();

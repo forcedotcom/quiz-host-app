@@ -22,6 +22,27 @@ public class AnswerService extends AbstractDataService {
         return answerRecord;
     }
 
+    public Set<Id> getUniquePlayerIds(List<Quiz_Answer__c> answers) {
+        Set<Id> playerIds = new Set<Id>();
+        for (Quiz_Answer__c answer : answers) {
+            if (!playerIds.contains(answer.Player__c)) {
+                playerIds.add(answer.Player__c);
+            }
+        }
+
+        return playerIds;
+    }
+
+    public Map<ID, ID> getPlayerQuestionMapping(Set<ID> playerIds) {
+        Map<ID, ID> mapPlayerQuestion = new Map<ID, ID>();
+        List<Quiz_Answer__c> allAnswers = [SELECT Id, Player__c, Question__c FROM Quiz_Answer__c WHERE Player__c IN :playerIds FOR UPDATE];                
+        for (Quiz_Answer__c answer : allAnswers) {        
+            mapPlayerQuestion.put(answer.Player__c, answer.Question__c);
+        }
+
+        return mapPlayerQuestion;
+    }
+
     public List<Quiz_Answer__c> getAnswersOfPlayerIdsAndQuestionId(Set<Id>playerIds, Id questionId) {
         // get answers ordered by oldest records first: ID values are created in ascending order
         return [SELECT Id, Player__c, Question__c, Answer__c, Timestamp__c,

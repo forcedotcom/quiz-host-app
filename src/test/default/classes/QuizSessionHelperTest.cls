@@ -4,14 +4,29 @@ public with sharing class QuizSessionHelperTest {
     private static String REGISTRATION = QuizSessionService.Phase.Registration.name();
     private static String QUESTION = QuizSessionService.Phase.Question.name();
     private static String POST_QUESTION = QuizSessionService.Phase.PostQuestion.name();
-    
+
+    @isTest static void duplicateAnswerNotCreated() {
+        Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
+        Quiz_Question__c question = [SELECT Id, Correct_Answer__c FROM Quiz_Question__c LIMIT 1];        
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayer('player');
+        try {
+            Quiz_Answer__c quizAnswer1 = QuizSessionTestFactory.createQuizAnswer(player.Id, question.Id, question.Correct_Answer__c); 
+            Quiz_Answer__c quizAnswer2 = QuizSessionTestFactory.createQuizAnswer(player.Id, question.Id, question.Correct_Answer__c); 
+            // expect to fail
+            System.assert(false);
+        } catch(DmlException e) {
+            System.assert(e.getMessage().contains('Duplicate answer'));
+            Integer answerCount = [SELECT COUNT() FROM Quiz_Answer__c];
+            System.assertEquals(1, answerCount);
+        }
+    }    
+
     @isTest static void playerAccumulatesScore() {
         Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
         Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayer('player');
         Quiz_Question__c question1 = [SELECT Id, Correct_Answer__c FROM Quiz_Question__c LIMIT 1];        
         Quiz_Question__c question2 = QuizSessionTestFactory.createQuizQuestion();
         Quiz_Answer__c quizAnswer1 = QuizSessionTestFactory.createQuizAnswer(player.Id, question1.Id, question1.Correct_Answer__c); 
-        Quiz_Answer__c quizAnswer2 = QuizSessionTestFactory.createQuizAnswer(player.Id, question2.Id, question2.Correct_Answer__c); 
 
         Test.startTest();
         quizSession.Phase__c = POST_QUESTION;
@@ -22,6 +37,7 @@ public with sharing class QuizSessionHelperTest {
         quizSession.Current_Question__c = question2.Id;
         update quizSession;
         
+        Quiz_Answer__c quizAnswer2 = QuizSessionTestFactory.createQuizAnswer(player.Id, question2.Id, question2.Correct_Answer__c); 
         quizSession.Phase__c = POST_QUESTION;
         update quizSession;        
         Test.stopTest();           

@@ -11,7 +11,7 @@ export default class CountDownTimer extends LightningElement {
             this.countDown();
         }, 1000);
     }
-    
+
     disconnectedCallback() {
         clearInterval(this.timerID);
     }

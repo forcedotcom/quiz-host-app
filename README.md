@@ -2,7 +2,7 @@
 
 ## Installation
 
-Run `install.dev.sh`.
+Run `install-dev.sh`.
 
 If you want to build and contribute, run `npm install`.
 

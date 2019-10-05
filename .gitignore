@@ -5,3 +5,6 @@
 .sfdx
 .vscode
 node_modules
+
+# Hide config including API key
+src/main/default/customMetadata/*

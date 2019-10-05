@@ -15,8 +15,12 @@
                 <field>DeveloperName</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>Player_App_URL__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>Quiz_API_Key__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

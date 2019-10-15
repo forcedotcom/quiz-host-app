@@ -32,23 +32,24 @@ export default class GameApp extends LightningElement {
         }
     }
 
-    @wire(getQuizSession)
-    wiredQuizSession({ error, data }) {
-        if (data) {
-            this.quizSession = data;
-            // no session and no error returned
-            if (data.length === 0) {
-                this.error = 'No game session found.';
-                this.isNextButtonDisabled = true;
-            } else {
-                this.quizSessionId = data.Id;
-                this.gameSessionPhase = data.Phase__c;
-                this.error = undefined;
-            }
-        } else if (error) {
-            this.error = reduceErrors(error);
-            this.quizSession = undefined;
-        }
+    connectedCallback() {
+        getQuizSession()
+            .then(data => {
+                this.quizSession = data;
+                // no session and no error returned
+                if (data.length === 0) {
+                    this.error = 'No game session found.';
+                    this.isNextButtonDisabled = true;
+                } else {
+                    this.quizSessionId = data.Id;
+                    this.gameSessionPhase = data.Phase__c;
+                    this.error = undefined;
+                }
+            })
+            .catch(error => {
+                this.error = reduceErrors(error);
+                this.quizSession = undefined;
+            });
     }
 
     get nextButtonText() {

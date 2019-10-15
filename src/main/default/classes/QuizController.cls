@@ -16,7 +16,7 @@ public with sharing class QuizController {
         return playerService.getPlayersSortedByScore(maxFetchCount);
     }
 
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled
     public static Quiz_Session__c getQuizSession() {
         return quizSessionService.getQuizSession();
     }     

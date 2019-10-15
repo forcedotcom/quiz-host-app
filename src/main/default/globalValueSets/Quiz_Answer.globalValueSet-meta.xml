@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <customValue>
-        <fullName>a</fullName>
+        <fullName>A</fullName>
         <default>false</default>
-        <label>a</label>
+        <label>A</label>
     </customValue>
     <customValue>
-        <fullName>b</fullName>
+        <fullName>B</fullName>
         <default>false</default>
-        <label>b</label>
+        <label>B</label>
     </customValue>
     <customValue>
-        <fullName>c</fullName>
+        <fullName>C</fullName>
         <default>false</default>
-        <label>c</label>
+        <label>C</label>
     </customValue>
     <customValue>
-        <fullName>d</fullName>
+        <fullName>D</fullName>
         <default>false</default>
-        <label>d</label>
+        <label>D</label>
     </customValue>
     <masterLabel>Quiz Answer</masterLabel>
     <sorted>false</sorted>

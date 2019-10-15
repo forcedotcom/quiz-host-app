@@ -16,11 +16,6 @@
         <label>Question</label>
     </customValue>
     <customValue>
-        <fullName>PostQuestion</fullName>
-        <default>false</default>
-        <label>PostQuestion</label>
-    </customValue>
-    <customValue>
         <fullName>QuestionResults</fullName>
         <default>false</default>
         <label>QuestionResults</label>

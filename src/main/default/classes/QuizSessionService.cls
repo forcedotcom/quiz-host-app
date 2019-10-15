@@ -4,7 +4,6 @@ public class QuizSessionService extends AbstractDataService {
         Registration,
         PreQuestion,
         Question,
-        PostQuestion,
         QuestionResults,
         GameResults
     }

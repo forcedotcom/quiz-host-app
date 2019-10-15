@@ -1,11 +1,12 @@
 @isTest
 public with sharing class PlayerServiceTest {
     @isTest static void onlyPlayerRanksOne() {
-        Quiz_Player__c player1 = QuizSessionTestFactory.createQuizPlayer('1');
+        QuizSessionTestFactory.createQuizPlayers(1);
+        
         PlayerService playerService = new PlayerService();
         playerService.assignRanking();
-        List<Quiz_Player__c> updatedPlayers = [SELECT ID, Ranking__c FROM Quiz_Player__c];
 
+        List<Quiz_Player__c> updatedPlayers = [SELECT ID, Ranking__c FROM Quiz_Player__c];
         System.assertEquals(1, updatedPlayers.size());
         System.assertEquals(1, updatedPlayers[0].Ranking__c);
     }

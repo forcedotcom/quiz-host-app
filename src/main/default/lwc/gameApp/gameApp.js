@@ -6,7 +6,7 @@ import { updateRecord } from 'lightning/uiRecordApi';
 import { reduceErrors } from 'c/errorUtils';
 // - Registration,
 // for each question:
-//    - PreQuestion, Question, PostQuestion
+//    - PreQuestion, Question
 // - QuestionResults
 // - GameResults
 export default class GameApp extends LightningElement {
@@ -16,6 +16,11 @@ export default class GameApp extends LightningElement {
     @track isNextButtonDisabled = false;
     @track questions;
     @track quizSessionId;
+
+    questionIndex = 0;
+    questionPhases = ['PreQuestion', 'Question', 'QuestionResults'];
+    phases = ['Registration', ...this.questionPhases, 'GameResults'];
+
     @wire(getQuestionList, { sessionId: '$quizSessionId' })
     wiredQuestions({ error, data }) {
         if (data) {
@@ -26,15 +31,6 @@ export default class GameApp extends LightningElement {
             this.questions = undefined;
         }
     }
-
-    questionIndex = 0;
-    questionPhases = [
-        'PreQuestion',
-        'Question',
-        'PostQuestion',
-        'QuestionResults'
-    ];
-    phases = ['Registration', ...this.questionPhases, 'GameResults'];
 
     @wire(getQuizSession)
     wiredQuizSession({ error, data }) {
@@ -58,14 +54,11 @@ export default class GameApp extends LightningElement {
     get nextButtonText() {
         if (this.isRegistration) return 'Start!';
         if (this.isPreQuestion) return 'Ready!';
-        if (this.isGameResults) return 'Re-Start';
+        if (this.isGameResults) return 'New Game';
         return 'Next';
     }
     get showQuestion() {
-        return (
-            this.gameSessionPhase === 'Question' ||
-            this.gameSessionPhase === 'PostQuestion'
-        );
+        return this.gameSessionPhase === 'Question';
     }
     get currentQuestion() {
         return this.questions ? this.questions[this.questionIndex] : undefined;
@@ -87,10 +80,6 @@ export default class GameApp extends LightningElement {
 
     get isQuestion() {
         return this.gameSessionPhase === 'Question';
-    }
-
-    get isPostQuestion() {
-        return this.gameSessionPhase === 'PostQuestion';
     }
 
     get isQuestionResults() {

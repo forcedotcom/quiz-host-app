@@ -1,6 +1,7 @@
 public with sharing class QuizSessionHelper {
     // When totalMilliseconds == smallestMilliseconds, score = 1000. With maximum totalMilliseconds, score = 500
-    public Long computeScore(Decimal totalMilliseconds, 
+    @TestVisible
+    private Long computeScore(Decimal totalMilliseconds, 
         Decimal smallestMilliseconds, Decimal differenceBetweenLargestAndSmallestMilliseconds) {
         if (differenceBetweenLargestAndSmallestMilliseconds == 0) {
             return 1000;
@@ -11,7 +12,7 @@ public with sharing class QuizSessionHelper {
         return (Long)(1000 * ( 1.00 - (afterFirstDivision / 2.00 )));
     }
 
-    public void updateScore() {
+    public void updatePlayerScores() {
         QuizSessionService quizSessionService = new QuizSessionService();
         Quiz_Session__c quizSession = quizSessionService.getQuizSession();        
         Quiz_Question__c currentQuestion = quizSessionService.getCurrentQuestion(quizSession.Id);

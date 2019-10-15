@@ -20,6 +20,9 @@
                 ></c-count-down-timer>
             </template>
             <template if:true={isQuestionResults}>
+                <p>
+                    Correct answer is: {currentQuestion.Correct_Answer__c}
+                </p>
                 <c-leader-board show-leaderboard></c-leader-board>
             </template>
             <template if:true={isGameResults}>
@@ -33,11 +36,6 @@
                     <c-count-down-timer
                         ontimeout={handleNextPhaseClick}
                     ></c-count-down-timer>
-                </template>
-                <template if:true={isPostQuestion}>
-                    <p>
-                        Correct answer is: {currentQuestion.Correct_Answer__c}
-                    </p>
                 </template>
             </template>
         </template>

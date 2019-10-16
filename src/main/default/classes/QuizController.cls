@@ -1,13 +1,12 @@
 public with sharing class QuizController {
     private static QuizSessionService quizSessionService = new QuizSessionService();
     private static PlayerService playerService = new PlayerService();
-    
+
     @AuraEnabled(cacheable=true)
     public static List<Quiz_Question__c> getQuestionList(String sessionId) {
         if (sessionId == null) {
             throw new AuraHandledException('Missing session Id.');
         }
-        
         return quizSessionService.getSessionQuestions(sessionId);
     }
 
@@ -16,8 +15,9 @@ public with sharing class QuizController {
         return playerService.getPlayersSortedByScore(maxFetchCount);
     }
 
+    // Using timestamp parameter as a cache buster
     @AuraEnabled
-    public static Quiz_Session__c getQuizSession() {
+    public static Quiz_Session__c getQuizSession(Long timestamp) {
         return quizSessionService.getQuizSession();
-    }     
+    }
 }

@@ -11,7 +11,7 @@
             "Answer_B__c": "Salesforce Lightning Design System",
             "Answer_C__c": "Salesforce Limited Design System",
             "Answer_D__c": "Salesforce Lightning Design Solution",
-            "Correct_Answer__c": "b"
+            "Correct_Answer__c": "B"
         },
         {
             "attributes": {
@@ -24,7 +24,7 @@
             "Answer_B__c": "47.0",
             "Answer_C__c": "46.0",
             "Answer_D__c": "48.0",
-            "Correct_Answer__c": "b"
+            "Correct_Answer__c": "B"
         },
         {
             "attributes": {
@@ -37,7 +37,7 @@
             "Answer_B__c": "2",
             "Answer_C__c": "3",
             "Answer_D__c": "4",
-            "Correct_Answer__c": "d"
+            "Correct_Answer__c": "D"
         }
     ]
 }

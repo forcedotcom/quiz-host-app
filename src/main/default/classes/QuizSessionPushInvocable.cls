@@ -1,6 +1,8 @@
 public with sharing class QuizSessionPushInvocable {
     @InvocableMethod(label='Push Quiz Session Update')
-    public static void invokeQuizSessionPush(List<QuizSessionPushInvocableParameters> paramList) {
+    public static void invokeQuizSessionPush(
+        List<QuizSessionPushInvocableParameters> paramList
+    ) {
         for (QuizSessionPushInvocableParameters params : paramList) {
             pushQuizSession(params.phase);
         }
@@ -16,16 +18,22 @@ public with sharing class QuizSessionPushInvocable {
         request.setEndpoint(settings.Player_App_URL__c + '/api/quiz-sessions');
         request.setHeader('Content-Type', 'application/json');
         request.setHeader('Api-Key', settings.Quiz_Api_Key__c);
-        request.setBody('{ "Phase__c": "'+ phase +'" }');
+        request.setBody('{ "Phase__c": "' + phase + '" }');
 
         Http httpClient = new Http();
         HttpResponse response = httpClient.send(request);
         if (response.getStatusCode() != 200) {
-            throw new QuizSessionPushInvocableException('Failed to push quiz session update: HTTP'+ response.getStatusCode() +' '+ response.getBody());
+            throw new QuizSessionPushInvocableException(
+                'Failed to push quiz session update: HTTP' +
+                response.getStatusCode() +
+                ' ' +
+                response.getBody()
+            );
         }
     }
 
-    public class QuizSessionPushInvocableException extends Exception {}
+    public class QuizSessionPushInvocableException extends Exception {
+    }
 
     public class QuizSessionPushInvocableParameters {
         @InvocableVariable(required=true label='Phase' description='Quiz phase')

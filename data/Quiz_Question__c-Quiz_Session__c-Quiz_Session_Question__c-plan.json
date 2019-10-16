@@ -2,7 +2,7 @@
     {
         "sobject": "Quiz_Question__c",
         "saveRefs": true,
-        "resolveRefs": false,
+        "resolveRefs": true,
         "files": ["Quiz_Question__cs.json"]
     },
     {

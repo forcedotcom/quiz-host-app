@@ -33,7 +33,7 @@ export default class GameApp extends LightningElement {
     }
 
     connectedCallback() {
-        getQuizSession()
+        getQuizSession({ timestamp: Date.now() })
             .then(data => {
                 this.quizSession = data;
                 // no session and no error returned

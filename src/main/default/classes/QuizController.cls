@@ -16,8 +16,9 @@ public with sharing class QuizController {
         return playerService.getPlayersSortedByScore(maxFetchCount);
     }
 
+    // Using timestamp parameter as a cache buster
     @AuraEnabled
-    public static Quiz_Session__c getQuizSession() {
+    public static Quiz_Session__c getQuizSession(Long timestamp) {
         return quizSessionService.getQuizSession();
     }     
 }

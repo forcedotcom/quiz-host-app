@@ -2,18 +2,18 @@
     {
         "sobject": "Quiz_Question__c",
         "saveRefs": true,
-        "resolveRefs": false,
+        "resolveRefs": true,
         "files": ["Quiz_Question__cs.json"]
     },
     {
         "sobject": "Quiz_Session__c",
-        "saveRefs": false,
+        "saveRefs": true,
         "resolveRefs": true,
         "files": ["Quiz_Session__cs.json"]
     },
     {
         "sobject": "Quiz_Session_Question__c",
-        "saveRefs": false,
+        "saveRefs": true,
         "resolveRefs": true,
         "files": ["Quiz_Session_Question__cs.json"]
     }

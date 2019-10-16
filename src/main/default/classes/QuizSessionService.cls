@@ -9,24 +9,26 @@ public class QuizSessionService extends AbstractDataService {
     }
 
     public Quiz_Session__c getQuizSession() {
-        return (Quiz_Session__c) getSingleRecord([SELECT Phase__c, Current_Question__c FROM Quiz_Session__c]);
+        return (Quiz_Session__c) getSingleRecord([SELECT Id, Phase__c, Current_Question__c FROM Quiz_Session__c]);
     }
     
-    public Quiz_Question__c getCurrentQuestion(String sessionId) {
-        Quiz_Session__c quizSession = getQuizSession();
-        String currentQuestionID = quizSession.Current_Question__c;        
-        return [SELECT Id, Name, Correct_Answer__c FROM Quiz_Question__c WHERE Id =: currentQuestionID];
+    public Quiz_Question__c getCurrentQuestion(Id sessionId) {   
+        Quiz_Session__c session = (Quiz_Session__c) getSingleRecord([
+            SELECT Current_Question__r.Id, Current_Question__r.Label__c, Current_Question__r.Answer_A__c, Current_Question__r.Answer_B__c, Current_Question__r.Answer_C__c, Current_Question__r.Answer_D__c, Current_Question__r.Correct_Answer__c
+            FROM Quiz_Session__c
+            WHERE Id = :sessionId]);
+        return session.Current_Question__r;
     }
 
-    public List<Quiz_Question__c> getSessionQuestions(String sessionId) {
+    public List<Quiz_Question__c> getSessionQuestions(Id sessionId) {
         List<Quiz_Question__c> questions = new List<Quiz_Question__c>();
-        for (Quiz_Session_Question__c quizSessionQuestion : [SELECT ID, 
-            Question__c,  Question_Index__c, Session__c FROM Quiz_Session_Question__c WHERE Session__c = :sessionId]) {
-            for (Quiz_Question__c question : [SELECT Name, 
-                Answer_A__c, Answer_B__c, Answer_C__c, Answer_D__c, Correct_Answer__c, 
-                Label__c FROM Quiz_Question__c WHERE ID=:quizSessionQuestion.Question__c]) {
-                questions.add(question);
-            }
+        List<Quiz_Session_Question__c> joinRecords = [SELECT Id, 
+            Question__r.Id, Question__r.Label__c, Question__r.Answer_A__c, Question__r.Answer_B__c, Question__r.Answer_C__c, Question__r.Answer_D__c, Question__r.Correct_Answer__c
+            FROM Quiz_Session_Question__c
+            WHERE Session__c = :sessionId
+            ORDER BY Question_Index__c];
+        for (Quiz_Session_Question__c joinRecord : joinRecords){
+            questions.add(joinRecord.Question__r);
         }
         return questions;    
     }

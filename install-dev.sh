@@ -26,7 +26,7 @@ sfdx force:user:permset:assign -n Quiz_Admin -u $ORG_ALIAS && \
 echo "" && \
 
 echo "Importing data..." && \
-sfdx force:data:tree:import -p data/Quiz_Question__c-Quiz_Session__c-Quiz_Session_Question__c-plan.json -u $ORG_ALIAS && \
+sfdx force:data:tree:import -p data/plan.json -u $ORG_ALIAS && \
 echo ""
 
 EXIT_CODE="$?"

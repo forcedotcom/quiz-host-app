@@ -27,6 +27,10 @@ echo "" && \
 
 echo "Importing data..." && \
 sfdx force:data:tree:import -p data/plan.json -u $ORG_ALIAS && \
+echo "" && \
+
+echo "Generating user password..." && \
+sfdx force:user:password:generate -u $ORG_ALIAS && \
 echo ""
 
 EXIT_CODE="$?"

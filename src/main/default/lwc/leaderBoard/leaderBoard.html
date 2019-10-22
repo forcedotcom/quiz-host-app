@@ -1,8 +1,9 @@
 <template>
     <lightning-card>
         <template if:true={error}>
-            {error}
+            <c-error-panel errors={error}></c-error-panel>
         </template>
+
         <template if:false={error}>
             <!-- show winner -->
             <template if:true={showWinner}>

@@ -12,7 +12,9 @@
                     onclick={handleNextPhaseClick}
                 ></lightning-button>
             </div>
-
+            <template if:true={isRegistration}>
+                <c-qr-code></c-qr-code>
+            </template>
             <template if:true={isPreQuestion}>
                 Get Ready
                 <c-count-down-timer

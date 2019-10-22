@@ -1,12 +1,5 @@
 <template>
-    <p>Mobile app URL is <a href={url}>{url}</a>.</p>
-    <p>
-        Alternatively please scan the QR code.<img
-            src={src}
-            alt="QR code for mobile app, scan to go to mobile app URL"
-        />
-    </p>
-    <template if:true={error}>
-        <c-error-panel errors={error}></c-error-panel>
+    <template if:true={imageUrl}>
+        <img src={imageUrl} alt="QR code" />
     </template>
 </template>

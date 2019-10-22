@@ -1,6 +1,12 @@
 public with sharing class QuizController {
     private static QuizSessionService quizSessionService = new QuizSessionService();
     private static PlayerService playerService = new PlayerService();
+    private static QuizSettingsService settingsService = new QuizSettingsService();
+
+    @AuraEnabled(cacheable=true)
+    public static Quiz_Settings__mdt getQuizSettings() {
+        return settingsService.get();
+    }
 
     @AuraEnabled(cacheable=true)
     public static List<Quiz_Question__c> getQuestionList(String sessionId) {

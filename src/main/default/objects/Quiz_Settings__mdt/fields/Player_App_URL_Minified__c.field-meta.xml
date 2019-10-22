@@ -4,6 +4,6 @@
     <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Player App URL Minified</label>
-    <required>false</required>
+    <required>true</required>
     <type>Url</type>
 </CustomField>

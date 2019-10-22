@@ -1,36 +1,34 @@
 <template>
-    <lightning-card>
-        <template if:true={error}>
-            <c-error-panel errors={error}></c-error-panel>
-        </template>
+    <template if:true={error}>
+        {error}
+    </template>
 
-        <template if:false={error}>
-            <!-- show winner -->
-            <template if:true={showWinner}>
-                <template if:true={winner}>
-                    <p>Winner is {winner.Name}</p>
-                    <p>With a score of {winner.Score__c}</p>
-                </template>
-                <template if:false={winner}>
-                    No players found.
-                </template>
+    <template if:false={error}>
+        <!-- show winner -->
+        <template if:true={showWinner}>
+            <template if:true={winner}>
+                <p>Winner is {winner.Name}</p>
+                <p>With a score of {winner.Score__c}</p>
             </template>
-            <!-- show leaderboard -->
-            <template if:true={showLeaderboard}>
-                <div class="leaderboard">
-                    <h1>
-                        Scoreboard
-                    </h1>
-                    <ol>
-                        <template for:each={players} for:item="player">
-                            <li key={player.Id}>
-                                {player.Name}
-                                <span>{player.Score__c}</span>
-                            </li>
-                        </template>
-                    </ol>
-                </div>
+            <template if:false={winner}>
+                No players found.
             </template>
         </template>
-    </lightning-card>
+        <!-- show leaderboard -->
+        <template if:true={showLeaderboard}>
+            <div class="leaderboard">
+                <h1>
+                    Scoreboard
+                </h1>
+                <ol>
+                    <template for:each={players} for:item="player">
+                        <li key={player.Id}>
+                            {player.Name}
+                            <span>{player.Score__c}</span>
+                        </li>
+                    </template>
+                </ol>
+            </div>
+        </template>
+    </template>
 </template>

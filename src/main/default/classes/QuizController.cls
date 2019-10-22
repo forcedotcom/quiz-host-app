@@ -1,18 +1,11 @@
 public with sharing class QuizController {
     private static QuizSessionService quizSessionService = new QuizSessionService();
     private static PlayerService playerService = new PlayerService();
+    private static QuizSettingsService settingsService = new QuizSettingsService();
 
     @AuraEnabled(cacheable=true)
-    public static String getMobileAppUrl() {
-        Quiz_Settings__mdt quizMetadata = [
-            SELECT Mobile_App_Url__c
-            FROM Quiz_Settings__mdt
-        ];
-        if (quizMetadata == null) {
-            throw new AuraHandledException('Missing mobile app url.');
-        }
-
-        return quizMetadata.Mobile_App_Url__c;
+    public static Quiz_Settings__mdt getQuizSettings() {
+        return settingsService.get();
     }
 
     @AuraEnabled(cacheable=true)

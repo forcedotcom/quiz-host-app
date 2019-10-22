@@ -1,6 +1,7 @@
 import { LightningElement, track, wire } from 'lwc';
 import getQuestionList from '@salesforce/apex/QuizController.getQuestionList';
 import getQuizSession from '@salesforce/apex/QuizController.getQuizSession';
+import getQuizSettings from '@salesforce/apex/QuizController.getQuizSettings';
 import { updateRecord } from 'lightning/uiRecordApi';
 
 import { reduceErrors } from 'c/errorUtils';
@@ -16,10 +17,22 @@ export default class GameApp extends LightningElement {
     @track isNextButtonDisabled = false;
     @track questions;
     @track quizSessionId;
+    @track quizSettings;
 
     questionIndex = 0;
     questionPhases = ['PreQuestion', 'Question', 'QuestionResults'];
     phases = ['Registration', ...this.questionPhases, 'GameResults'];
+
+    @wire(getQuizSettings)
+    wiredQuizSettings({ error, data }) {
+        if (data) {
+            this.quizSettings = data;
+            this.error = undefined;
+        } else if (error) {
+            this.error = reduceErrors(error);
+            this.quizSettings = undefined;
+        }
+    }
 
     @wire(getQuestionList, { sessionId: '$quizSessionId' })
     wiredQuestions({ error, data }) {

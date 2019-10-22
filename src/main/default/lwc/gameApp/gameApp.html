@@ -13,7 +13,21 @@
                 ></lightning-button>
             </div>
             <template if:true={isRegistration}>
-                <c-qr-code></c-qr-code>
+                <template if:true={quizSettings}>
+                    <p>
+                        Mobile app URL is
+                        <a href={quizSettings.Player_App_URL_Minified__c}
+                            >{quizSettings.Player_App_URL_Minified__c}</a
+                        >.
+                    </p>
+                    <p>
+                        Alternatively please scan the QR code.
+                    </p>
+                    <c-qr-code
+                        size="200"
+                        url={quizSettings.Player_App_URL__c}
+                    ></c-qr-code>
+                </template>
             </template>
             <template if:true={isPreQuestion}>
                 Get Ready

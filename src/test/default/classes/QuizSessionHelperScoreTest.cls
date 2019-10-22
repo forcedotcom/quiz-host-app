@@ -1,5 +1,5 @@
-@isTest
-public with sharing class QuizSessionHelperScoreTest {
+@isTest(isParallel=true)
+public class QuizSessionHelperScoreTest {
     @isTest
     static void noDecimalPlaces() {
         QuizSessionHelper quizSessionHelper = new QuizSessionHelper();

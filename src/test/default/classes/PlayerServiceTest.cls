@@ -1,5 +1,5 @@
-@isTest
-public with sharing class PlayerServiceTest {
+@isTest(isParallel=true)
+public class PlayerServiceTest {
     @isTest
     static void onlyPlayerRanksOne() {
         QuizSessionTestFactory.createQuizPlayers(1);

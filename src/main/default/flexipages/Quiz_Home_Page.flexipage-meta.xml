@@ -19,7 +19,7 @@
         <name>right</name>
         <type>Region</type>
     </flexiPageRegions>
-    <masterLabel>Home Page Default</masterLabel>
+    <masterLabel>Quiz Home Page</masterLabel>
     <template>
         <name>home:desktopTemplateHeaderThreeColumns</name>
     </template>

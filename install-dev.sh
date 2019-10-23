@@ -40,7 +40,7 @@ echo ""
 if [ "$EXIT_CODE" -eq 0 ]; then
   echo "Installation completed."
   echo ""
-  sfdx force:org:open
+  sfdx force:org:open -p /lightning/setup/FlexiPageList/home
 else
     echo "Installation failed."
 fi

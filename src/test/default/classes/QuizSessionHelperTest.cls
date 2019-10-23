@@ -1,39 +1,17 @@
-@isTest
-public with sharing class QuizSessionHelperTest {
+@isTest(isParallel=true)
+public class QuizSessionHelperTest {
     private static Integer NUM_PLAYERS = 150;
 
-    private static String PHASE_REGISTRATION = QuizSessionService.Phase.Registration.name();
-    private static String PHASE_QUESTION = QuizSessionService.Phase.Question.name();
-    private static String PHASE_QUESTION_RESULTS = QuizSessionService.Phase.QuestionResults.name();
-
-    @isTest
-    static void duplicateAnswerNotCreated() {
-        Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
-        Quiz_Question__c question = quizSession.Current_Question__r;
-        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(1)[0];
-        try {
-            Quiz_Answer__c quizAnswer1 = QuizSessionTestFactory.createQuizAnswer(
-                player.Id,
-                question.Id,
-                question.Correct_Answer__c
-            );
-            Quiz_Answer__c quizAnswer2 = QuizSessionTestFactory.createQuizAnswer(
-                player.Id,
-                question.Id,
-                question.Correct_Answer__c
-            );
-            // expect to fail
-            System.assert(false);
-        } catch (DmlException e) {
-            System.assert(e.getMessage().contains('Duplicate answer'));
-            Integer answerCount = [SELECT COUNT() FROM Quiz_Answer__c];
-            System.assertEquals(1, answerCount);
-        }
-    }
+    private static String PHASE_REGISTRATION = QuizSessionService.Phase.Registration.name(),
+        PHASE_QUESTION = QuizSessionService.Phase.Question.name(),
+        PHASE_QUESTION_RESULTS = QuizSessionService.Phase.QuestionResults.name();
 
     @isTest
     static void playerAccumulatesScore() {
-        Test.setMock(HttpCalloutMock.class, new MockSuccessHttpResponse());
+        Test.setMock(
+            HttpCalloutMock.class,
+            new TestUtils.MockSuccessHttpResponse()
+        );
 
         Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
         Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(1)[0];
@@ -73,36 +51,11 @@ public with sharing class QuizSessionHelperTest {
     }
 
     @isTest
-    static void changePhaseToRegistrationRemovesPlayersAndAnswers() {
-        Test.setMock(HttpCalloutMock.class, new MockSuccessHttpResponse());
-
-        Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
-        Quiz_Question__c question = quizSession.Current_Question__r;
-        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(1)[0];
-        Quiz_Answer__c quizAnswer = QuizSessionTestFactory.createQuizAnswer(
-            player.Id,
-            question.Id,
-            question.Correct_Answer__c
-        );
-
-        // change to Registration from non-Registration phase
-        quizSession.Phase__c = PHASE_QUESTION;
-        update quizSession;
-
-        Test.startTest();
-        quizSession.Phase__c = PHASE_REGISTRATION;
-        update quizSession;
-        Test.stopTest();
-
-        Integer playerCount = [SELECT COUNT() FROM Quiz_Player__c];
-        Integer answerCount = [SELECT COUNT() FROM Quiz_Answer__c];
-        System.assertEquals(0, playerCount);
-        System.assertEquals(0, answerCount);
-    }
-
-    @isTest
     static void stressTestCorrectAnswerIncrementScorePlayer() {
-        Test.setMock(HttpCalloutMock.class, new MockSuccessHttpResponse());
+        Test.setMock(
+            HttpCalloutMock.class,
+            new TestUtils.MockSuccessHttpResponse()
+        );
 
         Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
         Quiz_Question__c question = quizSession.Current_Question__r;
@@ -148,7 +101,10 @@ public with sharing class QuizSessionHelperTest {
 
     @isTest
     static void stressTestCorrectAnswerIncrementScoreAnswer() {
-        Test.setMock(HttpCalloutMock.class, new MockSuccessHttpResponse());
+        Test.setMock(
+            HttpCalloutMock.class,
+            new TestUtils.MockSuccessHttpResponse()
+        );
 
         Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
         Quiz_Question__c question = quizSession.Current_Question__r;
@@ -183,29 +139,11 @@ public with sharing class QuizSessionHelperTest {
     }
 
     @isTest
-    static void millisecondFieldExistsOnAnswer() {
-        Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
-        Quiz_Question__c question = quizSession.Current_Question__r;
-        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(1)[0];
-        Quiz_Answer__c quizAnswer = QuizSessionTestFactory.createQuizAnswer(
-            player.Id,
-            question.Id,
-            question.Correct_Answer__c
-        );
-
-        Decimal numberOfMilliseconds = [
-            SELECT Id, Score__c, Timestamp__c
-            FROM Quiz_Answer__c
-            WHERE Id = :quizAnswer.Id
-        ]
-        .Timestamp__c;
-        Long baseline = Long.valueOf('1569261277045');
-        System.assert(numberOfMilliseconds > baseline);
-    }
-
-    @isTest
     static void updateScoreOnAnswerWithFullMarks() {
-        Test.setMock(HttpCalloutMock.class, new MockSuccessHttpResponse());
+        Test.setMock(
+            HttpCalloutMock.class,
+            new TestUtils.MockSuccessHttpResponse()
+        );
 
         Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
         Quiz_Question__c question = quizSession.Current_Question__r;
@@ -232,7 +170,10 @@ public with sharing class QuizSessionHelperTest {
 
     @isTest
     static void lastCorrectAnswerGets500Points() {
-        Test.setMock(HttpCalloutMock.class, new MockSuccessHttpResponse());
+        Test.setMock(
+            HttpCalloutMock.class,
+            new TestUtils.MockSuccessHttpResponse()
+        );
 
         Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
         Quiz_Question__c question = quizSession.Current_Question__r;
@@ -268,7 +209,10 @@ public with sharing class QuizSessionHelperTest {
 
     @isTest
     static void doNotUpdatePlayerScoreIfAnswerWrong() {
-        Test.setMock(HttpCalloutMock.class, new MockSuccessHttpResponse());
+        Test.setMock(
+            HttpCalloutMock.class,
+            new TestUtils.MockSuccessHttpResponse()
+        );
 
         Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
         Quiz_Question__c question = quizSession.Current_Question__r;
@@ -295,7 +239,10 @@ public with sharing class QuizSessionHelperTest {
 
     @isTest
     static void doNotUpdateAnswerScoreIfAnswerWrong() {
-        Test.setMock(HttpCalloutMock.class, new MockSuccessHttpResponse());
+        Test.setMock(
+            HttpCalloutMock.class,
+            new TestUtils.MockSuccessHttpResponse()
+        );
 
         Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
         Quiz_Question__c question = quizSession.Current_Question__r;
@@ -318,13 +265,5 @@ public with sharing class QuizSessionHelperTest {
             ]
             .Score__c.intValue();
         System.assertEquals(0, score);
-    }
-
-    public class MockSuccessHttpResponse implements HttpCalloutMock {
-        public HTTPResponse respond(HTTPRequest req) {
-            HttpResponse res = new HttpResponse();
-            res.setStatusCode(200);
-            return res;
-        }
     }
 }

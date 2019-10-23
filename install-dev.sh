@@ -27,6 +27,10 @@ echo "" && \
 
 echo "Importing data..." && \
 sfdx force:data:tree:import -p data/plan.json -u $ORG_ALIAS && \
+echo "" && \
+
+echo "Generating user password..." && \
+sfdx force:user:password:generate -u $ORG_ALIAS && \
 echo ""
 
 EXIT_CODE="$?"
@@ -36,7 +40,7 @@ echo ""
 if [ "$EXIT_CODE" -eq 0 ]; then
   echo "Installation completed."
   echo ""
-  sfdx force:org:open
+  sfdx force:org:open -p /lightning/setup/FlexiPageList/home
 else
     echo "Installation failed."
 fi

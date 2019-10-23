@@ -1,4 +1,10 @@
 public with sharing class QuizSessionHelper {
+    private static final String PHASE_REGISTRATION = QuizSessionService.Phase.Registration.name(),
+        PHASE_PRE_QUESTION = QuizSessionService.Phase.PreQuestion.name(),
+        PHASE_QUESTION = QuizSessionService.Phase.Question.name(),
+        PHASE_QUESTION_RESULTS = QuizSessionService.Phase.QuestionResults.name(),
+        PHASE_GAME_RESULTS = QuizSessionService.Phase.GameResults.name();
+
     // When totalMilliseconds == smallestMilliseconds, score = 1000. With maximum totalMilliseconds, score = 500
     @TestVisible
     private Long computeScore(
@@ -68,5 +74,65 @@ public with sharing class QuizSessionHelper {
         update answers;
         update players.values();
         playerService.assignRanking();
+    }
+
+    public Quiz_Session__c triggerNextPhase(Id sessionId) {
+        QuizSessionService quizSessionService = new QuizSessionService();
+        Quiz_Session__c quizSession = quizSessionService.getQuizSession();
+
+        if (quizSession.Phase__c == PHASE_REGISTRATION) {
+            quizSession.Phase__c = PHASE_PRE_QUESTION;
+        } else if (quizSession.Phase__c == PHASE_PRE_QUESTION) {
+            quizSession.Phase__c = PHASE_QUESTION;
+        } else if (quizSession.Phase__c == PHASE_QUESTION) {
+            quizSession.Phase__c = PHASE_QUESTION_RESULTS;
+        } else if (quizSession.Phase__c == PHASE_QUESTION_RESULTS) {
+            List<Quiz_Question__c> questions = quizSessionService.getSessionQuestions(
+                sessionId
+            );
+            Integer currentQuestionIndex = this.getCurrentQuestionIndex(
+                quizSession,
+                questions
+            );
+            if (currentQuestionIndex == questions.size() - 1) {
+                quizSession.Phase__c = PHASE_GAME_RESULTS;
+            } else {
+                quizSession.Phase__c = PHASE_PRE_QUESTION;
+                Quiz_Question__c nextQuestion = questions[
+                    currentQuestionIndex + 1
+                ];
+                quizSession.Current_Question__c = nextQuestion.Id;
+            }
+        } else if (quizSession.Phase__c == PHASE_GAME_RESULTS) {
+            quizSession.Phase__c = PHASE_REGISTRATION;
+        } else {
+            throw new InvalidPhaseException(
+                'Unsupported quiz phase: ' + quizSession.Phase__c
+            );
+        }
+
+        update quizSession;
+        return quizSession;
+    }
+
+    private Integer getCurrentQuestionIndex(
+        Quiz_Session__c quizSession,
+        List<Quiz_Question__c> questions
+    ) {
+        Integer currentQuestionIndex = -1;
+        for (
+            Integer i = 0;
+            currentQuestionIndex == -1 &&
+            i < questions.size();
+            i++
+        ) {
+            if (quizSession.Current_Question__c == questions[i].Id) {
+                currentQuestionIndex = i;
+            }
+        }
+        return currentQuestionIndex;
+    }
+
+    public class InvalidPhaseException extends Exception {
     }
 }

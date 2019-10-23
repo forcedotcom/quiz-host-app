@@ -1,59 +1,69 @@
 <template>
-    <lightning-card title={gameSessionPhase}>
-        <template if:true={error}>
-            {error}
-        </template>
+    <lightning-card title={quizPhaseLabel}>
         <template if:false={error}>
-            <div slot="actions">
-                <lightning-button
-                    disabled={isNextButtonDisabled}
-                    label={nextButtonText}
+            <!-- Session and questions are loading -->
+            <template if:false={currentQuestion}>
+                <lightning-spinner
+                    alternative-text="Loading session data"
                     variant="brand"
-                    onclick={handleNextPhaseClick}
-                ></lightning-button>
-            </div>
-            <template if:true={isRegistration}>
-                <template if:true={quizSettings}>
-                    <p>
-                        Mobile app URL is
-                        <a href={quizSettings.Player_App_URL_Minified__c}
-                            >{quizSettings.Player_App_URL_Minified__c}</a
-                        >.
-                    </p>
-                    <p>
-                        Alternatively please scan the QR code.
-                    </p>
+                ></lightning-spinner>
+            </template>
+
+            <!-- Session and questions are loaded -->
+            <template if:true={currentQuestion}>
+                <!-- Next phase button -->
+                <div slot="actions">
+                    <lightning-button
+                        disabled={isNextButtonDisabled}
+                        label={nextButtonText}
+                        variant="brand"
+                        onclick={handleNextPhaseClick}
+                    ></lightning-button>
+                </div>
+
+                <!-- Registration -->
+                <template if:true={isRegistrationPhase}>
+                    <p>Register now!</p>
+                    <p>{quizSettings.Player_App_URL_Minified__c}</p>
                     <c-qr-code
-                        size="200"
+                        size="400"
                         url={quizSettings.Player_App_URL__c}
                     ></c-qr-code>
                 </template>
-            </template>
-            <template if:true={isPreQuestion}>
-                Get Ready
-                <c-count-down-timer
-                    ontimeout={handleNextPhaseClick}
-                ></c-count-down-timer>
-            </template>
-            <template if:true={isQuestionResults}>
-                <p>
-                    Correct answer is: {currentQuestion.Correct_Answer__c}
-                </p>
-                <c-leader-board show-leaderboard></c-leader-board>
-            </template>
-            <template if:true={isGameResults}>
-                <c-leader-board show-winner></c-leader-board>
-            </template>
-            <template if:true={showQuestion}>
-                <template if:true={currentQuestion}>
-                    <c-question question-object={currentQuestion}></c-question>
-                </template>
-                <template if:true={isQuestion}>
+
+                <!-- Pre-question -->
+                <template if:true={isPreQuestionPhase}>
+                    Get Ready
                     <c-count-down-timer
                         ontimeout={handleNextPhaseClick}
                     ></c-count-down-timer>
                 </template>
+
+                <!-- Question -->
+                <template if:true={isQuestionPhase}>
+                    <c-question question-object={currentQuestion}></c-question>
+                    <c-count-down-timer
+                        ontimeout={handleNextPhaseClick}
+                    ></c-count-down-timer>
+                </template>
+
+                <!-- Question results -->
+                <template if:true={isQuestionResultsPhase}>
+                    <p>
+                        Correct answer is: {currentQuestion.Correct_Answer__c}
+                    </p>
+                    <c-leader-board show-leaderboard></c-leader-board>
+                </template>
+
+                <!-- Game results -->
+                <template if:true={isGameResultsPhase}>
+                    <c-leader-board show-winner></c-leader-board>
+                </template>
             </template>
+        </template>
+
+        <template if:true={error}>
+            {error}
         </template>
     </lightning-card>
 </template>

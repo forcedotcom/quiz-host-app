@@ -1,5 +1,5 @@
 @isTest
-public with sharing class QuizSessionTestFactory {
+public class QuizSessionTestFactory {
     public static Quiz_Session__c createQuizSession() {
         // create one quiz session with all the relevant records
         Quiz_Question__c question = createQuizQuestion();
@@ -11,7 +11,8 @@ public with sharing class QuizSessionTestFactory {
         insert quizSession;
         Quiz_Session_Question__c quizSessionQuestion = createQuizSessionQuestion(
             quizSession,
-            question
+            question,
+            0
         );
         return quizSession;
     }
@@ -64,14 +65,15 @@ public with sharing class QuizSessionTestFactory {
         return answerRecord;
     }
 
-    private static Quiz_Session_Question__c createQuizSessionQuestion(
+    public static Quiz_Session_Question__c createQuizSessionQuestion(
         Quiz_Session__c session,
-        Quiz_Question__c question
+        Quiz_Question__c question,
+        Integer index
     ) {
         Quiz_Session_Question__c quizSessionQuestion = new Quiz_Session_Question__c(
             Session__r = session,
             Session__c = session.Id,
-            Question_Index__c = 0,
+            Question_Index__c = index,
             Question__r = question,
             Question__c = question.Id
         );

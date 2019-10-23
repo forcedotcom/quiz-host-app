@@ -11,7 +11,7 @@ global abstract class AnswerRestResource {
             statusCode = 200;
         } catch (AnswerService.InvalidPhaseException e) {
             responseData = new ErrorMessage(
-                'Answer not saved: invalid quiz phase'
+                'Answer not saved: you answered too late!'
             );
             statusCode = 400;
         } catch (AnswerService.DuplicateAnswerException e) {

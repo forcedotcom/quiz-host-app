@@ -8,3 +8,4 @@ node_modules
 
 # Hide config including API key
 src/main/default/customMetadata/*
+src/main/default/remoteSiteSettings/*

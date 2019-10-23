@@ -1,5 +1,6 @@
 public with sharing class QuizController {
     private static QuizSessionService quizSessionService = new QuizSessionService();
+    private static QuizSessionHelper quizSessionHelper = new QuizSessionHelper();
     private static PlayerService playerService = new PlayerService();
     private static QuizSettingsService settingsService = new QuizSettingsService();
 
@@ -8,22 +9,31 @@ public with sharing class QuizController {
         return settingsService.get();
     }
 
-    @AuraEnabled(cacheable=true)
-    public static List<Quiz_Question__c> getQuestionList(String sessionId) {
+    @AuraEnabled
+    public static Quiz_Question__c getCurrentQuestion(Id sessionId) {
         if (sessionId == null) {
             throw new AuraHandledException('Missing session Id.');
         }
-        return quizSessionService.getSessionQuestions(sessionId);
+        return quizSessionService.getCurrentQuestion(sessionId);
     }
 
-    @AuraEnabled(cacheable=true)
-    public static List<Quiz_Player__c> getPlayerList(Integer maxFetchCount) {
+    @AuraEnabled
+    public static List<Quiz_Player__c> getPlayersSortedByScore(
+        Integer maxFetchCount
+    ) {
         return playerService.getPlayersSortedByScore(maxFetchCount);
     }
 
-    // Using timestamp parameter as a cache buster
     @AuraEnabled
-    public static Quiz_Session__c getQuizSession(Long timestamp) {
+    public static Quiz_Session__c getQuizSession() {
         return quizSessionService.getQuizSession();
+    }
+
+    @AuraEnabled
+    public static Quiz_Session__c triggerNextPhase(Id sessionId) {
+        if (sessionId == null) {
+            throw new AuraHandledException('Missing session Id.');
+        }
+        return quizSessionHelper.triggerNextPhase(sessionId);
     }
 }

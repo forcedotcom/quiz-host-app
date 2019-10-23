@@ -1,6 +1,5 @@
-import { LightningElement, api, track, wire } from 'lwc';
-import getPlayerList from '@salesforce/apex/QuizController.getPlayerList';
-import { refreshApex } from '@salesforce/apex';
+import { LightningElement, api, track } from 'lwc';
+import getPlayersSortedByScore from '@salesforce/apex/QuizController.getPlayersSortedByScore';
 import { reduceErrors } from 'c/errorUtils';
 
 export default class LeaderBoard extends LightningElement {
@@ -8,26 +7,22 @@ export default class LeaderBoard extends LightningElement {
     @api showLeaderboard;
     @track error;
     @track players;
-    wiredResult;
-
-    @wire(getPlayerList, { maxFetchCount: 10 })
-    wiredPlayers(result) {
-        this.wiredResult = result;
-        const { error, data } = result;
-        if (data) {
-            this.players = data;
-            this.error = undefined;
-        } else if (error) {
-            this.error = reduceErrors(error);
-            this.players = undefined;
-        }
-    }
 
     connectedCallback() {
-        if (this.wiredResult) refreshApex(this.wiredResult);
+        getPlayersSortedByScore({ maxFetchCount: 10 })
+            .then(players => {
+                this.players = players;
+                this.error = undefined;
+            })
+            .catch(error => {
+                this.error = reduceErrors(error);
+                this.players = undefined;
+            });
     }
 
     get winner() {
-        return this.players ? this.players[0] : undefined;
+        return (this.players && this.players.length) > 0
+            ? this.players[0]
+            : undefined;
     }
 }

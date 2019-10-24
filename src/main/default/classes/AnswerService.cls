@@ -1,5 +1,5 @@
 public class AnswerService extends AbstractDataService {
-    private static QuizSessionService sessionService = new QuizSessionService();
+    private static final QuizSessionService sessionService = new QuizSessionService();
 
     public Quiz_Answer__c create(Id playerId, String answer) {
         // Check game phase and question

@@ -21,44 +21,49 @@
                     ></lightning-button>
                 </div>
 
-                <!-- Registration -->
-                <template if:true={isRegistrationPhase}>
-                    <p>Register now!</p>
-                    <p>{quizSettings.Player_App_URL_Minified__c}</p>
-                    <c-qr-code
-                        size="400"
-                        url={quizSettings.Player_App_URL__c}
-                    ></c-qr-code>
-                </template>
+                <div class="slds-card__body slds-card__body_inner">
+                    <!-- Registration -->
+                    <template if:true={isRegistrationPhase}>
+                        <p>Register now!</p>
+                        <p>{quizSettings.Player_App_URL_Minified__c}</p>
+                        <c-qr-code
+                            size="400"
+                            url={quizSettings.Player_App_URL__c}
+                        ></c-qr-code>
+                    </template>
 
-                <!-- Pre-question -->
-                <template if:true={isPreQuestionPhase}>
-                    Get Ready
-                    <c-count-down-timer
+                    <!-- Pre-question -->
+                    <template if:true={isPreQuestionPhase}>
+                        Get Ready
+                        <!-- <c-count-down-timer
                         ontimeout={handleNextPhaseClick}
-                    ></c-count-down-timer>
-                </template>
+                    ></c-count-down-timer> -->
+                    </template>
 
-                <!-- Question -->
-                <template if:true={isQuestionPhase}>
-                    <c-question question-object={currentQuestion}></c-question>
-                    <c-count-down-timer
+                    <!-- Question -->
+                    <template if:true={isQuestionPhase}>
+                        <c-question
+                            question-object={currentQuestion}
+                        ></c-question>
+                        <!-- <c-count-down-timer
                         ontimeout={handleNextPhaseClick}
-                    ></c-count-down-timer>
-                </template>
+                    ></c-count-down-timer> -->
+                    </template>
 
-                <!-- Question results -->
-                <template if:true={isQuestionResultsPhase}>
-                    <p>
-                        Correct answer is: {currentQuestion.Correct_Answer__c}
-                    </p>
-                    <c-leader-board show-leaderboard></c-leader-board>
-                </template>
+                    <!-- Question results -->
+                    <template if:true={isQuestionResultsPhase}>
+                        <p>
+                            Correct answer is:
+                            {currentQuestion.Correct_Answer__c}
+                        </p>
+                        <c-leader-board show-leaderboard></c-leader-board>
+                    </template>
 
-                <!-- Game results -->
-                <template if:true={isGameResultsPhase}>
-                    <c-leader-board show-winner></c-leader-board>
-                </template>
+                    <!-- Game results -->
+                    <template if:true={isGameResultsPhase}>
+                        <c-leader-board show-winner></c-leader-board>
+                    </template>
+                </div>
             </template>
         </template>
 

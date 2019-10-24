@@ -1,0 +1,41 @@
+.question {
+    text-align: center;
+    font-size: xx-large;
+}
+.answerContainer {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+}
+
+.answer {
+    width: 50%;
+    display: flex;
+}
+
+.answer button {
+    width: 100%;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    border-width: 0;
+    font-size: x-large;
+    color: #ffffff;
+    margin: 0.5rem;
+}
+
+.answer button[data-answer='A'] {
+    background-color: #1589ee;
+}
+
+.answer button[data-answer='B'] {
+    background-color: #ff9e2c;
+}
+
+.answer button[data-answer='C'] {
+    background-color: #d4504c;
+}
+
+.answer button[data-answer='D'] {
+    background-color: #04844b;
+}

@@ -31,23 +31,23 @@
 
                     <!-- Pre-question -->
                     <template if:true={isPreQuestionPhase}>
+                        <c-count-down-timer
+                            ontimeout={handleNextPhaseClick}
+                        ></c-count-down-timer>
                         <div class="largeText">
                             <p>Get Ready!</p>
                             <p>Up to 1000 points</p>
                         </div>
-                        <!-- <c-count-down-timer
-                        ontimeout={handleNextPhaseClick}
-                    ></c-count-down-timer> -->
                     </template>
 
                     <!-- Question -->
                     <template if:true={isQuestionPhase}>
+                        <c-count-down-timer
+                            ontimeout={handleNextPhaseClick}
+                        ></c-count-down-timer>
                         <c-question
                             question-object={currentQuestion}
                         ></c-question>
-                        <!-- <c-count-down-timer
-                        ontimeout={handleNextPhaseClick}
-                    ></c-count-down-timer> -->
                     </template>
 
                     <!-- Question results -->

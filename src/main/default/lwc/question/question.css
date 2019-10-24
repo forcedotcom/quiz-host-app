@@ -1,7 +1,8 @@
 .question {
     text-align: center;
     font-size: xx-large;
-}
+} 
+
 .answerContainer {
     width: 100%;
     display: flex;

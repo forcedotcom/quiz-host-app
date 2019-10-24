@@ -2,24 +2,24 @@
     <p class="question">{questionObject.Label__c}</p>
     <div class="answerContainer">
         <div class="answer">
-            <button onclick={handleAnswerClick} data-answer="A">
+            <div onclick={handleAnswerClick} data-answer="A">
                 {questionObject.Answer_A__c}
-            </button>
+            </div>
         </div>
         <div class="answer">
-            <button onclick={handleAnswerClick} data-answer="B">
+            <div onclick={handleAnswerClick} data-answer="B">
                 {questionObject.Answer_B__c}
-            </button>
+            </div>
         </div>
         <div class="answer">
-            <button onclick={handleAnswerClick} data-answer="C">
+            <div onclick={handleAnswerClick} data-answer="C">
                 {questionObject.Answer_C__c}
-            </button>
+            </div>
         </div>
         <div class="answer">
-            <button onclick={handleAnswerClick} data-answer="D">
+            <div onclick={handleAnswerClick} data-answer="D">
                 {questionObject.Answer_D__c}
-            </button>
+            </div>
         </div>
     </div>
 </template>

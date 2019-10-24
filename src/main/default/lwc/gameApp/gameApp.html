@@ -1,27 +1,27 @@
 <template>
-    <lightning-card>
-        <template if:false={error}>
-            <!-- Session and questions are loading -->
-            <template if:false={currentQuestion}>
-                <lightning-spinner
-                    alternative-text="Loading session data"
-                    variant="brand"
-                ></lightning-spinner>
-            </template>
-
-            <!-- Session and questions are loaded -->
-            <template if:true={currentQuestion}>
-                <!-- Next phase button -->
-                <div slot="actions">
-                    <lightning-button
-                        disabled={isNextButtonDisabled}
-                        label={nextButtonText}
+    <div class="slds-card">
+        <h1>{quizPhaseLabel}</h1>
+        <div class="slds-card__body slds-card__body_inner">
+            <template if:false={error}>
+                <!-- Session and questions are loading -->
+                <template if:false={currentQuestion}>
+                    <lightning-spinner
+                        alternative-text="Loading session data"
                         variant="brand"
-                        onclick={handleNextPhaseClick}
-                    ></lightning-button>
-                </div>
+                    ></lightning-spinner>
+                </template>
 
-                <div class="slds-card__body slds-card__body_inner">
+                <!-- Session and questions are loaded -->
+                <template if:true={currentQuestion}>
+                    <!-- Next phase button -->
+                    <div class="slds-float_right">
+                        <lightning-button
+                            disabled={isNextButtonDisabled}
+                            label={nextButtonText}
+                            variant="brand"
+                            onclick={handleNextPhaseClick}
+                        ></lightning-button>
+                    </div>
                     <!-- Registration -->
                     <template if:true={isRegistrationPhase}>
                         <c-registration
@@ -31,8 +31,10 @@
 
                     <!-- Pre-question -->
                     <template if:true={isPreQuestionPhase}>
-                        <p>Get Ready!</p>
-                        <p>Up to 1000 points</p>
+                        <div class="largeText">
+                            <p>Get Ready!</p>
+                            <p>Up to 1000 points</p>
+                        </div>
                         <!-- <c-count-down-timer
                         ontimeout={handleNextPhaseClick}
                     ></c-count-down-timer> -->
@@ -50,23 +52,23 @@
 
                     <!-- Question results -->
                     <template if:true={isQuestionResultsPhase}>
+                        <c-leader-board show-leaderboard></c-leader-board>
                         <p>
                             Correct answer is:
                             {currentQuestion.Correct_Answer__c}
                         </p>
-                        <c-leader-board show-leaderboard></c-leader-board>
                     </template>
 
                     <!-- Game results -->
                     <template if:true={isGameResultsPhase}>
                         <c-leader-board show-winner></c-leader-board>
                     </template>
-                </div>
+                </template>
             </template>
-        </template>
 
-        <template if:true={error}>
-            {error}
-        </template>
-    </lightning-card>
+            <template if:true={error}>
+                {error}
+            </template>
+        </div>
+    </div>
 </template>

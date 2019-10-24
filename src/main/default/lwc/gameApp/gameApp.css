@@ -1,8 +1,21 @@
 .slds-card {
-    background: #f59f71;
+    border: 0;
+}
+
+.slds-card__body_inner {
+    background: orange;
     color: white;
     font-weight: bold;
     text-align: center;
     border: 0;
-    padding-bottom: 1rem;
+    padding: 1rem;
+    margin: 0;
+    height: 80vh;
+}
+
+h1,
+.largeText {
+    text-align: center;
+    font-size: xx-large;
+    font-weight: 900;
 }

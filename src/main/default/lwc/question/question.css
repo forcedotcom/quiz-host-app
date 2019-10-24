@@ -15,7 +15,7 @@
     display: flex;
 }
 
-.answer button {
+.answer div {
     width: 100%;
     font-weight: bold;
     border-radius: 0.5rem;
@@ -25,18 +25,18 @@
     margin: 0.5rem;
 }
 
-.answer button[data-answer='A'] {
+.answer div[data-answer='A'] {
     background-color: #1589ee;
 }
 
-.answer button[data-answer='B'] {
+.answer div[data-answer='B'] {
     background-color: #ff9e2c;
 }
 
-.answer button[data-answer='C'] {
+.answer div[data-answer='C'] {
     background-color: #d4504c;
 }
 
-.answer button[data-answer='D'] {
+.answer div[data-answer='D'] {
     background-color: #04844b;
 }

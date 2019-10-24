@@ -5,7 +5,18 @@ import getQuizSettings from '@salesforce/apex/QuizController.getQuizSettings';
 import triggerNextPhase from '@salesforce/apex/QuizController.triggerNextPhase';
 
 import { reduceErrors } from 'c/errorUtils';
-
+const arrColors = [
+    'mediumpurple',
+    'lightcoral',
+    'lightsalmon',
+    'mediumaquamarine',
+    'mediumseagreen',
+    'mediumturquoise',
+    'darkgoldenrod'
+];
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
 export default class GameApp extends LightningElement {
     @track error;
     @track quizSession;
@@ -57,6 +68,12 @@ export default class GameApp extends LightningElement {
                 this.quizSession = updatedSession;
                 this.error = undefined;
                 this.refreshCurrentQuestion();
+                // change background color
+                const element = this.template.querySelector('.slds-card__body');
+                const newColor = this.isRegistrationPhase
+                    ? 'orange'
+                    : arrColors[getRandomInt(arrColors.length)];
+                element.style.setProperty('background', newColor);
             })
             .catch(error => {
                 this.error = reduceErrors(error);
@@ -68,8 +85,8 @@ export default class GameApp extends LightningElement {
         if (this.quizSession) {
             if (this.isRegistrationPhase) return 'Registration';
             if (this.isPreQuestionPhase || this.isQuestionPhase)
-                return 'Question';
-            if (this.isQuestionResultsPhase) return 'Current Leaderboard';
+                return this.currentQuestion.Label__c;
+            if (this.isQuestionResultsPhase) return 'Scoreboard';
             if (this.isGameResultsPhase) return 'Game Over';
         }
         return 'Loading...';

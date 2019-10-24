@@ -17,9 +17,6 @@
         <!-- show leaderboard -->
         <template if:true={showLeaderboard}>
             <div class="leaderboard">
-                <h1>
-                    Scoreboard
-                </h1>
                 <ol>
                     <template for:each={players} for:item="player">
                         <li key={player.Id}>

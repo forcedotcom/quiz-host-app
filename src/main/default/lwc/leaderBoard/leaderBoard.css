@@ -5,24 +5,25 @@
     box-sizing: border-box;
 }
 .leaderboard {
+    background: orange;
+    color: white;
+    font-weight: 900;
+    font-size: xx-large;
     padding: 5%;
     width: 90%;
     margin: 0 auto;
 }
-h1 {
-    font-weight: bold;
-    text-align: center;
-    font-size: 3rem;
-}
 ol {
-    list-style-type: decimal;
+    list-style-type: none;
 }
 /* highlight first row */
 li:first-child {
-    background: yellow;
+    background: white;
+    color: #333;
 }
 li {
-    border-bottom: 1px solid gray;
+    border: 0;
+    padding: 0 2rem;
 }
 /* move score to right */
 span {

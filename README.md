@@ -3,7 +3,6 @@
 ## Installation
 
 -   Run `install-dev.sh`
--   Go to **Setup &gt; Lightning App Builder**, edit and activate **Quiz Home Page** as the default org-wide home page.
 -   Go to **Setup &gt; Remote Site Settings** and add the Heroku site URL.
 -   Go to **Setup &gt; Custom Metadata Types** and add a **Quiz Settings** record.
 

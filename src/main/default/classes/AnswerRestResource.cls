@@ -1,6 +1,6 @@
 @RestResource(urlMapping='/quiz/answers')
 global abstract class AnswerRestResource {
-    private static AnswerService answerService = new AnswerService();
+    private static final AnswerService answerService = new AnswerService();
 
     @HttpPost
     global static void submitAnswer(Id playerId, String answer) {

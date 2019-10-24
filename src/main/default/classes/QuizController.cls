@@ -1,8 +1,8 @@
 public with sharing class QuizController {
-    private static QuizSessionService quizSessionService = new QuizSessionService();
-    private static QuizSessionHelper quizSessionHelper = new QuizSessionHelper();
-    private static PlayerService playerService = new PlayerService();
-    private static QuizSettingsService settingsService = new QuizSettingsService();
+    private static final QuizSessionService quizSessionService = new QuizSessionService();
+    private static final QuizSessionHelper quizSessionHelper = new QuizSessionHelper();
+    private static final PlayerService playerService = new PlayerService();
+    private static final QuizSettingsService settingsService = new QuizSettingsService();
 
     @AuraEnabled(cacheable=true)
     public static Quiz_Settings__mdt getQuizSettings() {

@@ -24,12 +24,9 @@
                 <div class="slds-card__body slds-card__body_inner">
                     <!-- Registration -->
                     <template if:true={isRegistrationPhase}>
-                        <p>Register now!</p>
-                        <p>{quizSettings.Player_App_URL_Minified__c}</p>
-                        <c-qr-code
-                            size="400"
-                            url={quizSettings.Player_App_URL__c}
-                        ></c-qr-code>
+                        <c-registration
+                            quiz-settings={quizSettings}
+                        ></c-registration>
                     </template>
 
                     <!-- Pre-question -->

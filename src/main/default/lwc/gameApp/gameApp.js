@@ -82,7 +82,7 @@ export default class GameApp extends LightningElement {
     }
 
     get quizPhaseLabel() {
-        if (this.quizSession) {
+        if (this.quizSession && this.currentQuestion) {
             if (this.isRegistrationPhase) return 'Registration';
             if (this.isPreQuestionPhase || this.isQuestionPhase)
                 return this.currentQuestion.Label__c;

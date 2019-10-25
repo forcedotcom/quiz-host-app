@@ -1,0 +1,38 @@
+.answerContainer {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+}
+
+.answer {
+    width: 50%;
+    display: flex;
+}
+
+.answer div {
+    width: 100%;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    border-width: 0;
+    font-size: xx-large;
+    color: #ffffff;
+    margin: 0.5rem;
+    padding: 2rem;
+}
+
+.answer div[data-answer='A'] {
+    background-color: #1589ee;
+}
+
+.answer div[data-answer='B'] {
+    background-color: #ff9e2c;
+}
+
+.answer div[data-answer='C'] {
+    background-color: #d4504c;
+}
+
+.answer div[data-answer='D'] {
+    background-color: #04844b;
+}

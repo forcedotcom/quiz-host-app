@@ -1,0 +1,42 @@
+.slds-card {
+    border: 0;
+}
+
+.slds-card__body_inner {
+    background: orange;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border: 0;
+    padding: 1rem;
+    margin: 0;
+    height: 80vh;
+}
+
+.slds-button_brand {
+    margin: 0.5rem;
+}
+
+.largeText {
+    text-align: center;
+    font-size: xx-large;
+    font-weight: 900;
+}
+
+/* center the first child elem, push second child elem to far right  */
+header ul {
+    display: grid;
+    grid-template-columns: 1fr repeat(1, auto) 1fr;
+    grid-column-gap: 5px;
+    justify-items: center;
+    padding: 1rem;
+    margin: 1rem;
+    list-style: none;
+}
+
+header li:nth-child(1) {
+    grid-column-start: 2;
+}
+header li:nth-child(2) {
+    margin-left: auto;
+}

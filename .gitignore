@@ -4,6 +4,7 @@
 **/jsconfig.json
 .sfdx
 .vscode
+.localdevserver
 node_modules
 
 # Hide config including API key

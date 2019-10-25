@@ -1,6 +1,21 @@
 <template>
     <div class="slds-card">
-        <h1>{quizPhaseLabel}</h1>
+        <template if:true={currentQuestion}>
+            <header>
+                <ul>
+                    <li class="largeText">{quizPhaseLabel}</li>
+                    <li>
+                        <!-- Next phase button -->
+                        <lightning-button
+                            disabled={isNextButtonDisabled}
+                            label={nextButtonText}
+                            variant="brand"
+                            onclick={handleNextPhaseClick}
+                        ></lightning-button>
+                    </li>
+                </ul>
+            </header>
+        </template>
         <div class="slds-card__body slds-card__body_inner">
             <template if:false={error}>
                 <!-- Session and questions are loading -->
@@ -13,15 +28,6 @@
 
                 <!-- Session and questions are loaded -->
                 <template if:true={currentQuestion}>
-                    <!-- Next phase button -->
-                    <div class="slds-float_right">
-                        <lightning-button
-                            disabled={isNextButtonDisabled}
-                            label={nextButtonText}
-                            variant="brand"
-                            onclick={handleNextPhaseClick}
-                        ></lightning-button>
-                    </div>
                     <!-- Registration -->
                     <template if:true={isRegistrationPhase}>
                         <c-registration
@@ -34,10 +40,6 @@
                         <c-count-down-timer
                             ontimeout={handleNextPhaseClick}
                         ></c-count-down-timer>
-                        <div class="largeText">
-                            <p>Get Ready!</p>
-                            <p>Up to 1000 points</p>
-                        </div>
                     </template>
 
                     <!-- Question -->
@@ -53,10 +55,6 @@
                     <!-- Question results -->
                     <template if:true={isQuestionResultsPhase}>
                         <c-leader-board show-leaderboard></c-leader-board>
-                        <p>
-                            Correct answer is:
-                            {currentQuestion.Correct_Answer__c}
-                        </p>
                     </template>
 
                     <!-- Game results -->

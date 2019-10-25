@@ -1,8 +1,3 @@
-.question {
-    text-align: center;
-    font-size: xx-large;
-}
-
 .answerContainer {
     width: 100%;
     display: flex;
@@ -20,9 +15,10 @@
     font-weight: bold;
     border-radius: 0.5rem;
     border-width: 0;
-    font-size: x-large;
+    font-size: xx-large;
     color: #ffffff;
     margin: 0.5rem;
+    padding: 2rem;
 }
 
 .answer div[data-answer='A'] {

@@ -8,8 +8,10 @@
         <template if:true={showWinner}>
             <template if:true={winner}>
                 <div class="leaderboard">
-                    <p>Winner is {winner.Name}</p>
-                    <p>With a score of {winner.Score__c}</p>
+                    <p>
+                        Winner is {winner.Name} with a score of
+                        {winner.Score__c}!
+                    </p>
                     <ol>
                         <template for:each={players} for:item="player">
                             <li key={player.Id}>

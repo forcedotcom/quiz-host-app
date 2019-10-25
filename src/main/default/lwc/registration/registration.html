@@ -1,10 +1,5 @@
 <template>
-    <p>Register now!</p>
-    <p class="slds-m-bottom_large">
-        <a href={quizSettings.Player_App_URL_Minified__c}
-            >{quizSettings.Player_App_URL_Minified__c}</a
-        >
-    </p>
+    <p class="slds-m-bottom_large">{quizSettings.Player_App_URL_Minified__c}</p>
     <p>
         <c-qr-code size="400" url={quizSettings.Player_App_URL__c}></c-qr-code>
     </p>

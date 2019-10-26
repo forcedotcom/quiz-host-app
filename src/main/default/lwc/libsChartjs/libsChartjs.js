@@ -1,10 +1,6 @@
 import { LightningElement, track } from 'lwc';
 import { loadScript } from 'lightning/platformResourceLoader';
-import chartjs from '@salesforce/resourceUrl/chart';
-
-const generateRandomNumber = () => {
-    return Math.round(Math.random() * 100);
-};
+import chartjs from '@salesforce/resourceUrl/chart'; 
 
 export default class LibsChartjs extends LightningElement {
     @track error;
@@ -12,38 +8,35 @@ export default class LibsChartjs extends LightningElement {
     chartjsInitialized = false;
 
     config = {
-        type: 'doughnut',
+        type: 'bar',
         data: {
-            datasets: [
-                {
-                    data: [
-                        generateRandomNumber(),
-                        generateRandomNumber(),
-                        generateRandomNumber(),
-                        generateRandomNumber(),
-                        generateRandomNumber()
-                    ],
-                    backgroundColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(255, 159, 64)',
-                        'rgb(255, 205, 86)',
-                        'rgb(75, 192, 192)',
-                        'rgb(54, 162, 235)'
-                    ],
-                    label: 'Dataset 1'
-                }
-            ],
-            labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue']
+          labels: ["A", "B", "C", "D"],
+          datasets: [{
+            label: '# of Answers per Type',
+            data: [12, 19, 3, 5],
+            backgroundColor: [
+              '#1589ee',
+              '#ff9e2c',
+              '#d4504c',
+              '#04844b'
+            ]
+          }]
         },
         options: {
-            responsive: true,
-            legend: {
-                position: 'right'
-            },
-            animation: {
-                animateScale: true,
-                animateRotate: true
-            }
+          responsive: true,
+          scales: {
+            xAxes: [{
+              ticks: {
+                maxRotation: 90,
+                minRotation: 80
+              }
+            }],
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
         }
     };
 

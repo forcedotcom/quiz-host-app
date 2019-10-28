@@ -1,15 +1,15 @@
 <template>
     <template if:true={showNoAnswerMessage}>
-        <h2>No answers found.</h2>
+        <div class="slds-text-heading_large">
+            No answers found.
+        </div>
     </template>
     <div class="slds-card">
-        <div class="slds-card__body slds-card__body_inner">
-            <template if:false={showNoAnswerMessage}>
-                <div class="chart slds-m-around_medium" lwc:dom="manual"></div>
-            </template>
-            <template if:true={error}>
-                <p>{error}</p>
-            </template>
-        </div>
+        <template if:false={showNoAnswerMessage}>
+            <div class="chart" lwc:dom="manual"></div>
+        </template>
+        <template if:true={error}>
+            <p>{error}</p>
+        </template>
     </div>
 </template>

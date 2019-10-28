@@ -54,8 +54,18 @@
 
                     <!-- Question results -->
                     <template if:true={isQuestionResultsPhase}>
-                        <c-libs-chartjs></c-libs-chartjs>
-                        <c-leader-board show-leaderboard></c-leader-board>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-2">
+                                <c-libs-chartjs
+                                    question-id={quizSession.Current_Question__c}
+                                ></c-libs-chartjs>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <c-leader-board
+                                    show-leaderboard
+                                ></c-leader-board>
+                            </div>
+                        </div>
                     </template>
 
                     <!-- Game results -->

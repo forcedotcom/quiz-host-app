@@ -17,6 +17,14 @@ public with sharing class QuizController {
         return quizSessionService.getCurrentQuestion(sessionId);
     }
 
+    @AuraEnabled(cacheable=true)
+    public static Map<String, Integer> getAnswerMap(Id sessionId) {
+        if (sessionId == null) {
+            throw new AuraHandledException('Missing session Id.');
+        }
+        return quizSessionService.getAnswerMap(sessionId);
+    }
+    
     @AuraEnabled
     public static List<Quiz_Player__c> getPlayersSortedByScore(
         Integer maxFetchCount

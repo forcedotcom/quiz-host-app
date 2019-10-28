@@ -6,6 +6,16 @@ public class QuizSessionService extends AbstractDataService {
         QuestionResults,
         GameResults
     }
+    
+    public Map<String, Integer> getAnswerMap(ID sessionId) {
+        Map<String, Integer> answerMap = new Map<String, Integer>();
+        List<AggregateResult> answerCount = [SELECT Answer__c, COUNT(ID) from Quiz_Answer__c where Question__c =: sessionId GROUP BY Answer__c];
+        for(AggregateResult answerRes : answerCount){
+            answerMap.put(answerRes.get('Answer__c').toString(), Integer.valueOf(answerRes.get('expr0')));
+        }
+
+        return answerMap;
+    }
 
     public Quiz_Session__c getQuizSession() {
         return (Quiz_Session__c) getSingleRecord(

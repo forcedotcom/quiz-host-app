@@ -1,7 +1,7 @@
 import { LightningElement, api, track } from 'lwc';
 import { loadScript } from 'lightning/platformResourceLoader';
 import chartjs from '@salesforce/resourceUrl/chart';
-import chartJsPlugin from '@salesforce/resourceUrl/chartJsPlugin';
+import chartjsPluginDatalabels from '@salesforce/resourceUrl/chartjsPluginDatalabels';
 
 export default class LibsChartjs extends LightningElement {
     @api answerCount;
@@ -13,7 +13,7 @@ export default class LibsChartjs extends LightningElement {
 
     renderGraph() {
         loadScript(this, chartjs)
-            .then(() => loadScript(this, chartJsPlugin))
+            .then(() => loadScript(this, chartjsPluginDatalabels))
             .then(() => {
                 const canvas = document.createElement('canvas');
                 this.template.querySelector('.chart').appendChild(canvas);

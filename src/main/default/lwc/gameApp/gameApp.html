@@ -57,8 +57,9 @@
                         <div class="slds-grid slds-gutters">
                             <div class="slds-col slds-size_1-of-2">
                                 <c-libs-chartjs
+                                    labels={labels}
                                     correct-answer={currentQuestion.Correct_Answer__c}
-                                    question-id={quizSession.Current_Question__c}
+                                    answer-count={answerCount}
                                 ></c-libs-chartjs>
                             </div>
                             <div class="slds-col slds-size_1-of-2">

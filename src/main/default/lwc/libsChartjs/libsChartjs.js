@@ -1,50 +1,20 @@
-import { LightningElement, api, track, wire } from 'lwc';
+import { LightningElement, api, track } from 'lwc';
 import { loadScript } from 'lightning/platformResourceLoader';
 import chartjs from '@salesforce/resourceUrl/chart';
 import chartJsPlugin from '@salesforce/resourceUrl/chartJsPlugin';
-import getAnswerMap from '@salesforce/apex/QuizController.getAnswerMap';
-import { reduceErrors } from 'c/errorUtils';
 
 export default class LibsChartjs extends LightningElement {
-    @api questionId;
+    @api answerCount;
     @api correctAnswer; // A, B, C, or D
     @track error;
-    @track answerCount;
     chart;
     chartjsInitialized = false;
-    labels = ['A', 'B', 'C', 'D'];
-    showNoAnswerMessage = true;
-
-    @wire(getAnswerMap, { sessionId: '$questionId' })
-    wiredQuizSettings({ error, data }) {
-        if (data) {
-            // no answers found
-            if (JSON.stringify(data) === '{}') {
-                this.showNoAnswerMessage = true;
-                this.error = undefined;
-                return;
-            }
-            
-            // turn object {"A":1,"B":1,"D":2} into array [1, 1, 0, 2]
-            const arr = [];
-            this.labels.forEach(letter => {
-                if (data.hasOwnProperty(letter)) arr.push(data[letter]);
-                else arr.push(0);
-            });
-            this.answerCount = arr;
-            this.error = undefined;
-            this.renderGraph();
-        } else if (error) {
-            this.error = reduceErrors(error);
-            this.answerCount = undefined;
-        }
-    }
+    @api labels;
 
     renderGraph() {
         loadScript(this, chartjs)
             .then(() => loadScript(this, chartJsPlugin))
             .then(() => {
-                this.showNoAnswerMessage = false;
                 const canvas = document.createElement('canvas');
                 this.template.querySelector('.chart').appendChild(canvas);
                 const ctx = canvas.getContext('2d');
@@ -52,7 +22,7 @@ export default class LibsChartjs extends LightningElement {
                 const config = {
                     type: 'bar',
                     data: {
-                        labels: this.labels,
+                        labels: JSON.parse(JSON.stringify(this.labels)),
                         datasets: [
                             {
                                 label: '# of Answers per Type',
@@ -87,7 +57,7 @@ export default class LibsChartjs extends LightningElement {
                                             context.dataIndex
                                         ];
                                     return label === this.correctAnswer
-                                        ? `✔ ${value}` 
+                                        ? `✔ ${value}`
                                         : value;
                                 }
                             }
@@ -102,7 +72,7 @@ export default class LibsChartjs extends LightningElement {
                             xAxes: [
                                 {
                                     gridLines: {
-                                        display:false
+                                        display: false
                                     }
                                 }
                             ],
@@ -120,15 +90,16 @@ export default class LibsChartjs extends LightningElement {
                 this.error = error;
             });
     }
+
     renderedCallback() {
-        if (this.answerCount == null) {
-            this.showNoAnswerMessage = true;
-            return;
-        }
-        if (this.chartjsInitialized) {
+        if (this.chartjsInitialized || this.showNoAnswerMessage) {
             return;
         }
         this.chartjsInitialized = true;
         this.renderGraph();
+    }
+
+    get showNoAnswerMessage() {
+        return this.answerCount === undefined;
     }
 }

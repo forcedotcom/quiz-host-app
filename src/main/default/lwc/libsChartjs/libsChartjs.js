@@ -44,12 +44,11 @@ export default class LibsChartjs extends LightningElement {
         loadScript(this, chartjs)
             .then(() => loadScript(this, chartJsPlugin))
             .then(() => {
-                const chartFontSizeInPixels = 24;
-                const maxSize = Math.ceil(Math.max(...this.answerCount) * 1.5);
                 this.showNoAnswerMessage = false;
                 const canvas = document.createElement('canvas');
-                this.template.querySelector('div.chart').appendChild(canvas);
+                this.template.querySelector('.chart').appendChild(canvas);
                 const ctx = canvas.getContext('2d');
+                window.Chart.defaults.global.defaultFontSize = 24;
                 const config = {
                     type: 'bar',
                     data: {
@@ -70,13 +69,11 @@ export default class LibsChartjs extends LightningElement {
                         ]
                     },
                     options: {
+                        tooltips: {
+                            enabled: false
+                        },
                         legend: {
                             display: false
-                        },
-                        title: {
-                            display: true,
-                            text: '# of Answers per Type',
-                            //padding: chartFontSizeInPixels * 1.5,
                         },
                         plugins: {
                             datalabels: {
@@ -90,25 +87,33 @@ export default class LibsChartjs extends LightningElement {
                                             context.dataIndex
                                         ];
                                     return label === this.correctAnswer
-                                        ? '✔  ' + value
+                                        ? `✔ ${value}` 
                                         : value;
                                 }
                             }
                         },
                         responsive: true,
+                        layout: {
+                            padding: {
+                                top: 50
+                            }
+                        },
                         scales: {
+                            xAxes: [
+                                {
+                                    gridLines: {
+                                        display:false
+                                    }
+                                }
+                            ],
                             yAxes: [
                                 {
-                                    ticks: {
-                                        beginAtZero: true,
-                                        max: maxSize
-                                    }
+                                    display: false
                                 }
                             ]
                         }
                     }
                 };
-                window.Chart.defaults.global.defaultFontSize = chartFontSizeInPixels;
                 this.chart = new window.Chart(ctx, config);
             })
             .catch(error => {

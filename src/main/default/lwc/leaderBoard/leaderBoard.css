@@ -5,13 +5,15 @@
     font-size: xx-large;
     color: #ffffff;
 }
+.leaderboard > div {
+    padding: 0 2rem;
+    border-bottom: 1px solid;
+}
 .leaderboard div:first-child {
     background: #ffffff;
     color: #333333;
     border-radius: 0.25rem;
-}
-.leaderboard > div {
-    padding: 0 2rem;
+    border-bottom-width: 0;
 }
 .score {
     text-align: right;

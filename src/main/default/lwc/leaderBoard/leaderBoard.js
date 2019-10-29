@@ -21,7 +21,7 @@ export default class LeaderBoard extends LightningElement {
     }
 
     get winner() {
-        return (this.players && this.players.length) > 0
+        return this.showWinner && this.players && this.players.length > 0
             ? this.players[0]
             : undefined;
     }

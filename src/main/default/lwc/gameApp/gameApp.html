@@ -1,20 +1,25 @@
 <template>
     <div class="slds-card">
         <template if:true={currentQuestion}>
-            <header>
-                <ul>
-                    <li class="largeText">{quizPhaseLabel}</li>
-                    <li>
-                        <!-- Next phase button -->
-                        <lightning-button
-                            disabled={isNextButtonDisabled}
-                            label={nextButtonText}
-                            variant="brand"
-                            onclick={handleNextPhaseClick}
-                        ></lightning-button>
-                    </li>
-                </ul>
-            </header>
+            <div class="slds-card__header slds-grid">
+                <div class="slds-col slds-size_2-of-12"></div>
+                <div
+                    class="slds-col slds-size_8-of-12 slds-align-middle header-title"
+                >
+                    {quizPhaseLabel}
+                </div>
+                <div
+                    class="slds-col slds-size_2-of-12 slds-align-middle slds-text-align_right"
+                >
+                    <!-- Next phase button -->
+                    <lightning-button
+                        disabled={isNextButtonDisabled}
+                        label={nextButtonText}
+                        variant="brand"
+                        onclick={handleNextPhaseClick}
+                    ></lightning-button>
+                </div>
+            </div>
         </template>
         <div class="slds-card__body slds-card__body_inner">
             <template if:false={error}>

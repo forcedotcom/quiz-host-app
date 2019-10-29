@@ -24,7 +24,7 @@ export default class LibsChartjs extends LightningElement {
                 this.error = undefined;
                 return;
             }
-            
+
             // turn object {"A":1,"B":1,"D":2} into array [1, 1, 0, 2]
             const arr = [];
             this.labels.forEach(letter => {
@@ -87,7 +87,7 @@ export default class LibsChartjs extends LightningElement {
                                             context.dataIndex
                                         ];
                                     return label === this.correctAnswer
-                                        ? `✔ ${value}` 
+                                        ? `✔ ${value}`
                                         : value;
                                 }
                             }
@@ -102,7 +102,7 @@ export default class LibsChartjs extends LightningElement {
                             xAxes: [
                                 {
                                     gridLines: {
-                                        display:false
+                                        display: false
                                     }
                                 }
                             ],

@@ -25,7 +25,7 @@ public with sharing class QuizController {
         }
         return quizSessionService.getAnswerMap(sessionId);
     }
-    
+
     @AuraEnabled
     public static Map<String, Integer> getAnswerMap() {
         return answerService.getAnswerMap();

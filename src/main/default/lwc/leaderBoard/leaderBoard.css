@@ -3,13 +3,9 @@
 *::after {
     font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
     box-sizing: border-box;
-}
-.leaderboard {
     color: white;
     font-weight: 900;
     font-size: xx-large;
-    padding: 5%;
-    margin: 0;
 }
 
 ol {

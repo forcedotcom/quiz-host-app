@@ -1,5 +1,6 @@
 public with sharing class QuizController {
     private static final QuizSessionService quizSessionService = new QuizSessionService();
+    private static final AnswerService answerService = new AnswerService();
     private static final QuizSessionHelper quizSessionHelper = new QuizSessionHelper();
     private static final PlayerService playerService = new PlayerService();
     private static final QuizSettingsService settingsService = new QuizSettingsService();
@@ -15,6 +16,11 @@ public with sharing class QuizController {
             throw new AuraHandledException('Missing session Id.');
         }
         return quizSessionService.getCurrentQuestion(sessionId);
+    }
+
+    @AuraEnabled
+    public static Map<String, Integer> getAnswerMap() {
+        return answerService.getAnswerMap();
     }
 
     @AuraEnabled

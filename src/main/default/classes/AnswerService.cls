@@ -1,6 +1,27 @@
 public class AnswerService extends AbstractDataService {
     private static final QuizSessionService sessionService = new QuizSessionService();
 
+    public Map<String, Integer> getAnswerMap() {
+        // Check game phase and question
+        Quiz_Session__c session = sessionService.getQuizSession();
+        Id questionId = session.Current_Question__c;
+        Map<String, Integer> answerMap = new Map<String, Integer>();
+        List<AggregateResult> answerCount = [
+            SELECT Answer__c, COUNT(ID)
+            FROM Quiz_Answer__c
+            WHERE Question__c = :questionId
+            GROUP BY Answer__c
+        ];
+        for (AggregateResult answerRes : answerCount) {
+            answerMap.put(
+                answerRes.get('Answer__c').toString(),
+                Integer.valueOf(answerRes.get('expr0'))
+            );
+        }
+
+        return answerMap;
+    }
+
     public Quiz_Answer__c create(Id playerId, String answer) {
         // Check game phase and question
         Quiz_Session__c session = sessionService.getQuizSession();

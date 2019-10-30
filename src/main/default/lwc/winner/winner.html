@@ -10,9 +10,9 @@
         <template if:false={noWinner}>
             <h1>Winner is ...</h1>
             <p>
-                <span class="winnerName">{winnerName}</span>
+                <span class="winnerName">{winnerPlayer.name}</span>
             </p>
-            <p>with <span class="large">{winnerPlayer.Score}</span> points!</p>
+            <p>with <span class="large">{winnerPlayer.score}</span> points!</p>
             <p>
                 <span class="large">✔</span> {winnerPlayer.rightCount} correct
             </p>

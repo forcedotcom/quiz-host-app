@@ -10,29 +10,12 @@ public with sharing class QuizController {
         return settingsService.get();
     }
 
-    @AuraEnabled
-    public static Map<String, Integer> getPlayerAnswerStats(ID playerId) {
+    @AuraEnabled(cacheable=true)
+    public static PlayerStat getPlayerAnswerStats(ID playerId) {
         if (playerId == null) {
             throw new AuraHandledException('Missing player Id.');
         }
         return answerService.getPlayerAnswerStats(playerId);
-    }
-
-    // returns the winner details. Winner name is mapped to value -1
-    @AuraEnabled(cacheable=true)
-    public static Map<String, Integer> getWinnerAnswerStats() {
-        List<Quiz_Player__c> winnerList = playerService.getPlayersSortedByScore(1);
-        if (winnerList.isEmpty()) {
-            return new Map<String, Integer>();
-        }
-        
-        Quiz_Player__c winner = winnerList[0];
-        Map<String, Integer> winnerMap = answerService.getPlayerAnswerStats(
-            winner.Id
-        );
-        winnerMap.put('Score', Integer.valueOf(winner.Score__c));
-        winnerMap.put(winner.Name, -1);
-        return winnerMap;
     }
 
     @AuraEnabled

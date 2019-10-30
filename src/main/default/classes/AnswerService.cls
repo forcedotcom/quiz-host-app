@@ -1,16 +1,23 @@
 public class AnswerService extends AbstractDataService {
     private static final QuizSessionService sessionService = new QuizSessionService();
-
-    // returns empty map if no player with that ID found
-    public Map<String, Integer> getPlayerAnswerStats(ID playerId) {
+    private static final PlayerService playerService = new PlayerService();
+    
+    public PlayerStat getPlayerAnswerStats(ID playerId) {
+        List<Quiz_Player__c> playerList = playerService.getPlayersSortedByScore(
+            1
+        );
+        if (playerList.isEmpty()) {
+            throw new AuraHandledException('Unknown player Id.');            
+        }
+        Quiz_Player__c player = playerList[0];
         List<Quiz_Answer__c> allAnswersFromPlayer = [
             SELECT Player__c, Score__c
             FROM Quiz_Answer__c
             WHERE Player__c = :playerId
         ];
-        Map<String, Integer> answerMap = new Map<String, Integer>();
+        
         if (allAnswersFromPlayer.isEmpty()) {
-            return answerMap;
+            throw new AuraHandledException('No answers found for player Id.');            
         }
 
         Integer correctCount = 0;
@@ -20,10 +27,10 @@ public class AnswerService extends AbstractDataService {
             }
         }
 
-        answerMap.put('wrongCount', allAnswersFromPlayer.size() - correctCount);
-        answerMap.put('rightCount', correctCount);
-
-        return answerMap;
+        PlayerStat playerStat = new PlayerStat(
+            allAnswersFromPlayer.size() - correctCount, 
+            correctCount, player.Score__c, player.Name);
+        return playerStat;
     }
 
     public Map<String, Integer> getAnswerMap() {

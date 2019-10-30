@@ -1,23 +1,16 @@
 public class AnswerService extends AbstractDataService {
     private static final QuizSessionService sessionService = new QuizSessionService();
     private static final PlayerService playerService = new PlayerService();
-    
+
     public PlayerStat getPlayerAnswerStats(ID playerId) {
-        List<Quiz_Player__c> playerList = playerService.getPlayersSortedByScore(
-            1
-        );
-        if (playerList.isEmpty()) {
-            throw new AuraHandledException('Unknown player Id.');            
-        }
-        Quiz_Player__c player = playerList[0];
         List<Quiz_Answer__c> allAnswersFromPlayer = [
-            SELECT Player__c, Score__c
+            SELECT Player__c, Score__c, IsCorrect__c
             FROM Quiz_Answer__c
             WHERE Player__c = :playerId
         ];
-        
+
         if (allAnswersFromPlayer.isEmpty()) {
-            throw new AuraHandledException('No answers found for player Id.');            
+            throw new AuraHandledException('Unknown player Id: ' + playerId);
         }
 
         Integer correctCount = 0;
@@ -27,9 +20,15 @@ public class AnswerService extends AbstractDataService {
             }
         }
 
+        Quiz_Player__c player = playerService.getFromId(playerId);
+        Integer totalCount = allAnswersFromPlayer.size();
         PlayerStat playerStat = new PlayerStat(
-            allAnswersFromPlayer.size() - correctCount, 
-            correctCount, player.Score__c, player.Name);
+            totalCount - correctCount,
+            correctCount,
+            totalCount,
+            player.Score__c,
+            player.Name
+        );
         return playerStat;
     }
 

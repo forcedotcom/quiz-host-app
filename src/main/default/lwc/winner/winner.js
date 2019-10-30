@@ -1,16 +1,16 @@
 import { LightningElement, track, wire } from 'lwc';
-import getPlayerAnswerStats from '@salesforce/apex/QuizController.getPlayerAnswerStats';
+import getWinnerStats from '@salesforce/apex/QuizController.getWinnerStats';
 import { reduceErrors } from 'c/errorUtils';
 
 export default class Winner extends LightningElement {
     @track winnerPlayer;
-    @wire(getPlayerAnswerStats)
+    @wire(getWinnerStats)
     wiredPlayer({ error, data }) {
         if (data) {
-            // no winner found
-            if (Object.entries(data).length === 0) {
-                this.winnerPlayer = undefined;
-            } else this.winnerPlayer = data;
+            this.winnerPlayer =
+                Object.entries(data).length === 0
+                    ? undefined
+                    : (this.winnerPlayer = data);
 
             this.error = undefined;
         } else if (error) {
@@ -21,5 +21,5 @@ export default class Winner extends LightningElement {
 
     get noWinner() {
         return this.winnerPlayer === undefined;
-    } 
+    }
 }

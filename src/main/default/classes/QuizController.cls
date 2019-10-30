@@ -11,6 +11,17 @@ public with sharing class QuizController {
     }
 
     @AuraEnabled(cacheable=true)
+    public static PlayerStat getWinnerStats() {
+        List<Quiz_Player__c> playerList = playerService.getPlayersSortedByScore(
+            1
+        );
+        if (playerList.isEmpty()) {
+            throw new AuraHandledException('No player found');
+        }
+        return answerService.getPlayerAnswerStats(playerList[0].Id);
+    }
+
+    @AuraEnabled(cacheable=true)
     public static PlayerStat getPlayerAnswerStats(ID playerId) {
         if (playerId == null) {
             throw new AuraHandledException('Missing player Id.');

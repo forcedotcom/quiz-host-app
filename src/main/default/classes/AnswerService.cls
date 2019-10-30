@@ -1,5 +1,35 @@
 public class AnswerService extends AbstractDataService {
     private static final QuizSessionService sessionService = new QuizSessionService();
+    private static final PlayerService playerService = new PlayerService();
+
+    public PlayerStats getPlayerAnswerStats(Id playerId) {
+        List<Quiz_Answer__c> allAnswersFromPlayer = [
+            SELECT Player__c, Score__c, IsCorrect__c
+            FROM Quiz_Answer__c
+            WHERE Player__c = :playerId
+        ];
+
+        if (allAnswersFromPlayer.isEmpty()) {
+            throw new UnknownUserException('Unknown player Id: ' + playerId);
+        }
+
+        Integer correctCount = 0;
+        for (Quiz_Answer__c answerRes : allAnswersFromPlayer) {
+            if (answerRes.IsCorrect__c) {
+                correctCount++;
+            }
+        }
+
+        Quiz_Player__c player = playerService.getFromId(playerId);
+        Integer totalCount = allAnswersFromPlayer.size();
+        return new PlayerStats(
+            totalCount - correctCount,
+            correctCount,
+            totalCount,
+            player.Score__c,
+            player.Name
+        );
+    }
 
     public Map<String, Integer> getAnswerMap() {
         // Check game phase and question
@@ -7,7 +37,7 @@ public class AnswerService extends AbstractDataService {
         Id questionId = session.Current_Question__c;
         Map<String, Integer> answerMap = new Map<String, Integer>();
         List<AggregateResult> answerCount = [
-            SELECT Answer__c, COUNT(ID)
+            SELECT Answer__c, COUNT(Id)
             FROM Quiz_Answer__c
             WHERE Question__c = :questionId
             GROUP BY Answer__c
@@ -97,5 +127,34 @@ public class AnswerService extends AbstractDataService {
     public class InvalidPhaseException extends Exception {
     }
     public class DuplicateAnswerException extends Exception {
+    }
+    public class UnknownUserException extends Exception {
+    }
+
+    public class PlayerStats {
+        @AuraEnabled
+        public Integer wrongCount;
+        @AuraEnabled
+        public Integer correctCount;
+        @AuraEnabled
+        public Integer totalCount;
+        @AuraEnabled
+        public Decimal score;
+        @AuraEnabled
+        public String name;
+
+        public PlayerStats(
+            Integer wrongCount,
+            Integer correctCount,
+            Integer totalCount,
+            Decimal score,
+            String name
+        ) {
+            this.wrongCount = wrongCount;
+            this.correctCount = correctCount;
+            this.totalCount = totalCount;
+            this.score = score;
+            this.name = name;
+        }
     }
 }

@@ -1,10 +1,8 @@
-import { LightningElement, api, track } from 'lwc';
+import { LightningElement, track } from 'lwc';
 import getPlayersSortedByScore from '@salesforce/apex/QuizController.getPlayersSortedByScore';
 import { reduceErrors } from 'c/errorUtils';
 
 export default class LeaderBoard extends LightningElement {
-    @api showWinner;
-    @api showLeaderboard;
     @track error;
     @track players;
 
@@ -18,11 +16,5 @@ export default class LeaderBoard extends LightningElement {
                 this.error = reduceErrors(error);
                 this.players = undefined;
             });
-    }
-
-    get winner() {
-        return this.showWinner && this.players && this.players.length > 0
-            ? this.players[0]
-            : undefined;
     }
 }

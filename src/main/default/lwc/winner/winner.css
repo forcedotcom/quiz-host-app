@@ -1,0 +1,17 @@
+:host {
+    font-size: 1.5rem;
+}
+h1 {
+    margin-bottom: 2rem;
+}
+h1,
+.winnerName,
+.large {
+    font-size: 2rem;
+}
+.winnerName {
+    color: black;
+    background: white;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+}

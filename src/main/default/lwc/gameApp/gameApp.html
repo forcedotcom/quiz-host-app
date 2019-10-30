@@ -68,16 +68,21 @@
                                 ></c-answer-bar-chart>
                             </div>
                             <div class="slds-col slds-size_1-of-2">
-                                <c-leader-board
-                                    show-leaderboard
-                                ></c-leader-board>
+                                <c-leader-board></c-leader-board>
                             </div>
                         </div>
                     </template>
 
                     <!-- Game results -->
                     <template if:true={isGameResultsPhase}>
-                        <c-leader-board show-winner></c-leader-board>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-2">
+                                <c-winner></c-winner>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <c-leader-board></c-leader-board>
+                            </div>
+                        </div>
                     </template>
                 </template>
             </template>

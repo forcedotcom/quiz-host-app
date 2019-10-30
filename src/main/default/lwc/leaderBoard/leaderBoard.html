@@ -4,12 +4,6 @@
     </template>
 
     <template if:false={error}>
-        <template if:true={winner}>
-            <p class="winner slds-m-bottom_large">
-                Winner is {winner.Name} with a score of {winner.Score__c}!
-            </p>
-        </template>
-
         <div class="leaderboard">
             <template for:each={players} for:item="player">
                 <div key={player.Id} class="slds-grid">

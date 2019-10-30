@@ -1,0 +1,24 @@
+<template>
+    <template if:true={error}>
+        <p class="large">{error}</p>
+    </template>
+
+    <template if:false={error}>
+        <template if:false={winnerStats}>
+            <p class="large">No player joined. No winner.</p>
+        </template>
+        <template if:true={winnerStats}>
+            <h1>Winner is ...</h1>
+            <p>
+                <span class="winnerName">{winnerStats.name}</span>
+            </p>
+            <p>with <span class="large">{winnerStats.score}</span> points!</p>
+            <p>
+                <span class="large">✔</span> {winnerStats.correctCount} correct
+            </p>
+            <p>
+                <span class="large">✖</span> {winnerStats.wrongCount} incorrect
+            </p>
+        </template>
+    </template>
+</template>

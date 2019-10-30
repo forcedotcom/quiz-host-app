@@ -13,15 +13,15 @@ public class AnswerService extends AbstractDataService {
             return answerMap;
         }
 
-        Integer wrongAnswers = 0;
+        Integer correctCount = 0;
         for (Quiz_Answer__c answerRes : allAnswersFromPlayer) {
-            if (answerRes.Score__c == 0) {
-                wrongAnswers += 1;
+            if (answerRes.IsCorrect__c) {
+                correctCount += 1;
             }
         }
 
-        answerMap.put('wrongCount', wrongAnswers);
-        answerMap.put('rightCount', allAnswersFromPlayer.size() - wrongAnswers);
+        answerMap.put('wrongCount', allAnswersFromPlayer.size() - correctCount);
+        answerMap.put('rightCount', correctCount);
 
         return answerMap;
     }

@@ -12,6 +12,6 @@ h1,
 .winnerName {
     color: black;
     background: white;
-    padding: 0.2rem;
-    border-radius: 5px;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
 }

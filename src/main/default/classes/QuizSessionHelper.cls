@@ -60,6 +60,7 @@ public with sharing class QuizSessionHelper {
             largestMiliseconds - smallestMilliseconds;
         for (Quiz_Answer__c answer : answers) {
             if (answer.Answer__c == correctAnswer) {
+                answer.IsCorrect__c = true;
                 Long score = computeScore(
                     answer.Timestamp__c,
                     smallestMilliseconds,

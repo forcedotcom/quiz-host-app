@@ -15,17 +15,18 @@ public with sharing class QuizController {
         if (playerId == null) {
             throw new AuraHandledException('Missing player Id.');
         }
-        return getPlayerAnswerStats(playerId);
+        return answerService.getPlayerAnswerStats(playerId);
     }
 
     // returns the winner details. Winner name is mapped to value -1
     @AuraEnabled(cacheable=true)
     public static Map<String, Integer> getWinnerAnswerStats() {
-        Quiz_Player__c winner = playerService.getPlayersSortedByScore(1)[0];
-        if (winner == null) {
+        List<Quiz_Player__c> winnerList = playerService.getPlayersSortedByScore(1);
+        if (winnerList.isEmpty()) {
             return new Map<String, Integer>();
         }
-
+        
+        Quiz_Player__c winner = winnerList[0];
         Map<String, Integer> winnerMap = answerService.getPlayerAnswerStats(
             winner.Id
         );

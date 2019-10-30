@@ -120,15 +120,13 @@ export default class GameApp extends LightningElement {
             if (this.isRegistrationPhase) return 'Registration';
             if (this.isPreQuestionPhase) return 'Get Ready!';
             if (this.isQuestionPhase) return currentQuestion.Label__c;
-            if (this.isQuestionResultsPhase)
-                return (
-                    'Correct answer is ' +
-                    currentQuestion.Correct_Answer__c +
-                    ': ' +
+            if (this.isQuestionResultsPhase) {
+                const answerLabel =
                     currentQuestion[
-                        'Answer_' + currentQuestion.Correct_Answer__c + '__c'
-                    ]
-                );
+                        `Answer_${currentQuestion.Correct_Answer__c}__c`
+                    ];
+                return `Correct answer is ${currentQuestion.Correct_Answer__c}: ${answerLabel}`;
+            }
             if (this.isGameResultsPhase) return 'Game Over';
         }
         return 'Loading...';

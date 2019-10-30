@@ -11,22 +11,30 @@ public with sharing class QuizController {
     }
 
     @AuraEnabled(cacheable=true)
-    public static PlayerStat getWinnerStats() {
+    public static AnswerService.PlayerStats getWinnerStats() {
         List<Quiz_Player__c> playerList = playerService.getPlayersSortedByScore(
             1
         );
         if (playerList.isEmpty()) {
             throw new AuraHandledException('No player found');
         }
-        return answerService.getPlayerAnswerStats(playerList[0].Id);
+        try {
+            return answerService.getPlayerAnswerStats(playerList[0].Id);
+        } catch (AnswerService.UnknownUserException e) {
+            throw new AuraHandledException('Unknown player');
+        }
     }
 
     @AuraEnabled(cacheable=true)
-    public static PlayerStat getPlayerAnswerStats(ID playerId) {
+    public static AnswerService.PlayerStats getPlayerAnswerStats(Id playerId) {
         if (playerId == null) {
             throw new AuraHandledException('Missing player Id.');
         }
-        return answerService.getPlayerAnswerStats(playerId);
+        try {
+            return answerService.getPlayerAnswerStats(playerId);
+        } catch (AnswerService.UnknownUserException e) {
+            throw new AuraHandledException('Unknown player');
+        }
     }
 
     @AuraEnabled

@@ -4,20 +4,20 @@
     </template>
 
     <template if:false={error}>
-        <template if:true={noWinner}>
+        <template if:false={winnerStats}>
             <p class="large">No player joined. No winner.</p>
         </template>
-        <template if:false={noWinner}>
+        <template if:true={winnerStats}>
             <h1>Winner is ...</h1>
             <p>
-                <span class="winnerName">{winnerPlayer.name}</span>
+                <span class="winnerName">{winnerStats.name}</span>
             </p>
-            <p>with <span class="large">{winnerPlayer.score}</span> points!</p>
+            <p>with <span class="large">{winnerStats.score}</span> points!</p>
             <p>
-                <span class="large">✔</span> {winnerPlayer.correctCount} correct
+                <span class="large">✔</span> {winnerStats.correctCount} correct
             </p>
             <p>
-                <span class="large">✖</span> {winnerPlayer.wrongCount} incorrect
+                <span class="large">✖</span> {winnerStats.wrongCount} incorrect
             </p>
         </template>
     </template>

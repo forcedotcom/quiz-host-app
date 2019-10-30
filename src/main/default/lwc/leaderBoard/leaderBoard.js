@@ -16,5 +16,5 @@ export default class LeaderBoard extends LightningElement {
                 this.error = reduceErrors(error);
                 this.players = undefined;
             });
-    } 
+    }
 }

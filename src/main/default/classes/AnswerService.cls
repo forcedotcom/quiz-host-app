@@ -1,6 +1,29 @@
 public class AnswerService extends AbstractDataService {
     private static final QuizSessionService sessionService = new QuizSessionService();
 
+    public Map<String, Integer> getPlayerAnswerStats(ID playerId) {
+        List<Quiz_Answer__c> allAnswersFromPlayer = [
+            SELECT Player__c, Score__c
+            FROM Quiz_Answer__c
+            WHERE Player__c = :playerId
+        ];
+        Integer wrongAnswers = 0;
+        for (Quiz_Answer__c answerRes : allAnswersFromPlayer) {
+            if (answerRes.Score__c == 0) {
+                wrongAnswers += 1;
+            }
+        }
+
+        Integer answerCount = allAnswersFromPlayer.size();
+        Map<String, Integer> answerMap = new Map<String, Integer>();
+        answerMap.put('totalCount', answerCount);
+        answerMap.put('wrongCount', wrongAnswers);
+        answerMap.put('rightCount', answerCount - wrongAnswers);
+        System.debug(answerMap);
+
+        return answerMap;
+    }
+
     public Map<String, Integer> getAnswerMap() {
         // Check game phase and question
         Quiz_Session__c session = sessionService.getQuizSession();

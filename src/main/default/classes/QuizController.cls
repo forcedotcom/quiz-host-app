@@ -11,6 +11,14 @@ public with sharing class QuizController {
     }
 
     @AuraEnabled
+    public static Map<String, Integer> getPlayerAnswerStats(ID playerId) {
+        if (playerId == null) {
+            throw new AuraHandledException('Missing player Id.');
+        }
+        return getPlayerAnswerStats(playerId);
+    }
+
+    @AuraEnabled
     public static Quiz_Question__c getCurrentQuestion(Id sessionId) {
         if (sessionId == null) {
             throw new AuraHandledException('Missing session Id.');

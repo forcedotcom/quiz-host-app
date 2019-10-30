@@ -1,20 +1,24 @@
 <template>
     <template if:true={error}>
-        {error}
+        <p class="large">{error}</p>
     </template>
 
     <template if:false={error}>
         <template if:true={noWinner}>
-            <div class="slds-text-heading_large">
-                No players joined. No winner.
-            </div>
+            <p class="large">No player joined. No winner.</p>
         </template>
         <template if:false={noWinner}>
+            <h1>Winner is ...</h1>
             <p>
-                Winner is ...<span>name</span> with <span>score</span> points!
+                <span class="winnerName">{winnerName}</span>
             </p>
-            <p>x correct</p>
-            <p>y incorrect</p>
+            <p>with <span class="large">{winnerPlayer.Score}</span> points!</p>
+            <p>
+                <span class="large">✔</span> {winnerPlayer.rightCount} correct
+            </p>
+            <p>
+                <span class="large">✖</span> {winnerPlayer.wrongCount} incorrect
+            </p>
         </template>
     </template>
 </template>

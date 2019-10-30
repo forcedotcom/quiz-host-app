@@ -18,6 +18,22 @@ public with sharing class QuizController {
         return getPlayerAnswerStats(playerId);
     }
 
+    // returns the winner details. Winner name is mapped to value -1
+    @AuraEnabled(cacheable=true)
+    public static Map<String, Integer> getWinnerAnswerStats() {
+        Quiz_Player__c winner = playerService.getPlayersSortedByScore(1)[0];
+        if (winner == null) {
+            return new Map<String, Integer>();
+        }
+
+        Map<String, Integer> winnerMap = answerService.getPlayerAnswerStats(
+            winner.Id
+        );
+        winnerMap.put('Score', Integer.valueOf(winner.Score__c));
+        winnerMap.put(winner.Name, -1);
+        return winnerMap;
+    }
+
     @AuraEnabled
     public static Quiz_Question__c getCurrentQuestion(Id sessionId) {
         if (sessionId == null) {

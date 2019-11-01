@@ -1,4 +1,4 @@
-public class QuizSettingsService extends AbstractDataService {
+public class QuizSettingsService extends QuizAbstractDataService {
     public Quiz_Settings__mdt get() {
         return (Quiz_Settings__mdt) getSingleRecord(
             [

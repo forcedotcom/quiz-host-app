@@ -1,6 +1,6 @@
 public with sharing class QuizAnswerTriggerHelper {
     public static void beforeInsert(List<Quiz_Answer__c> newAnswers) {
-        AnswerService answerService = new AnswerService();
+        QuizAnswerService answerService = new QuizAnswerService();
         Set<Id> playerIds = answerService.getUniquePlayerIds(newAnswers);
         Map<Id, Id> mapPlayerQuestion = answerService.getPlayerQuestionMapping(
             playerIds

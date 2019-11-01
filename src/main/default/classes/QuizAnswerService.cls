@@ -1,6 +1,6 @@
-public class AnswerService extends AbstractDataService {
+public class QuizAnswerService extends QuizAbstractDataService {
     private static final QuizSessionService sessionService = new QuizSessionService();
-    private static final PlayerService playerService = new PlayerService();
+    private static final QuizPlayerService playerService = new QuizPlayerService();
 
     public PlayerStats getPlayerAnswerStats(Id playerId) {
         List<Quiz_Answer__c> allAnswersFromPlayer = [

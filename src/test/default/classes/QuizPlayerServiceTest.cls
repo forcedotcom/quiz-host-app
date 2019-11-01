@@ -1,10 +1,10 @@
 @isTest(isParallel=true)
-public class PlayerServiceTest {
+public class QuizPlayerServiceTest {
     @isTest
     static void onlyPlayerRanksOne() {
         QuizSessionTestFactory.createQuizPlayers(1);
 
-        PlayerService playerService = new PlayerService();
+        QuizPlayerService playerService = new QuizPlayerService();
         playerService.assignRanking();
 
         List<Quiz_Player__c> updatedPlayers = [
@@ -25,7 +25,7 @@ public class PlayerServiceTest {
             'two',
             100
         );
-        PlayerService playerService = new PlayerService();
+        QuizPlayerService playerService = new QuizPlayerService();
         playerService.assignRanking();
 
         Integer ranking1 = [
@@ -55,7 +55,7 @@ public class PlayerServiceTest {
             'two',
             50
         );
-        PlayerService playerService = new PlayerService();
+        QuizPlayerService playerService = new QuizPlayerService();
         playerService.assignRanking();
 
         Integer ranking1 = [
@@ -89,7 +89,7 @@ public class PlayerServiceTest {
             'three',
             10
         );
-        PlayerService playerService = new PlayerService();
+        QuizPlayerService playerService = new QuizPlayerService();
         playerService.assignRanking();
 
         Integer ranking1 = [

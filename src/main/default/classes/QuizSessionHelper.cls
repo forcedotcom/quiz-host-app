@@ -30,11 +30,11 @@ public with sharing class QuizSessionHelper {
         );
         String correctAnswer = currentQuestion.Correct_Answer__c;
 
-        PlayerService playerService = new PlayerService();
+        QuizPlayerService playerService = new QuizPlayerService();
         Map<Id, Quiz_Player__c> players = playerService.getPlayers();
         Set<Id> playerIds = players.keySet();
 
-        AnswerService answerService = new AnswerService();
+        QuizAnswerService answerService = new QuizAnswerService();
         List<Quiz_Answer__c> answers = answerService.getAnswersOfPlayerIdsAndQuestionId(
             playerIds,
             currentQuestion.Id

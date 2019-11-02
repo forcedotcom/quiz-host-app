@@ -1,6 +1,6 @@
-@RestResource(urlMapping='/quiz/answers')
-global abstract class AnswerRestResource {
-    private static final AnswerService answerService = new AnswerService();
+@RestResource(urlMapping='/quiz/answers2')
+global abstract class QuizAnswerRestResource {
+    private static final QuizAnswerService answerService = new QuizAnswerService();
 
     @HttpPost
     global static void submitAnswer(Id playerId, String answer) {
@@ -9,12 +9,12 @@ global abstract class AnswerRestResource {
         try {
             responseData = answerService.create(playerId, answer);
             statusCode = 200;
-        } catch (AnswerService.InvalidPhaseException e) {
+        } catch (QuizAnswerService.InvalidPhaseException e) {
             responseData = new ErrorMessage(
                 'Answer not saved: you answered too late!'
             );
             statusCode = 400;
-        } catch (AnswerService.DuplicateAnswerException e) {
+        } catch (QuizAnswerService.DuplicateAnswerException e) {
             responseData = new ErrorMessage(
                 'Answer not saved: found duplicate answer'
             );

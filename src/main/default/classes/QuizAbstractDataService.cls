@@ -1,4 +1,4 @@
-public abstract class AbstractDataService {
+public abstract class QuizAbstractDataService {
     public sObject getSingleRecord(List<sObject> objects) {
         Integer count = objects.size();
         if (count == 0) {

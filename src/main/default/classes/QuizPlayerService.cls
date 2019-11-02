@@ -1,4 +1,4 @@
-public class PlayerService extends AbstractDataService {
+public class QuizPlayerService extends QuizAbstractDataService {
     public Quiz_Player__c getFromId(Id playerId) {
         return (Quiz_Player__c) getSingleRecord(
             [SELECT Id, Name, Score__c FROM Quiz_Player__c WHERE Id = :playerId]

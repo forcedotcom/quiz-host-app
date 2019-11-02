@@ -1,8 +1,8 @@
 public with sharing class QuizController {
     private static final QuizSessionService quizSessionService = new QuizSessionService();
-    private static final AnswerService answerService = new AnswerService();
+    private static final QuizAnswerService answerService = new QuizAnswerService();
     private static final QuizSessionHelper quizSessionHelper = new QuizSessionHelper();
-    private static final PlayerService playerService = new PlayerService();
+    private static final QuizPlayerService playerService = new QuizPlayerService();
     private static final QuizSettingsService settingsService = new QuizSettingsService();
 
     @AuraEnabled(cacheable=true)
@@ -11,7 +11,7 @@ public with sharing class QuizController {
     }
 
     @AuraEnabled(cacheable=true)
-    public static AnswerService.PlayerStats getWinnerStats() {
+    public static QuizAnswerService.PlayerStats getWinnerStats() {
         List<Quiz_Player__c> playerList = playerService.getPlayersSortedByScore(
             1
         );
@@ -20,19 +20,21 @@ public with sharing class QuizController {
         }
         try {
             return answerService.getPlayerAnswerStats(playerList[0].Id);
-        } catch (AnswerService.UnknownUserException e) {
+        } catch (QuizAnswerService.UnknownUserException e) {
             throw new AuraHandledException('Unknown player');
         }
     }
 
     @AuraEnabled(cacheable=true)
-    public static AnswerService.PlayerStats getPlayerAnswerStats(Id playerId) {
+    public static QuizAnswerService.PlayerStats getPlayerAnswerStats(
+        Id playerId
+    ) {
         if (playerId == null) {
             throw new AuraHandledException('Missing player Id.');
         }
         try {
             return answerService.getPlayerAnswerStats(playerId);
-        } catch (AnswerService.UnknownUserException e) {
+        } catch (QuizAnswerService.UnknownUserException e) {
             throw new AuraHandledException('Unknown player');
         }
     }

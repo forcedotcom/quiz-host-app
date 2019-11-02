@@ -43,7 +43,7 @@ public with sharing class QuizSessionTriggerHelper {
                 } else if (updatedSession.Phase__c == PHASE_REGISTRATION) {
                     // New phase is Registration
                     // Delete all players and answers
-                    PlayerService playerService = new PlayerService();
+                    QuizPlayerService playerService = new QuizPlayerService();
                     playerService.deleteAnswersAndPlayers();
                 }
                 // Push phase change to player app

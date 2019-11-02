@@ -1,4 +1,4 @@
-public class QuizSessionService extends AbstractDataService {
+public class QuizSessionService extends QuizAbstractDataService {
     public enum Phase {
         Registration,
         PreQuestion,

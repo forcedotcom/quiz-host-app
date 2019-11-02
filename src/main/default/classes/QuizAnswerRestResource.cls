@@ -1,4 +1,4 @@
-@RestResource(urlMapping='/quiz/answers2')
+@RestResource(urlMapping='/quiz/answers')
 global abstract class QuizAnswerRestResource {
     private static final QuizAnswerService answerService = new QuizAnswerService();
 

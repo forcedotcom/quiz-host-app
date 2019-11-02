@@ -8,11 +8,6 @@ public class QuizAnswerService extends QuizAbstractDataService {
             FROM Quiz_Answer__c
             WHERE Player__c = :playerId
         ];
-
-        if (allAnswersFromPlayer.isEmpty()) {
-            throw new UnknownUserException('Unknown player Id: ' + playerId);
-        }
-
         Integer correctCount = 0;
         for (Quiz_Answer__c answerRes : allAnswersFromPlayer) {
             if (answerRes.IsCorrect__c) {

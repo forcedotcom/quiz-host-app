@@ -1,4 +1,9 @@
-:host {
-    text-align: center;
+.mobile-url {
+    background: black;
+    color: white;
     font-size: 4rem;
+    width: fit-content;
+    margin: 0 auto 2rem auto;
+    padding: 0 1rem;
+    border-radius: 0.5rem;
 }

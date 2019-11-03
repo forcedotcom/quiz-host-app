@@ -8,11 +8,6 @@ public class QuizAnswerService extends QuizAbstractDataService {
             FROM Quiz_Answer__c
             WHERE Player__c = :playerId
         ];
-
-        if (allAnswersFromPlayer.isEmpty()) {
-            throw new UnknownUserException('Unknown player Id: ' + playerId);
-        }
-
         Integer correctCount = 0;
         for (Quiz_Answer__c answerRes : allAnswersFromPlayer) {
             if (answerRes.IsCorrect__c) {
@@ -27,6 +22,7 @@ public class QuizAnswerService extends QuizAbstractDataService {
             correctCount,
             totalCount,
             player.Score__c,
+            player.Ranking__c.intValue(),
             player.Name
         );
     }
@@ -141,6 +137,8 @@ public class QuizAnswerService extends QuizAbstractDataService {
         @AuraEnabled
         public Decimal score;
         @AuraEnabled
+        public Integer rank;
+        @AuraEnabled
         public String name;
 
         public PlayerStats(
@@ -148,12 +146,14 @@ public class QuizAnswerService extends QuizAbstractDataService {
             Integer correctCount,
             Integer totalCount,
             Decimal score,
+            Integer rank,
             String name
         ) {
             this.wrongCount = wrongCount;
             this.correctCount = correctCount;
             this.totalCount = totalCount;
             this.score = score;
+            this.rank = rank;
             this.name = name;
         }
     }

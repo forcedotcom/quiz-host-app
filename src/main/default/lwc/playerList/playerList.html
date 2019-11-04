@@ -1,0 +1,17 @@
+<template>
+    <h1>Players</h1>
+
+    <template if:true={error}>
+        {error}
+    </template>
+
+    <template if:false={error}>
+        <div class="slds-grid slds-wrap">
+            <template for:each={playerNames} for:item="playerName">
+                <div key={playerName} class="slds-col slds-size_3-of-12 name">
+                    {playerName}
+                </div>
+            </template>
+        </div>
+    </template>
+</template>

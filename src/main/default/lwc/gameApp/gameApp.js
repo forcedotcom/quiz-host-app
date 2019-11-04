@@ -41,12 +41,6 @@ export default class GameApp extends LightningElement {
     getAnswers() {
         getAnswerMap()
             .then(data => {
-                // no answers found
-                if (Object.entries(data).length === 0) {
-                    this.error = undefined;
-                    return;
-                }
-
                 // turn object {"A":1,"B":1,"D":2} into array [1, 1, 0, 2]
                 const arr = [];
                 this.labels.forEach(letter => {

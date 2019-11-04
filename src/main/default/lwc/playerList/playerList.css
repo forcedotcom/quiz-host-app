@@ -1,3 +1,11 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
 h1 {
     font-weight: bold;
     font-size: 2rem;
@@ -5,4 +13,8 @@ h1 {
 }
 .name {
     font-size: 1rem;
+    text-align: left;
+    text-overflow: ellipsis;
+    animation-name: fadeIn;
+    animation-duration: 0.2s;
 }

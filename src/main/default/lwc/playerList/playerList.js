@@ -12,7 +12,7 @@ export default class playerList extends LightningElement {
     connectedCallback() {
         getPlayersSortedByScore()
             .then(players => {
-                this.playerNames = players.map(player => player.Name).sort();
+                this.playerNames = players.map(player => player.Name);
                 this.error = undefined;
                 this.initEmpApi();
             })
@@ -38,9 +38,7 @@ export default class playerList extends LightningElement {
 
     handlePlayerChangeEvent(cdcEvent) {
         const { Name } = cdcEvent.data.payload;
-        const names = this.playerNames;
-        names.push(Name);
-        this.playerNames = names.sort();
+        this.playerNames.push(Name);
     }
 
     disconnectedCallback() {

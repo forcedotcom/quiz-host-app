@@ -8,17 +8,35 @@
             <p class="large">No player joined. No winner.</p>
         </template>
         <template if:true={winnerStats}>
-            <h1>Winner is ...</h1>
-            <p>
-                <span class="winnerName">{winnerStats.name}</span>
-            </p>
-            <p>with <span class="large">{winnerStats.score}</span> points!</p>
-            <p>
-                <span class="large">✔</span> {winnerStats.correctCount} correct
-            </p>
-            <p>
-                <span class="large">✖</span> {winnerStats.wrongCount} incorrect
-            </p>
+            <div class="winner-stats">
+                <div>
+                    <span
+                        class="slds-icon_container slds-icon-utility-ribbon"
+                        aria-hidden="true"
+                    >
+                        <svg class="slds-icon slds-icon_large">
+                            <use
+                                xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#ribbon"
+                            ></use>
+                        </svg>
+                    </span>
+                </div>
+                <h1>The winner is ...</h1>
+                <div class="winner-name">
+                    <span>{winnerStats.name}</span>
+                </div>
+                <p>
+                    with <span class="large">{winnerStats.score}</span> points!
+                </p>
+                <p>
+                    <span class="large">✔</span> {winnerStats.correctCount}
+                    correct
+                </p>
+                <p>
+                    <span class="large">✖</span> {winnerStats.wrongCount}
+                    incorrect
+                </p>
+            </div>
         </template>
     </template>
 </template>

@@ -106,7 +106,11 @@ export default class AnswerBarChart extends LightningElement {
     }
 
     renderedCallback() {
-        if (this.chartjsInitialized || !this.answerStats || !this.correctAnswer) {
+        if (
+            this.chartjsInitialized ||
+            !this.answerStats ||
+            !this.correctAnswer
+        ) {
             return;
         }
         this.chartjsInitialized = true;

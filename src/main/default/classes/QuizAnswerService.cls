@@ -27,11 +27,15 @@ public class QuizAnswerService extends QuizAbstractDataService {
         );
     }
 
-    public Map<String, Integer> getAnswerMap() {
-        // Check game phase and question
+    public Map<String, Integer> getAnswerStats() {
         Quiz_Session__c session = sessionService.getQuizSession();
         Id questionId = session.Current_Question__c;
-        Map<String, Integer> answerMap = new Map<String, Integer>();
+        Map<String, Integer> answerMap = new Map<String, Integer>{
+            'A' => 0,
+            'B' => 0,
+            'C' => 0,
+            'D' => 0
+        };
         List<AggregateResult> answerCount = [
             SELECT Answer__c, COUNT(Id)
             FROM Quiz_Answer__c
@@ -44,7 +48,6 @@ public class QuizAnswerService extends QuizAbstractDataService {
                 Integer.valueOf(answerRes.get('expr0'))
             );
         }
-
         return answerMap;
     }
 

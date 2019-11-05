@@ -1,15 +1,30 @@
 import { LightningElement, api, track } from 'lwc';
+import getAnswerStats from '@salesforce/apex/QuizController.getAnswerStats';
 import { loadScript } from 'lightning/platformResourceLoader';
 import chartjs from '@salesforce/resourceUrl/chart';
 import chartjsPluginDatalabels from '@salesforce/resourceUrl/chartjsPluginDatalabels';
+import { reduceErrors } from 'c/errorUtils';
 
-export default class LibsChartjs extends LightningElement {
-    @api answerCount;
-    @api correctAnswer; // A, B, C, or D
+const ANSWER_LABELS = ['A', 'B', 'C', 'D'];
+
+export default class AnswerBarChart extends LightningElement {
+    @track answerStats;
     @track error;
+    @api correctAnswer; // A, B, C, or D
     chart;
     chartjsInitialized = false;
-    @api labels;
+
+    connectedCallback() {
+        getAnswerStats()
+            .then(data => {
+                this.answerStats = ANSWER_LABELS.map(label => data[label]);
+                this.error = undefined;
+            })
+            .catch(error => {
+                this.error = reduceErrors(error);
+                this.answerStats = undefined;
+            });
+    }
 
     renderGraph() {
         loadScript(this, chartjs)
@@ -22,13 +37,11 @@ export default class LibsChartjs extends LightningElement {
                 const config = {
                     type: 'bar',
                     data: {
-                        labels: JSON.parse(JSON.stringify(this.labels)),
+                        labels: ANSWER_LABELS,
                         datasets: [
                             {
                                 label: '# of Answers per Type',
-                                data: JSON.parse(
-                                    JSON.stringify(this.answerCount)
-                                ),
+                                data: this.answerStats,
                                 backgroundColor: [
                                     '#1589ee',
                                     '#ff9e2c',
@@ -87,19 +100,20 @@ export default class LibsChartjs extends LightningElement {
                 this.chart = new window.Chart(ctx, config);
             })
             .catch(error => {
+                this.answerStats = undefined;
                 this.error = error;
             });
     }
 
     renderedCallback() {
-        if (this.chartjsInitialized || this.showNoAnswerMessage) {
+        if (
+            this.chartjsInitialized ||
+            !this.answerStats ||
+            !this.correctAnswer
+        ) {
             return;
         }
         this.chartjsInitialized = true;
         this.renderGraph();
-    }
-
-    get showNoAnswerMessage() {
-        return this.answerCount === undefined;
     }
 }

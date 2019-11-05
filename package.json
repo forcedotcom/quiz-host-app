@@ -8,9 +8,7 @@
         "npm": ">= 6.5.0"
     },
     "scripts": {
-        "lint": "npm run lint:lwc && npm run lint:aura",
-        "lint:lwc": "eslint **/lwc/**",
-        "lint:aura": "sfdx force:lightning:lint **/aura/** --exit",
+        "lint": "eslint **/lwc/**",
         "test": "npm run lint && npm run test:unit",
         "test:unit": "lwc-jest",
         "test:unit:watch": "lwc-jest --watch",
@@ -31,7 +29,7 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "lint-staged && npm run lint:aura"
+            "pre-commit": "lint-staged"
         }
     },
     "lint-staged": {

@@ -22,7 +22,7 @@ public class QuizPlayerService extends QuizAbstractDataService {
     }
 
     public List<Quiz_Player__c> getPlayersSortedByScore(Integer maxFetchCount) {
-        String query = 'SELECT Id, Name, Score__c FROM Quiz_Player__c ORDER BY Score__c DESC';
+        String query = 'SELECT Id, Name, Score__c, Ranking__c FROM Quiz_Player__c ORDER BY Score__c DESC';
         if (maxFetchCount != null) {
             query += ' LIMIT ' + maxFetchCount;
         }

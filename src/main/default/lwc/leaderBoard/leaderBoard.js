@@ -9,12 +9,25 @@ export default class LeaderBoard extends LightningElement {
     connectedCallback() {
         getPlayersSortedByScore({ maxFetchCount: 10 })
             .then(players => {
-                this.players = players;
                 this.error = undefined;
+                this.displayPlayers(players);
             })
             .catch(error => {
                 this.error = reduceErrors(error);
                 this.players = undefined;
             });
+    }
+
+    displayPlayers(players) {
+        this.players = [];
+        // eslint-disable-next-line @lwc/lwc/no-async-operation
+        const intervalId = setInterval(() => {
+            if (players.length > 0) {
+                const player = players.shift();
+                this.players.push(player);
+            } else {
+                clearInterval(intervalId);
+            }
+        }, 100);
     }
 }

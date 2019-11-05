@@ -48,8 +48,8 @@ public with sharing class QuizController {
     }
 
     @AuraEnabled
-    public static Map<String, Integer> getAnswerMap() {
-        return answerService.getAnswerMap();
+    public static Map<String, Integer> getAnswerStats() {
+        return answerService.getAnswerStats();
     }
 
     @AuraEnabled

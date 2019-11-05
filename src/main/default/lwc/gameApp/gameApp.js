@@ -3,9 +3,8 @@ import getCurrentQuestion from '@salesforce/apex/QuizController.getCurrentQuesti
 import getQuizSession from '@salesforce/apex/QuizController.getQuizSession';
 import getQuizSettings from '@salesforce/apex/QuizController.getQuizSettings';
 import triggerNextPhase from '@salesforce/apex/QuizController.triggerNextPhase';
-import getAnswerMap from '@salesforce/apex/QuizController.getAnswerMap';
-
 import { reduceErrors } from 'c/errorUtils';
+
 const arrColors = [
     'mediumpurple',
     'lightcoral',
@@ -17,14 +16,13 @@ const arrColors = [
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
+
 export default class GameApp extends LightningElement {
     @track error;
     @track quizSession;
     @track quizSettings;
     @track isNextButtonDisabled = true;
     @track currentQuestion;
-    @track answerCount;
-    labels = ['A', 'B', 'C', 'D'];
 
     @wire(getQuizSettings)
     wiredQuizSettings({ error, data }) {
@@ -35,24 +33,6 @@ export default class GameApp extends LightningElement {
             this.error = reduceErrors(error);
             this.quizSettings = undefined;
         }
-    }
-
-    getAnswers() {
-        getAnswerMap()
-            .then(data => {
-                // turn object {"A":1,"B":1,"D":2} into array [1, 1, 0, 2]
-                const arr = [];
-                this.labels.forEach(letter => {
-                    if (data.hasOwnProperty(letter)) arr.push(data[letter]);
-                    else arr.push(0);
-                });
-                this.answerCount = arr;
-                this.error = undefined;
-            })
-            .catch(error => {
-                this.error = reduceErrors(error);
-                this.answerCount = undefined;
-            });
     }
 
     connectedCallback() {
@@ -74,9 +54,6 @@ export default class GameApp extends LightningElement {
                 this.currentQuestion = currentQuestion;
                 this.error = undefined;
                 this.isNextButtonDisabled = false;
-                if (this.isQuestionResultsPhase) {
-                    this.getAnswers();
-                }
             })
             .catch(error => {
                 this.error = reduceErrors(error);
@@ -86,14 +63,12 @@ export default class GameApp extends LightningElement {
     }
 
     handleNextPhaseClick() {
+        this.answerCount = undefined;
         triggerNextPhase({ sessionId: this.quizSession.Id })
             .then(updatedSession => {
                 this.quizSession = updatedSession;
                 this.error = undefined;
                 this.refreshCurrentQuestion();
-                if (this.isQuestionResultsPhase) {
-                    this.getAnswers();
-                }
                 // change background color
                 const element = this.template.querySelector('.slds-card__body');
                 const newColor = this.isRegistrationPhase
@@ -126,10 +101,13 @@ export default class GameApp extends LightningElement {
     }
 
     get nextButtonText() {
-        if (this.isRegistrationPhase) return 'Start!';
-        if (this.isPreQuestionPhase) return 'Ready!';
-        if (this.isGameResultsPhase) return 'New Game';
-        return 'Next';
+        if (this.quizSession) {
+            if (this.isRegistrationPhase) return 'Start!';
+            if (this.isPreQuestionPhase) return 'Ready!';
+            if (this.isGameResultsPhase) return 'New Game';
+            return 'Next';
+        }
+        return 'Loading...';
     }
 
     get isRegistrationPhase() {

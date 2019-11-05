@@ -15,6 +15,5 @@ h1 {
     font-size: 1rem;
     text-align: left;
     text-overflow: ellipsis;
-    animation-name: fadeIn;
-    animation-duration: 0.2s;
+    animation: fadeIn 0.2s;
 }

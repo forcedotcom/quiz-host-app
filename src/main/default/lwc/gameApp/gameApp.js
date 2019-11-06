@@ -87,7 +87,7 @@ export default class GameApp extends LightningElement {
         if (this.quizSession && currentQuestion) {
             if (this.isRegistrationPhase) return 'Registration';
             if (this.isPreQuestionPhase) return 'Get Ready!';
-            if (this.isQuestionPhase) return currentQuestion.Label__c;
+            if (this.isQuestionPhase) return 'Question';
             if (this.isQuestionResultsPhase) {
                 const answerLabel =
                     currentQuestion[

@@ -49,16 +49,18 @@
 
                     <!-- Pre-question -->
                     <template if:true={isPreQuestionPhase}>
-                        <c-count-down-timer
+                        <c-progress-bar
+                            duration="6"
                             ontimeout={handleNextPhaseClick}
-                        ></c-count-down-timer>
+                        ></c-progress-bar>
                     </template>
 
                     <!-- Question -->
                     <template if:true={isQuestionPhase}>
-                        <c-count-down-timer
+                        <c-progress-bar
+                            duration="6"
                             ontimeout={handleNextPhaseClick}
-                        ></c-count-down-timer>
+                        ></c-progress-bar>
                         <c-question
                             question-object={currentQuestion}
                         ></c-question>

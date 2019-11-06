@@ -100,16 +100,15 @@ public class QuizAnswerService extends QuizAbstractDataService {
         return mapPlayerQuestion;
     }
 
-    public List<Quiz_Answer__c> getAnswersOfPlayerIdsAndQuestionId(
-        Set<Id> playerIds,
-        Id questionId
-    ) {
-        // get answers ordered by oldest records first: Id values are created in ascending order
+    // Gets correct answers ordered by oldest records first
+    public List<Quiz_Answer__c> getCorrectAnswers(Quiz_Question__c question) {
         return [
             SELECT Id, Player__c, Question__c, Answer__c, Timestamp__c, Score__c
             FROM Quiz_Answer__c
-            WHERE Player__c IN :playerIds AND Question__c = :questionId
-            ORDER BY Id ASC
+            WHERE
+                Question__c = :question.Id
+                AND Answer__c = :question.Correct_Answer__c
+            ORDER BY Timestamp__c ASC
         ];
     }
 

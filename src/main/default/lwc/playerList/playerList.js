@@ -48,4 +48,8 @@ export default class playerList extends LightningElement {
             });
         }
     }
+
+    get playerCount() {
+        return this.playerNames ? `(${this.playerNames.length})` : '';
+    }
 }

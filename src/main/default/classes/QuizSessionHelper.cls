@@ -23,57 +23,52 @@ public with sharing class QuizSessionHelper {
     }
 
     public void updatePlayerScores() {
+        // Get current question
         QuizSessionService quizSessionService = new QuizSessionService();
         Quiz_Session__c quizSession = quizSessionService.getQuizSession();
         Quiz_Question__c currentQuestion = quizSessionService.getCurrentQuestion(
             quizSession.Id
         );
-        String correctAnswer = currentQuestion.Correct_Answer__c;
 
-        QuizPlayerService playerService = new QuizPlayerService();
-        Map<Id, Quiz_Player__c> players = playerService.getPlayers();
-        Set<Id> playerIds = players.keySet();
-
+        // Get correct answers
         QuizAnswerService answerService = new QuizAnswerService();
-        List<Quiz_Answer__c> answers = answerService.getAnswersOfPlayerIdsAndQuestionId(
-            playerIds,
-            currentQuestion.Id
+        List<Quiz_Answer__c> answers = answerService.getCorrectAnswers(
+            currentQuestion
         );
         if (answers.isEmpty()) {
             return;
         }
 
-        // find smallest and largest milliseconds
-        Decimal smallestMilliseconds = answers[0].Timestamp__c;
-        Decimal largestMiliseconds = answers[0].Timestamp__c;
-        for (Quiz_Answer__c answer : answers) {
-            if (answer.Timestamp__c > largestMiliseconds) {
-                largestMiliseconds = answer.Timestamp__c;
-            }
-            if (answer.Timestamp__c < smallestMilliseconds) {
-                smallestMilliseconds = answer.Timestamp__c;
-            }
-        }
+        // Get players
+        QuizPlayerService playerService = new QuizPlayerService();
+        Map<Id, Quiz_Player__c> allPlayers = playerService.getPlayers();
+        List<Quiz_Player__c> updatedPlayers = new List<Quiz_Player__c>();
 
-        // compute and assign scores
-        Decimal differenceBetweenLargestAndSmallestMilliseconds =
-            largestMiliseconds - smallestMilliseconds;
+        // Get answer min and max timestamps
+        Decimal minTimestamp = answers[0].Timestamp__c;
+        Decimal maxTimestamp = answers[answers.size() - 1].Timestamp__c;
+        Decimal timestampDelta = maxTimestamp - minTimestamp;
+
+        // Compute and assign scores
         for (Quiz_Answer__c answer : answers) {
-            if (answer.Answer__c == correctAnswer) {
-                answer.IsCorrect__c = true;
-                Long score = computeScore(
-                    answer.Timestamp__c,
-                    smallestMilliseconds,
-                    differenceBetweenLargestAndSmallestMilliseconds
-                );
-                answer.Score__c = score;
-                Quiz_Player__c player = players.get(answer.Player__c);
-                player.Score__c += score;
-            }
+            // Score correct answer
+            Long score = computeScore(
+                answer.Timestamp__c,
+                minTimestamp,
+                timestampDelta
+            );
+            answer.IsCorrect__c = true;
+            answer.Score__c = score;
+            // Update player score
+            Quiz_Player__c player = allPlayers.get(answer.Player__c);
+            player.Score__c += score;
+            updatedPlayers.add(player);
         }
 
         update answers;
-        update players.values();
+        update updatedPlayers;
+
+        // Refresh ranks
         playerService.assignRanking();
     }
 

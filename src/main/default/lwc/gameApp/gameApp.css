@@ -17,3 +17,8 @@
     font-size: xx-large;
     font-weight: 900;
 }
+
+.answer-label {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}

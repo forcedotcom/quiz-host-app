@@ -83,18 +83,11 @@ export default class GameApp extends LightningElement {
     }
 
     get quizPhaseLabel() {
-        const { currentQuestion } = this;
-        if (this.quizSession && currentQuestion) {
+        if (this.quizSession) {
             if (this.isRegistrationPhase) return 'Registration';
             if (this.isPreQuestionPhase) return 'Get Ready!';
             if (this.isQuestionPhase) return 'Question';
-            if (this.isQuestionResultsPhase) {
-                const answerLabel =
-                    currentQuestion[
-                        `Answer_${currentQuestion.Correct_Answer__c}__c`
-                    ];
-                return `Correct answer is ${currentQuestion.Correct_Answer__c}: ${answerLabel}`;
-            }
+            if (this.isQuestionResultsPhase) return 'Answer';
             if (this.isGameResultsPhase) return 'Game Over';
         }
         return 'Loading...';
@@ -108,6 +101,13 @@ export default class GameApp extends LightningElement {
             return 'Next';
         }
         return 'Loading...';
+    }
+
+    get correctAnswerLabel() {
+        const { currentQuestion } = this;
+        const correctAnswer = currentQuestion.Correct_Answer__c;
+        const answerLabel = this.currentQuestion[`Answer_${correctAnswer}__c`];
+        return `${correctAnswer}: ${answerLabel}`;
     }
 
     get isRegistrationPhase() {

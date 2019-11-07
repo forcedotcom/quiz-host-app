@@ -59,6 +59,7 @@
     </layoutSections>
     <relatedLists>
         <fields>NAME</fields>
+        <fields>Quiz_Question__c.NAME</fields>
         <fields>Question_Index__c</fields>
         <fields>Quiz_Question__c.Label__c</fields>
         <relatedList>Quiz_Session_Question__c.Session__c</relatedList>
@@ -71,7 +72,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2F000000bjJw</masterLabel>
+        <masterLabel>00h1g000000MR8k</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

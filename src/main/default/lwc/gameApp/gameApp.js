@@ -5,18 +5,6 @@ import getQuizSettings from '@salesforce/apex/QuizController.getQuizSettings';
 import triggerNextPhase from '@salesforce/apex/QuizController.triggerNextPhase';
 import { reduceErrors } from 'c/errorUtils';
 
-const arrColors = [
-    'mediumpurple',
-    'lightcoral',
-    'lightsalmon',
-    'mediumaquamarine',
-    'mediumseagreen',
-    'mediumturquoise'
-];
-function getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
-}
-
 export default class GameApp extends LightningElement {
     @track error;
     @track quizSession;
@@ -69,12 +57,6 @@ export default class GameApp extends LightningElement {
                 this.quizSession = updatedSession;
                 this.error = undefined;
                 this.refreshCurrentQuestion();
-                // change background color
-                const element = this.template.querySelector('.slds-card__body');
-                const newColor = this.isRegistrationPhase
-                    ? 'orange'
-                    : arrColors[getRandomInt(arrColors.length)];
-                element.style.setProperty('background', newColor);
             })
             .catch(error => {
                 this.error = reduceErrors(error);
@@ -108,6 +90,13 @@ export default class GameApp extends LightningElement {
         const correctAnswer = currentQuestion.Correct_Answer__c;
         const answerLabel = this.currentQuestion[`Answer_${correctAnswer}__c`];
         return `${correctAnswer}: ${answerLabel}`;
+    }
+
+    get cardBodyClasses() {
+        let bgColorClass = this.quizSession
+            ? `bg-${this.quizSession.Phase__c}`
+            : '';
+        return `slds-card__body slds-card__body_inner ${bgColorClass}`;
     }
 
     get isRegistrationPhase() {

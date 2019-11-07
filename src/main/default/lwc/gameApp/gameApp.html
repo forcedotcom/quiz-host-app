@@ -21,7 +21,7 @@
                 </div>
             </div>
         </template>
-        <div class="slds-card__body slds-card__body_inner">
+        <div class={cardBodyClasses}>
             <template if:false={error}>
                 <!-- Session and questions are loading -->
                 <template if:false={currentQuestion}>

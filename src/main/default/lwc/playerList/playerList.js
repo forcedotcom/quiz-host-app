@@ -29,14 +29,19 @@ export default class playerList extends LightningElement {
         });
         empApi
             .subscribe('/data/Quiz_Player__ChangeEvent', -1, cdcEvent => {
-                this.handlePlayerChangeEvent(cdcEvent);
+                if (
+                    cdcEvent.data.payload.ChangeEventHeader.changeType ===
+                    'CREATE'
+                ) {
+                    this.handlePlayerCreationEvent(cdcEvent);
+                }
             })
             .then(response => {
                 this.subscription = response;
             });
     }
 
-    handlePlayerChangeEvent(cdcEvent) {
+    handlePlayerCreationEvent(cdcEvent) {
         const { Name } = cdcEvent.data.payload;
         this.playerNames.push(Name);
     }

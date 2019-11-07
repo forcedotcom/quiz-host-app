@@ -3,13 +3,12 @@
 }
 
 .slds-card__body_inner {
-    background: orange;
+    transition: background-color 1s ease;
     color: black;
     font-weight: bold;
     text-align: center;
     border: 0;
     padding: 2rem;
-    margin: 1.5rem 0 0 0;
     min-height: 600px;
 }
 
@@ -17,4 +16,25 @@
     text-align: center;
     font-size: xx-large;
     font-weight: 900;
+}
+
+.answer-label {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.bg-Registration {
+    background-color: orange;
+}
+.bg-PreQuestion {
+    background-color: #00698f;
+}
+.bg-Question {
+    background-color: mediumpurple;
+}
+.bg-QuestionResults {
+    background-color: mediumseagreen;
+}
+.bg-GameResults {
+    background-color: #839eff;
 }

@@ -21,7 +21,7 @@
                 </div>
             </div>
         </template>
-        <div class="slds-card__body slds-card__body_inner">
+        <div class={cardBodyClasses}>
             <template if:false={error}>
                 <!-- Session and questions are loading -->
                 <template if:false={currentQuestion}>
@@ -49,16 +49,18 @@
 
                     <!-- Pre-question -->
                     <template if:true={isPreQuestionPhase}>
-                        <c-count-down-timer
+                        <c-progress-bar
+                            duration="6"
                             ontimeout={handleNextPhaseClick}
-                        ></c-count-down-timer>
+                        ></c-progress-bar>
                     </template>
 
                     <!-- Question -->
                     <template if:true={isQuestionPhase}>
-                        <c-count-down-timer
+                        <c-progress-bar
+                            duration="6"
                             ontimeout={handleNextPhaseClick}
-                        ></c-count-down-timer>
+                        ></c-progress-bar>
                         <c-question
                             question-object={currentQuestion}
                         ></c-question>
@@ -66,6 +68,7 @@
 
                     <!-- Question results -->
                     <template if:true={isQuestionResultsPhase}>
+                        <h1 class="answer-label">{correctAnswerLabel}</h1>
                         <div class="slds-grid slds-gutters">
                             <div class="slds-col slds-size_1-of-2">
                                 <c-answer-bar-chart

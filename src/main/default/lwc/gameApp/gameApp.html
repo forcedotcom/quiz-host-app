@@ -50,7 +50,7 @@
                     <!-- Pre-question -->
                     <template if:true={isPreQuestionPhase}>
                         <c-progress-bar
-                            duration="6"
+                            duration="5"
                             ontimeout={handleNextPhaseClick}
                         ></c-progress-bar>
                     </template>
@@ -58,7 +58,7 @@
                     <!-- Question -->
                     <template if:true={isQuestionPhase}>
                         <c-progress-bar
-                            duration="6"
+                            duration="10"
                             ontimeout={handleNextPhaseClick}
                         ></c-progress-bar>
                         <c-question

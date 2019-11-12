@@ -24,17 +24,17 @@
 }
 
 .bg-Registration {
-    background-color: orange;
+    background-color: #ea7600;
 }
 .bg-PreQuestion {
-    background-color: #00698f;
+    background-color: #EBBC48;
 }
 .bg-Question {
-    background-color: mediumpurple;
+    background-color: #e3faf6;
 }
 .bg-QuestionResults {
-    background-color: mediumseagreen;
+    background-color: #00ccc2;
 }
 .bg-GameResults {
-    background-color: #839eff;
+    background-color: #E7DAF2;
 }

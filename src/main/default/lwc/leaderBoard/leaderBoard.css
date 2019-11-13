@@ -2,16 +2,16 @@
     font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
     font-weight: 900;
     font-size: xx-large;
-    color: #ffffff;
+    color: #333;
 }
 .leaderboard > div {
     padding: 0 2rem;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid #ea7600;
     transition: all 0.4s ease-out;
 }
 .leaderboard div:first-child {
-    background: #ffffff;
-    color: #333333;
+    color: #ffffff;
+    background: #ea7600;
     border-radius: 0.25rem;
     border-bottom-width: 0;
 }

@@ -43,7 +43,9 @@ export default class playerList extends LightningElement {
 
     handlePlayerCreationEvent(cdcEvent) {
         const { Name } = cdcEvent.data.payload;
-        this.playerNames.push(Name);
+        if (!this.playerNames.includes(Name)) {
+            this.playerNames.push(Name);
+        }
     }
 
     disconnectedCallback() {

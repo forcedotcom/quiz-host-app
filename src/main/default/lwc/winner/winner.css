@@ -24,8 +24,8 @@ h1,
     margin: 1rem;
 }
 .winner-name span {
-    color: black;
-    background: white;
+    color: #ffffff;
+    background: #ea7600;
     padding: 0.25rem;
     border-radius: 0.25rem;
 }

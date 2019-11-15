@@ -41,7 +41,11 @@ export default class GameApp extends LightningElement {
             .then(currentQuestion => {
                 this.currentQuestion = currentQuestion;
                 this.error = undefined;
-                this.isNextButtonDisabled = false;
+                // Double phase change click prevention
+                // eslint-disable-next-line @lwc/lwc/no-async-operation
+                setTimeout(() => {
+                    this.isNextButtonDisabled = false;
+                }, 500);
             })
             .catch(error => {
                 this.error = reduceErrors(error);
@@ -51,6 +55,7 @@ export default class GameApp extends LightningElement {
     }
 
     handleNextPhaseClick() {
+        this.isNextButtonDisabled = true;
         this.answerCount = undefined;
         triggerNextPhase({ sessionId: this.quizSession.Id })
             .then(updatedSession => {

@@ -45,7 +45,7 @@ export default class GameApp extends LightningElement {
                 // eslint-disable-next-line @lwc/lwc/no-async-operation
                 setTimeout(() => {
                     this.isNextButtonDisabled = false;
-                }, 500);
+                }, 2000);
             })
             .catch(error => {
                 this.error = reduceErrors(error);

@@ -18,14 +18,14 @@
         "postinstall": "node bin/check-version.js"
     },
     "devDependencies": {
-        "@salesforce/eslint-config-lwc": "^0.3.0",
-        "@salesforce/lwc-jest": "^0.4.14",
+        "@salesforce/eslint-config-lwc": "^0.4.0",
+        "@salesforce/sfdx-lwc-jest": "^0.6.2",
         "eslint": "^5.16.0",
-        "husky": "^1.3.1",
-        "lint-staged": "^8.2.1",
-        "prettier": "^1.18.2",
-        "prettier-plugin-apex": "^1.0.0",
-        "semver": "^5.7.1"
+        "husky": "^3.1.0",
+        "lint-staged": "^9.5.0",
+        "prettier": "^1.19.1",
+        "prettier-plugin-apex": "^1.1.0",
+        "semver": "^6.3.0"
     },
     "husky": {
         "hooks": {

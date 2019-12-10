@@ -1,5 +1,7 @@
 # Quiz App
 
+[![Github Workflow](<https://github.com/pozil/sfdx-quiz/workflows/Salesforce%20DX%20CI%20(scratch%20org%20only)/badge.svg?branch=master>)](https://github.com/pozil/sfdx-quiz/actions)
+
 ## Installation
 
 -   Run `install-dev.sh`

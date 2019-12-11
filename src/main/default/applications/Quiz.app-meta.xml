@@ -12,11 +12,11 @@
         <headerColor>#FD0000</headerColor>
         <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
     </brand>
-    <description>Quiz administration</description>
+    <description>Play and administer the Salesforce Quiz App</description>
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
-    <label>Quiz Admin</label>
+    <label>Quiz</label>
     <navType>Standard</navType>
     <tabs>standard-home</tabs>
     <tabs>Quiz_Player__c</tabs>

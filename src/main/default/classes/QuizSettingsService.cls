@@ -1,6 +1,6 @@
 public class QuizSettingsService extends QuizAbstractDataService {
     public Quiz_Settings__mdt get() {
-        return (Quiz_Settings__mdt) getSingleRecord(
+        Quiz_Settings__mdt settings = (Quiz_Settings__mdt) getSingleRecord(
             [
                 SELECT
                     Id,
@@ -10,5 +10,8 @@ public class QuizSettingsService extends QuizAbstractDataService {
                 FROM Quiz_Settings__mdt
             ]
         );
+        // Normalize player app URL
+        settings.Player_App_URL__c = settings.Player_App_URL__c.removeEnd('/');
+        return settings;
     }
 }

@@ -1,11 +1,14 @@
+# Ignore OS files
 **/__MACOSX
 **/.DS_Store
-**/jsconfig.json
+
+# Ignore IDE and build files
 .sfdx
 .vscode
 .localdevserver
 node_modules
+**/jsconfig.json
 
 # Hide config including API key
-src/main/default/customMetadata/*
-src/main/default/remoteSiteSettings/*
+src/main/default/customMetadata
+src/main/default/remoteSiteSettings

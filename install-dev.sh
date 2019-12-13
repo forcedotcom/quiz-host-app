@@ -2,10 +2,21 @@
 
 # Set parameters
 ORG_ALIAS="quiz-dev"
+DATA="sample"
+
+if [ "$#" -eq 1 ]; then
+  ORG_ALIAS=$1
+else if [ "$#" -eq 2 ]; then
+    ORG_ALIAS=$1
+    DATA=$2
+  fi
+fi
+
 
 echo ""
 echo "Installing Quiz org:"
 echo "- Org alias:      $ORG_ALIAS"
+echo "- Data:           $DATA"
 echo ""
 
 # Install script
@@ -26,7 +37,7 @@ sfdx force:user:permset:assign -n Quiz_Admin -u $ORG_ALIAS && \
 echo "" && \
 
 echo "Importing data..." && \
-sfdx force:data:tree:import -p data/plan.json -u $ORG_ALIAS && \
+sfdx force:data:tree:import -p data/$DATA/plan.json -u $ORG_ALIAS && \
 echo "" && \
 
 echo "Generating user password..." && \

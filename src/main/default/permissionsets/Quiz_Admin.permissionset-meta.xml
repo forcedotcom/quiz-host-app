@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <applicationVisibilities>
-        <application>Quiz_Admin</application>
+        <application>Quiz</application>
         <visible>true</visible>
     </applicationVisibilities>
     <fieldPermissions>

@@ -1,7 +1,9 @@
 public with sharing class QuizController {
-    private static final QuizSessionService quizSessionService = new QuizSessionService();
+    private static final String PHASE_REGISTRATION = QuizSessionService.Phase.Registration.name();
+
+    private static final QuizSessionService sessionService = new QuizSessionService();
     private static final QuizAnswerService answerService = new QuizAnswerService();
-    private static final QuizSessionHelper quizSessionHelper = new QuizSessionHelper();
+    private static final QuizSessionHelper sessionHelper = new QuizSessionHelper();
     private static final QuizPlayerService playerService = new QuizPlayerService();
     private static final QuizSettingsService settingsService = new QuizSettingsService();
 
@@ -44,7 +46,7 @@ public with sharing class QuizController {
         if (sessionId == null) {
             throw new AuraHandledException('Missing session Id.');
         }
-        return quizSessionService.getCurrentQuestion(sessionId);
+        return sessionService.getCurrentQuestion(sessionId);
     }
 
     @AuraEnabled
@@ -61,7 +63,7 @@ public with sharing class QuizController {
 
     @AuraEnabled
     public static Quiz_Session__c getQuizSession() {
-        return quizSessionService.getQuizSession();
+        return sessionService.getQuizSession();
     }
 
     @AuraEnabled
@@ -69,6 +71,24 @@ public with sharing class QuizController {
         if (sessionId == null) {
             throw new AuraHandledException('Missing session Id.');
         }
-        return quizSessionHelper.triggerNextPhase(sessionId);
+        return sessionHelper.triggerNextPhase(sessionId);
+    }
+
+    @AuraEnabled
+    public static void resetGame() {
+        // Reset session (current question, phase)
+        Quiz_Session__c session = sessionService.getQuizSession();
+        List<Quiz_Question__c> questions = sessionService.getSessionQuestions(
+            session.Id
+        );
+        if (questions.size() > 0) {
+            session.Current_Question__c = questions[0].Id;
+        }
+        session.Phase__c = PHASE_REGISTRATION;
+        update session;
+        // Delete all players and answers
+        playerService.deleteAnswersAndPlayers();
+        // Push phase change to player app
+        QuizSessionHelper.pushPhaseUpdateToPlayerApp(session.Phase__c);
     }
 }

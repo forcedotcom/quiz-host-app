@@ -1,5 +1,6 @@
 import { LightningElement, track, wire } from 'lwc';
 import getCurrentQuestion from '@salesforce/apex/QuizController.getCurrentQuestion';
+import resetGame from '@salesforce/apex/QuizController.resetGame';
 import getQuizSession from '@salesforce/apex/QuizController.getQuizSession';
 import getQuizSettings from '@salesforce/apex/QuizController.getQuizSettings';
 import triggerNextPhase from '@salesforce/apex/QuizController.triggerNextPhase';
@@ -67,6 +68,15 @@ export default class GameApp extends LightningElement {
                 this.error = reduceErrors(error);
                 this.quizSession = undefined;
             });
+    }
+
+    handleResetClick() {
+        // eslint-disable-next-line no-alert
+        if (window.confirm('Delete game data (players and answers)?')) {
+            resetGame().then(() => {
+                window.location.reload();
+            });
+        }
     }
 
     get quizPhaseLabel() {

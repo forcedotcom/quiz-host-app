@@ -5,6 +5,8 @@ public with sharing class QuizSessionHelper {
         PHASE_QUESTION_RESULTS = QuizSessionService.Phase.QuestionResults.name(),
         PHASE_GAME_RESULTS = QuizSessionService.Phase.GameResults.name();
 
+    private static final QuizSettingsService settingsService = new QuizSettingsService();
+
     // When totalMilliseconds == smallestMilliseconds, score = 1000. With maximum totalMilliseconds, score = 500
     @TestVisible
     private Long computeScore(
@@ -127,6 +129,32 @@ public with sharing class QuizSessionHelper {
             }
         }
         return currentQuestionIndex;
+    }
+
+    @future(callout=true)
+    public static void pushPhaseUpdateToPlayerApp(String phase) {
+        Quiz_Settings__mdt settings = settingsService.get();
+
+        HttpRequest request = new HttpRequest();
+        request.setMethod('PUT');
+        request.setEndpoint(settings.Player_App_URL__c + '/api/quiz-sessions');
+        request.setHeader('Content-Type', 'application/json');
+        request.setHeader('Api-Key', settings.Quiz_Api_Key__c);
+        request.setBody('{ "Phase__c": "' + phase + '" }');
+
+        Http httpClient = new Http();
+        HttpResponse response = httpClient.send(request);
+        if (response.getStatusCode() != 200) {
+            throw new QuizPhasePushException(
+                'Failed to push quiz phase update: HTTP' +
+                response.getStatusCode() +
+                ' ' +
+                response.getBody()
+            );
+        }
+    }
+
+    public class QuizPhasePushException extends Exception {
     }
 
     public class InvalidPhaseException extends Exception {

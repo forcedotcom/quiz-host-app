@@ -65,12 +65,6 @@ jobs:
               with:
                   args: 'force:auth:sfdxurl:store -f ./DEVHUB_SFDX_URL.txt -a devhub -d'
 
-            # Lint Aura components
-            - name: 'Lint Aura components'
-              uses: forcedotcom/salesforcedx-actions@master
-              with:
-                  args: 'force:lightning:lint force-app/main/default/aura --exit'
-
             # Create scratch org
             - name: 'Create scratch org'
               uses: forcedotcom/salesforcedx-actions@master

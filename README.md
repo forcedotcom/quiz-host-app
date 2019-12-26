@@ -66,27 +66,27 @@ You'll need a free [Heroku account](https://signup.heroku.com) to set it up.
         <td>Quiz API Key</td>
         <td>The password that was generated in step 3.</td>
       </tr>
-      <tr>
-        <td></td>
-        <td></td>
-      </tr>
       </table>
     </li>
 </ol>
 
 ## Usage
 
-Once you have installed the app. You should test it in private to confirm that it works.
+Once you have installed the app, test it in private to confirm that it works.
 
-1. Open the Salesforce org
-1. Open the **Quiz app** from App Launcher
-1. Make sure that the screen is showing the **Registration** screen
+Here is how the game works:
+
+1. Open the Salesforce org.
+1. Open the **Quiz app** from App Launcher.
+1. Make sure that the screen is showing the **Registration** screen. If not, click the **Reset** button.
 1. Open the mini URL or scan the QR code with your phone. That should open the player app.
 1. Register on the player app. Your player name should automatically appear on the host app.
-1. Click on the top right **Start** button on the host app
+1. Click on the top right **Start** button on the host app.
 1. Your player app should show a "Waiting for question" message for a few seconds then show the 4 answer buttons. If the player app does not refresh, you likely have a setup issue. See troubleshooting.
 
 Shortly before running the official game, make sure to access the player app a first time to load it. This is needed when running on a free Heroku dyno (default install) because there is a wake-up time for the app.
+
+You can reset the game at any time by clicking on the Reset button on top right of the Quiz app. This resets the quiz session to the registration phase, clears previous players and answers.
 
 ## Troubleshooting
 

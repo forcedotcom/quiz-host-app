@@ -167,10 +167,19 @@ Here is how the game works:
 1. Make sure that the screen is showing the **Registration** screen. If not, click the **Reset** button.
 1. Open the mini URL or scan the QR code with your phone. That should open the player app.
 1. Register on the player app. Your player name should automatically appear on the host app.
-1. Click on the top right **Start** button on the host app.
+1. Click on the top right **Start** button on the host app. Once the game is started, players are no longer able to register.
 1. Your player app should show a "Waiting for question" message for a few seconds then show the 4 answer buttons. If the player app does not refresh, you likely have a setup issue. See troubleshooting.
 
+**Scoring system**
+
+Players start with a zero score. The fastest player to answer a question correctly earns 1000 points.
+Players who also answered correctly but later will earn a decreasing number of points depending on how late their anwers were. Wrong answers grant no points. The player that scores the most points at the end of the game wins.
+
+**Warm up time**
+
 Shortly before running the official game, make sure to access the player app a first time to load it. This is needed when running on a free Heroku dyno (default install) because there is a wake-up time for the app.
+
+**Resetting the game**
 
 You can reset the game at any time by clicking on the Reset button on top right of the Quiz app. This resets the quiz session to the registration phase, clears players and previous answers.
 
@@ -187,8 +196,8 @@ You can reset the game at any time by clicking on the Reset button on top right 
 
 **Solution:**
 
-- Reset the game using the Reset button on the quiz app. This resets the quiz session to the registration phase, clears players and previous answers.
-- Run the content of the `bin/wipe-data.apxs` file as anonymous apex. This will wipe all quiz data. You'll have to reimport questions.
+-   Reset the game using the Reset button on the quiz app. This resets the quiz session to the registration phase, clears players and previous answers.
+-   Run the content of the `bin/wipe-data.apxs` file as anonymous apex. This will wipe all quiz data. You'll have to reimport questions.
 
 ## Building and contributing
 

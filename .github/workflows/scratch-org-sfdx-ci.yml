@@ -87,7 +87,7 @@ jobs:
             - name: 'Run Apex tests'
               uses: forcedotcom/salesforcedx-actions@master
               with:
-                  args: 'force:apex:test:run -r human -w 20'
+                  args: 'force:apex:test:run -r human -d ./tests/apex -w 20'
 
             # Housekeeping
             - name: 'Delete scratch org'

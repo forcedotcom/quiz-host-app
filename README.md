@@ -53,7 +53,7 @@ You'll need a free [Heroku account](https://signup.heroku.com) to set it up.
     </li>
     <li>Clone the repository:
 <pre>git clone https://github.com/pozil/quiz-host-app.git
-cd ebikes-lwc</pre>
+cd quiz-host-app</pre>
     </li>
     <li>Deploy the host app on a scratch org. If your OS is Linux or MacOS, run <code>install-dev.sh quiz developer</code>. If running on Windows, follow these steps for <a href="#manual-scratch-org-deployment">manual scratch org deployment</a>.</li>
     <li>Generate a <a target="_blank" href="https://help.salesforce.com/articleView?id=user_security_token.htm">security token</a> for your user</li>

@@ -73,7 +73,7 @@ cd quiz-host-app</pre>
         </tr>
         <tr>
           <td>QUIZ_API_KEY</td>
-          <td>The password that was generated in step 6.</td>
+          <td>The Quiz API key that was generated in step 6.</td>
         </tr>
         <tr>
           <td>SF_LOGIN_URL</td>
@@ -93,8 +93,8 @@ cd quiz-host-app</pre>
         </tr>
       </table>
     </li>
-    <li>Generate a minified URL for the Heroku app using <a target="_blank" href="https://bit.do/">this service</a> (I suggest a custom link for greater readability).</li>
-    <li>In your Salesforce org, go to <b>Setup &gt; Remote Site Settings</b> and add the player app URL.</li>
+    <li>Generate a minified URL for the Heroku player app using <a target="_blank" href="https://bit.do/">this service</a> (I suggest a custom link for greater readability).</li>
+    <li>In your Salesforce org, go to <b>Setup &gt; Remote Site Settings</b> and add the complete player app URL (not the minified URL).</li>
     <li>Go to <b>Setup &gt; Custom Metadata Types</b> and add a <b>Quiz Settings</b> record. Set it up with these values:
       <table>
       <tr>
@@ -181,6 +181,12 @@ You can reset the game at any time by clicking on the Reset button on top right 
 
 -   Check that you have registered the correct Remote Site in your org.
 -   Check that your Quiz API Key is correctly set up in both the Custom Metadata Types and in the Heroku environment variable.
+
+**Problem:** Something is wrong with the quiz data or you'd like to reset it
+
+**Solution:**
+
+Run the content of the `bin/wipe-data.apxs` file as anonymous apex. This will wipe all quiz data. You'll have to reimport questions.
 
 ## Building and contributing
 

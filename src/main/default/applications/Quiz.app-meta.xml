@@ -9,8 +9,10 @@
         <pageOrSobjectType>standard-home</pageOrSobjectType>
     </actionOverrides>
     <brand>
-        <headerColor>#FD0000</headerColor>
-        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+        <headerColor>#7673C0</headerColor>
+        <logo>quizicon</logo>
+        <logoVersion>1</logoVersion>
+        <shouldOverrideOrgTheme>true</shouldOverrideOrgTheme>
     </brand>
     <description>Play and administer the Salesforce Quiz App</description>
     <formFactors>Large</formFactors>
@@ -24,5 +26,5 @@
     <tabs>Quiz_Answer__c</tabs>
     <tabs>Quiz_Session__c</tabs>
     <uiType>Lightning</uiType>
-    <utilityBar>Quiz_Admin_UtilityBar</utilityBar>
+    <utilityBar>Quiz_UtilityBar</utilityBar>
 </CustomApplication>

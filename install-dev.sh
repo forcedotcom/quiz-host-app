@@ -33,7 +33,7 @@ sfdx force:source:push -f -u $ORG_ALIAS && \
 echo "" && \
 
 echo "Assigning permissions..." && \
-sfdx force:user:permset:assign -n Quiz_Admin -u $ORG_ALIAS && \
+sfdx force:user:permset:assign -n Quiz_Host -u $ORG_ALIAS && \
 echo "" && \
 
 echo "Importing data..." && \

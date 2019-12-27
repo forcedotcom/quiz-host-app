@@ -81,7 +81,7 @@ jobs:
             - name: 'Assign permissionset to default user'
               uses: forcedotcom/salesforcedx-actions@master
               with:
-                  args: 'force:user:permset:assign -n Quiz_Admin'
+                  args: 'force:user:permset:assign -n Quiz_Host'
 
             # Run Apex tests in scratch org
             - name: 'Run Apex tests'

@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="doc-media/quiz-icon.png" alt="Quiz icon" width="150"/>
+</div>
+
 # Multiplayer quiz app built on Salesforce technology (host app)
 
 [![Github Workflow](<https://github.com/pozil/quiz-host-app/workflows/Salesforce%20DX%20CI%20(scratch%20org%20only)/badge.svg?branch=master>)](https://github.com/pozil/quiz-host-app/actions)

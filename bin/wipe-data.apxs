@@ -3,9 +3,8 @@ WARNING! THIS ANONYMOUS APEX BLOCK WIPES ALL DATA FROM YOUR QUIZ.
 MAKE SURE YOU HAVE A MEANS TO RESTORE THIS IT IF YOU PROCEED! 
 */
 
-List<Quiz_Session__c> sessions = [SELECT Id FROM Quiz_Session__c];
-
-List<Quiz_Question__c> questions = [SELECT Id FROM Quiz_Question__c];
-
-delete sessions;
-delete questions;
+delete [SELECT Id FROM Quiz_Answer__c];
+delete [SELECT Id FROM Quiz_Player__c];
+delete [SELECT Id FROM Quiz_Session_Question__c];
+delete [SELECT Id FROM Quiz_Question__c];
+delete [SELECT Id FROM Quiz_Session__c];

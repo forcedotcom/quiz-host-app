@@ -1,12 +1,18 @@
 public abstract class QuizAbstractDataService {
-    public sObject getSingleRecord(List<sObject> objects) {
+    public sObject getSingleRecord(String objectName, List<sObject> objects) {
         Integer count = objects.size();
         if (count == 0) {
-            throw new NoRecordFoundException('No record found');
+            throw new NoRecordFoundException(
+                'No ' +
+                objectName +
+                ' record found'
+            );
         }
         if (count > 1) {
             throw new TooManyRecordFoundException(
-                'Too many records, expected single record'
+                'Too many records, expected single ' +
+                objectName +
+                ' record'
             );
         }
         return objects.get(0);

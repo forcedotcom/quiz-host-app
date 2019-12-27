@@ -9,12 +9,14 @@ public class QuizSessionService extends QuizAbstractDataService {
 
     public Quiz_Session__c getQuizSession() {
         return (Quiz_Session__c) getSingleRecord(
+            'Quiz_Session__c',
             [SELECT Id, Phase__c, Current_Question__c FROM Quiz_Session__c]
         );
     }
 
     public Quiz_Question__c getCurrentQuestion(Id sessionId) {
         Quiz_Session__c session = (Quiz_Session__c) getSingleRecord(
+            'Quiz_Session__c',
             [
                 SELECT
                     Current_Question__r.Id,

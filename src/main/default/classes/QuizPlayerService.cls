@@ -1,6 +1,7 @@
 public class QuizPlayerService extends QuizAbstractDataService {
     public Quiz_Player__c getFromId(Id playerId) {
         return (Quiz_Player__c) getSingleRecord(
+            'Quiz_Player__c',
             [
                 SELECT Id, Name, Score__c, Ranking__c
                 FROM Quiz_Player__c
@@ -11,6 +12,7 @@ public class QuizPlayerService extends QuizAbstractDataService {
 
     public Quiz_Player__c getFromName(String name) {
         return (Quiz_Player__c) getSingleRecord(
+            'Quiz_Player__c',
             [SELECT Id FROM Quiz_Player__c WHERE Name = :name]
         );
     }

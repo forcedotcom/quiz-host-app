@@ -1,6 +1,7 @@
 import { LightningElement, track, wire } from 'lwc';
 import getCurrentQuestion from '@salesforce/apex/QuizController.getCurrentQuestion';
 import resetGame from '@salesforce/apex/QuizController.resetGame';
+import checkSettings from '@salesforce/apex/QuizController.checkSettings';
 import getQuizSession from '@salesforce/apex/QuizController.getQuizSession';
 import getQuizSettings from '@salesforce/apex/QuizController.getQuizSettings';
 import triggerNextPhase from '@salesforce/apex/QuizController.triggerNextPhase';
@@ -17,7 +18,6 @@ export default class GameApp extends LightningElement {
     wiredQuizSettings({ error, data }) {
         if (data) {
             this.quizSettings = data;
-            this.error = undefined;
         } else if (error) {
             this.error = reduceErrors(error);
             this.quizSettings = undefined;
@@ -25,10 +25,13 @@ export default class GameApp extends LightningElement {
     }
 
     connectedCallback() {
+        checkSettings().catch(error => {
+            this.error = reduceErrors(error);
+            this.isNextButtonDisabled = true;
+        });
         getQuizSession()
             .then(quizSession => {
                 this.quizSession = quizSession;
-                this.error = undefined;
                 this.refreshCurrentQuestion();
             })
             .catch(error => {
@@ -41,11 +44,12 @@ export default class GameApp extends LightningElement {
         getCurrentQuestion({ sessionId: this.quizSession.Id })
             .then(currentQuestion => {
                 this.currentQuestion = currentQuestion;
-                this.error = undefined;
                 // Double phase change click prevention
                 // eslint-disable-next-line @lwc/lwc/no-async-operation
                 setTimeout(() => {
-                    this.isNextButtonDisabled = false;
+                    if (!this.error) {
+                        this.isNextButtonDisabled = false;
+                    }
                 }, 2000);
             })
             .catch(error => {

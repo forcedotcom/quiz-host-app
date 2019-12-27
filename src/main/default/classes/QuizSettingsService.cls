@@ -1,6 +1,7 @@
 public class QuizSettingsService extends QuizAbstractDataService {
     public Quiz_Settings__mdt get() {
         Quiz_Settings__mdt settings = (Quiz_Settings__mdt) getSingleRecord(
+            'Quiz_Settings__mdt',
             [
                 SELECT
                     Id,
@@ -13,5 +14,23 @@ public class QuizSettingsService extends QuizAbstractDataService {
         // Normalize player app URL
         settings.Player_App_URL__c = settings.Player_App_URL__c.removeEnd('/');
         return settings;
+    }
+
+    public void checkSettings() {
+        // Check for a unique settings record
+        Quiz_Settings__mdt settings = this.get();
+        // Check that player app can be reached (remote site is configured and URL is valid)
+        HttpRequest req = new HttpRequest();
+        req.setEndpoint(settings.Player_App_URL__c);
+        req.setMethod('GET');
+        HttpResponse res = new Http().send(req);
+        if (res.getStatusCode() < 200 || res.getStatusCode() > 300) {
+            throw new MissingRemoteSiteException(
+                'Failed to reach player app. Check if URL is valid.'
+            );
+        }
+    }
+
+    public class MissingRemoteSiteException extends Exception {
     }
 }

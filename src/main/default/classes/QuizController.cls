@@ -91,4 +91,15 @@ public with sharing class QuizController {
         // Push phase change to player app
         QuizSessionHelper.pushPhaseUpdateToPlayerApp(session.Phase__c);
     }
+
+    @AuraEnabled
+    public static void checkSettings() {
+        try {
+            settingsService.checkSettings();
+        } catch (Exception e) {
+            throw new AuraHandledException(
+                'Failed to validate Quiz app settings: ' + e.getMessage()
+            );
+        }
+    }
 }

@@ -40,15 +40,58 @@ You'll need a free [Heroku account](https://signup.heroku.com) to set it up.
 ### Steps
 
 <ol>
-    <li>Run <code>install-dev.sh</code> to deploy the host app on a scratch org</li>
+    <li>Set up your environment. Follow the steps in the <a href="https://trailhead.salesforce.com/content/learn/projects/quick-start-lightning-web-components/">Quick Start: Lightning Web Components</a> Trailhead project. The steps include:
+      <ul>
+        <li>Enable Dev Hub in your Trailhead Playground</li>
+        <li>Install Salesforce CLI</li>
+        <li>Install Visual Studio Code</li>
+        <li>Install the Visual Studio Code Salesforce extensions, including the Lightning Web Components extension</li>
+      </ul>
+    </li>
+    <li>If you haven't already done so, authenticate with your hub org and provide it with an alias (<b>myhuborg</b> in the command below):
+<pre>sfdx force:auth:web:login -d -a myhuborg</pre>
+    </li>
+    <li>Clone the repository:
+<pre>git clone https://github.com/pozil/quiz-host-app.git
+cd ebikes-lwc</pre>
+    </li>
+    <li>Deploy the host app on a scratch org. If your OS is Linux or MacOS, run <code>install-dev.sh quiz developer</code>. If running on Windows, follow these steps for <a href="#manual-scratch-org-deployment">manual scratch org deployment</a>.</li>
     <li>Generate a <a target="_blank" href="https://help.salesforce.com/articleView?id=user_security_token.htm">security token</a> for your user</li>
-    <li>Generate a password using <a target="_blank" href="https://passwordsgenerator.net/">this service</a>.</li> This will be the <b>Quiz API Key</b> that you'll set later in both applications.
+    <li>Generate a password using <a target="_blank" href="https://passwordsgenerator.net/">this service</a>. This will be the <b>Quiz API Key</b> that you'll set later in both applications.
     <li>Deploy the <b>Quiz Player App</b> to Heroku by clicking this button:<br/>
       <p align="center">
         <a target="_blank" href="https://heroku.com/deploy?template=https://github.com/pozil/quiz-player-app/edit/master" title="Deploy to Heroku">
           <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku"/>
         </a>
       <p>
+    </li>
+    <li>Set the <b>Config Vars</b> for he Heroku Player app as following:
+      <table>
+        <tr>
+          <th>Variable</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>QUIZ_API_KEY</td>
+          <td>The password that was generated in step 6.</td>
+        </tr>
+        <tr>
+          <td>SF_LOGIN_URL</td>
+          <td>The login URL of your Salesforce org: `https://test.salesforce.com/` for sandboxes or scratch orgs, `https://login.salesforce.com/` for Developer Edition and production.</td>
+        </tr>
+        <tr>
+          <td>SF_PASSWORD</td>
+          <td>Your Salesforce password.</td>
+        </tr>
+        <tr>
+          <td>SF_TOKEN</td>
+          <td>Your Salesforce user's security token that was generated in step 5.</td>
+        </tr>
+        <tr>
+          <td>SF_USERNAME</td>
+          <td>Your Salesforce username.</td>
+        </tr>
+      </table>
     </li>
     <li>Generate a minified URL for the Heroku app using <a target="_blank" href="https://bit.do/">this service</a> (I suggest a custom link for greater readability).</li>
     <li>In your Salesforce org, go to <b>Setup &gt; Remote Site Settings</b> and add the player app URL.</li>
@@ -60,19 +103,57 @@ You'll need a free [Heroku account](https://signup.heroku.com) to set it up.
       </tr>
       <tr>
         <td>Player App URL</td>
-        <td>The Heroku player app URL that was generated in step 4.</td>
+        <td>The Heroku player app URL that was generated in step 7.</td>
       </tr>
       <tr>
         <td>Player App URL Minified</td>
-        <td>The minified URL for the player app that was generated in step 5.</td>
+        <td>The minified URL for the player app that was generated in step 6.</td>
       </tr>
       <tr>
         <td>Quiz API Key</td>
-        <td>The password that was generated in step 3.</td>
+        <td>The password that was generated in step 9.</td>
       </tr>
       </table>
     </li>
 </ol>
+
+### Manual scratch org deployment
+
+1. Create a scratch org and provide it with an alias (**quiz** in the command below):
+
+```
+sfdx force:org:create -s -f config/project-scratch-def.json -a quiz -d 30
+```
+
+2. Push the app to your scratch org:
+
+```
+sfdx force:source:push
+```
+
+3. Assign the **Quiz_Host** permission set to the default user:
+
+```
+sfdx force:user:permset:assign -n Quiz_Host
+```
+
+4. Load developer questions records:
+
+```
+sfdx force:data:tree:import --plan ./data/developer/plan.json
+```
+
+5. Generate a password for your user:
+
+```
+sfdx force:user:password:generate
+```
+
+6. Open the scratch org:
+
+```
+sfdx force:org:open
+```
 
 ## Usage
 

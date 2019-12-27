@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set parameters
-ORG_ALIAS="quiz-dev"
+ORG_ALIAS="quiz"
 DATA="sample"
 
 if [ "$#" -eq 1 ]; then

@@ -10,6 +10,7 @@
 1. [Installation](#installation)
     - [Requirements](#requirements)
     - [Steps](#steps)
+    - [Manual scratch org deployment](#manual-scratch-org-deployment)
 1. [Usage](#usage)
 1. [Troubleshooting](#troubleshooting)
 1. [Building and contributing](#building-and-contributing)
@@ -171,7 +172,7 @@ Here is how the game works:
 
 Shortly before running the official game, make sure to access the player app a first time to load it. This is needed when running on a free Heroku dyno (default install) because there is a wake-up time for the app.
 
-You can reset the game at any time by clicking on the Reset button on top right of the Quiz app. This resets the quiz session to the registration phase, clears previous players and answers.
+You can reset the game at any time by clicking on the Reset button on top right of the Quiz app. This resets the quiz session to the registration phase, clears players and previous answers.
 
 ## Troubleshooting
 
@@ -186,7 +187,8 @@ You can reset the game at any time by clicking on the Reset button on top right 
 
 **Solution:**
 
-Run the content of the `bin/wipe-data.apxs` file as anonymous apex. This will wipe all quiz data. You'll have to reimport questions.
+- Reset the game using the Reset button on the quiz app. This resets the quiz session to the registration phase, clears players and previous answers.
+- Run the content of the `bin/wipe-data.apxs` file as anonymous apex. This will wipe all quiz data. You'll have to reimport questions.
 
 ## Building and contributing
 

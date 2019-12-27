@@ -114,6 +114,7 @@ public class QuizAnswerService extends QuizAbstractDataService {
 
     public Quiz_Answer__c getFromPlayer(Id playerId, Id questionId) {
         return (Quiz_Answer__c) getSingleRecord(
+            'Quiz_Answer__c',
             [
                 SELECT Id, Player__c, Question__c, Answer__c, Score__c
                 FROM Quiz_Answer__c

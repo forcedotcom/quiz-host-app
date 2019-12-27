@@ -1,4 +1,14 @@
 <template>
+    <template if:true={error}>
+        <div
+            class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-m-bottom_small"
+            role="alert"
+        >
+            <span class="slds-assistive-text">error</span>
+            <h2>{error}</h2>
+        </div>
+    </template>
+
     <div class="slds-card">
         <template if:true={currentQuestion}>
             <div class="slds-card__header slds-grid">
@@ -99,10 +109,6 @@
                         </div>
                     </template>
                 </template>
-            </template>
-
-            <template if:true={error}>
-                {error}
             </template>
         </div>
     </div>

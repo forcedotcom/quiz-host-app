@@ -26,10 +26,10 @@ public with sharing class QuizSessionHelper {
 
     public void updatePlayerScores() {
         // Get current question
-        QuizSessionService quizSessionService = new QuizSessionService();
-        Quiz_Session__c quizSession = quizSessionService.getQuizSession();
-        Quiz_Question__c currentQuestion = quizSessionService.getCurrentQuestion(
-            quizSession.Id
+        QuizSessionService sessionService = new QuizSessionService();
+        Quiz_Session__c session = sessionService.getQuizSession();
+        Quiz_Question__c currentQuestion = sessionService.getCurrentQuestion(
+            session.Id
         );
 
         // Get correct answers
@@ -75,46 +75,46 @@ public with sharing class QuizSessionHelper {
     }
 
     public Quiz_Session__c triggerNextPhase(Id sessionId) {
-        QuizSessionService quizSessionService = new QuizSessionService();
-        Quiz_Session__c quizSession = quizSessionService.getQuizSession();
+        QuizSessionService sessionService = new QuizSessionService();
+        Quiz_Session__c session = sessionService.getQuizSession();
 
-        if (quizSession.Phase__c == PHASE_REGISTRATION) {
-            quizSession.Phase__c = PHASE_PRE_QUESTION;
-        } else if (quizSession.Phase__c == PHASE_PRE_QUESTION) {
-            quizSession.Phase__c = PHASE_QUESTION;
-        } else if (quizSession.Phase__c == PHASE_QUESTION) {
-            quizSession.Phase__c = PHASE_QUESTION_RESULTS;
-        } else if (quizSession.Phase__c == PHASE_QUESTION_RESULTS) {
-            List<Quiz_Question__c> questions = quizSessionService.getSessionQuestions(
+        if (session.Phase__c == PHASE_REGISTRATION) {
+            session.Phase__c = PHASE_PRE_QUESTION;
+        } else if (session.Phase__c == PHASE_PRE_QUESTION) {
+            session.Phase__c = PHASE_QUESTION;
+        } else if (session.Phase__c == PHASE_QUESTION) {
+            session.Phase__c = PHASE_QUESTION_RESULTS;
+        } else if (session.Phase__c == PHASE_QUESTION_RESULTS) {
+            List<Quiz_Question__c> questions = sessionService.getSessionQuestions(
                 sessionId
             );
             Integer currentQuestionIndex = this.getCurrentQuestionIndex(
-                quizSession,
+                session,
                 questions
             );
             if (currentQuestionIndex == questions.size() - 1) {
-                quizSession.Phase__c = PHASE_GAME_RESULTS;
+                session.Phase__c = PHASE_GAME_RESULTS;
             } else {
-                quizSession.Phase__c = PHASE_PRE_QUESTION;
+                session.Phase__c = PHASE_PRE_QUESTION;
                 Quiz_Question__c nextQuestion = questions[
                     currentQuestionIndex + 1
                 ];
-                quizSession.Current_Question__c = nextQuestion.Id;
+                session.Current_Question__c = nextQuestion.Id;
             }
-        } else if (quizSession.Phase__c == PHASE_GAME_RESULTS) {
-            quizSession.Phase__c = PHASE_REGISTRATION;
+        } else if (session.Phase__c == PHASE_GAME_RESULTS) {
+            session.Phase__c = PHASE_REGISTRATION;
         } else {
             throw new InvalidPhaseException(
-                'Unsupported quiz phase: ' + quizSession.Phase__c
+                'Unsupported quiz phase: ' + session.Phase__c
             );
         }
 
-        update quizSession;
-        return quizSession;
+        update session;
+        return session;
     }
 
     private Integer getCurrentQuestionIndex(
-        Quiz_Session__c quizSession,
+        Quiz_Session__c session,
         List<Quiz_Question__c> questions
     ) {
         Integer currentQuestionIndex = -1;
@@ -124,7 +124,7 @@ public with sharing class QuizSessionHelper {
             i < questions.size();
             i++
         ) {
-            if (quizSession.Current_Question__c == questions[i].Id) {
+            if (session.Current_Question__c == questions[i].Id) {
                 currentQuestionIndex = i;
             }
         }

@@ -13,9 +13,9 @@ public class QuizSessionHelperTest {
             new TestUtils.MockSuccessHttpResponse()
         );
 
-        Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
+        Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
         Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(1)[0];
-        Quiz_Question__c question1 = quizSession.Current_Question__r;
+        Quiz_Question__c question1 = session.Current_Question__r;
         Quiz_Question__c question2 = QuizSessionTestFactory.createQuizQuestion();
         Quiz_Answer__c quizAnswer1 = QuizSessionTestFactory.createQuizAnswer(
             player.Id,
@@ -24,21 +24,21 @@ public class QuizSessionHelperTest {
         );
 
         Test.startTest();
-        quizSession.Phase__c = PHASE_QUESTION_RESULTS;
-        update quizSession;
+        session.Phase__c = PHASE_QUESTION_RESULTS;
+        update session;
 
         // update quiz session's 'current question
-        quizSession.Phase__c = PHASE_QUESTION;
-        quizSession.Current_Question__c = question2.Id;
-        update quizSession;
+        session.Phase__c = PHASE_QUESTION;
+        session.Current_Question__c = question2.Id;
+        update session;
 
         Quiz_Answer__c quizAnswer2 = QuizSessionTestFactory.createQuizAnswer(
             player.Id,
             question2.Id,
             question2.Correct_Answer__c
         );
-        quizSession.Phase__c = PHASE_QUESTION_RESULTS;
-        update quizSession;
+        session.Phase__c = PHASE_QUESTION_RESULTS;
+        update session;
         Test.stopTest();
 
         Integer score = [
@@ -57,8 +57,8 @@ public class QuizSessionHelperTest {
             new TestUtils.MockSuccessHttpResponse()
         );
 
-        Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
-        Quiz_Question__c question = quizSession.Current_Question__r;
+        Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
+        Quiz_Question__c question = session.Current_Question__r;
         List<Quiz_Player__c> players = QuizSessionTestFactory.createQuizPlayers(
             NUM_PLAYERS
         );
@@ -76,8 +76,8 @@ public class QuizSessionHelperTest {
 
         Test.startTest();
         insert answers;
-        quizSession.Phase__c = PHASE_QUESTION_RESULTS;
-        update quizSession;
+        session.Phase__c = PHASE_QUESTION_RESULTS;
+        update session;
         Test.stopTest();
 
         // get answers ordered by oldest first, loop through them to get player Ids
@@ -106,8 +106,8 @@ public class QuizSessionHelperTest {
             new TestUtils.MockSuccessHttpResponse()
         );
 
-        Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
-        Quiz_Question__c question = quizSession.Current_Question__r;
+        Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
+        Quiz_Question__c question = session.Current_Question__r;
         List<Quiz_Player__c> players = QuizSessionTestFactory.createQuizPlayers(
             NUM_PLAYERS
         );
@@ -125,8 +125,8 @@ public class QuizSessionHelperTest {
 
         Test.startTest();
         insert answers;
-        quizSession.Phase__c = PHASE_QUESTION_RESULTS;
-        update quizSession;
+        session.Phase__c = PHASE_QUESTION_RESULTS;
+        update session;
         Test.stopTest();
 
         List<Quiz_Answer__c> updatedAnswers = [
@@ -145,18 +145,18 @@ public class QuizSessionHelperTest {
             new TestUtils.MockSuccessHttpResponse()
         );
 
-        Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
-        Quiz_Question__c question = quizSession.Current_Question__r;
+        Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
+        Quiz_Question__c question = session.Current_Question__r;
         Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(1)[0];
 
         Test.startTest();
-        quizSession.Phase__c = PHASE_QUESTION_RESULTS;
+        session.Phase__c = PHASE_QUESTION_RESULTS;
         Quiz_Answer__c quizAnswer = QuizSessionTestFactory.createQuizAnswer(
             player.Id,
             question.Id,
             question.Correct_Answer__c
         );
-        update quizSession;
+        update session;
         Test.stopTest();
 
         Integer score = [
@@ -175,14 +175,14 @@ public class QuizSessionHelperTest {
             new TestUtils.MockSuccessHttpResponse()
         );
 
-        Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
-        Quiz_Question__c question = quizSession.Current_Question__r;
+        Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
+        Quiz_Question__c question = session.Current_Question__r;
         List<Quiz_Player__c> players = QuizSessionTestFactory.createQuizPlayers(
             2
         );
 
         Test.startTest();
-        quizSession.Phase__c = PHASE_QUESTION_RESULTS;
+        session.Phase__c = PHASE_QUESTION_RESULTS;
         Quiz_Answer__c quizAnswer = QuizSessionTestFactory.createQuizAnswer(
             players[0].Id,
             question.Id,
@@ -196,7 +196,7 @@ public class QuizSessionHelperTest {
         Set<Id> quizAnswerIds = new Set<Id>();
         quizAnswerIds.add(quizAnswer.Id);
         quizAnswerIds.add(lastQuizAnswer.Id);
-        update quizSession;
+        update session;
         Test.stopTest();
 
         List<Quiz_Answer__c> updatedQuizAnswers = [
@@ -214,18 +214,18 @@ public class QuizSessionHelperTest {
             new TestUtils.MockSuccessHttpResponse()
         );
 
-        Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
-        Quiz_Question__c question = quizSession.Current_Question__r;
+        Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
+        Quiz_Question__c question = session.Current_Question__r;
         Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(1)[0];
 
         Test.startTest();
-        quizSession.Phase__c = PHASE_QUESTION_RESULTS;
+        session.Phase__c = PHASE_QUESTION_RESULTS;
         Quiz_Answer__c quizAnswer = QuizSessionTestFactory.createQuizAnswer(
             player.Id,
             question.Id,
             'a'
         );
-        update quizSession;
+        update session;
         Test.stopTest();
 
         Integer score = [
@@ -244,18 +244,18 @@ public class QuizSessionHelperTest {
             new TestUtils.MockSuccessHttpResponse()
         );
 
-        Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
-        Quiz_Question__c question = quizSession.Current_Question__r;
+        Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
+        Quiz_Question__c question = session.Current_Question__r;
         Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(1)[0];
 
         Test.startTest();
-        quizSession.Phase__c = PHASE_QUESTION_RESULTS;
+        session.Phase__c = PHASE_QUESTION_RESULTS;
         Quiz_Answer__c quizAnswer = QuizSessionTestFactory.createQuizAnswer(
             player.Id,
             question.Id,
             'a'
         );
-        update quizSession;
+        update session;
         Test.stopTest();
 
         Integer score = [

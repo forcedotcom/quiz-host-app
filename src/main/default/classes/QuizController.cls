@@ -20,11 +20,7 @@ public with sharing class QuizController {
         if (playerList.isEmpty()) {
             throw new AuraHandledException('No player found');
         }
-        try {
-            return answerService.getPlayerAnswerStats(playerList[0].Id);
-        } catch (QuizAnswerService.UnknownUserException e) {
-            throw new AuraHandledException('Unknown player');
-        }
+        return answerService.getPlayerAnswerStats(playerList[0].Id);
     }
 
     @AuraEnabled(cacheable=true)
@@ -36,8 +32,10 @@ public with sharing class QuizController {
         }
         try {
             return answerService.getPlayerAnswerStats(playerId);
-        } catch (QuizAnswerService.UnknownUserException e) {
-            throw new AuraHandledException('Unknown player');
+        } catch (QuizAbstractDataService.NoRecordFoundException e) {
+            throw new AuraHandledException(
+                'Failed to get player stats: ' + e.getMessage()
+            );
         }
     }
 

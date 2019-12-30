@@ -11,21 +11,17 @@ public class QuizSessionTriggerHelperTest {
             new TestUtils.MockSuccessHttpResponse()
         );
 
-        Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
-        Quiz_Question__c question1 = quizSession.Current_Question__r;
+        Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
+        Quiz_Question__c question1 = session.Current_Question__r;
         Quiz_Question__c question2 = QuizSessionTestFactory.createQuizQuestion();
-        QuizSessionTestFactory.createQuizSessionQuestion(
-            quizSession,
-            question2,
-            1
-        );
+        QuizSessionTestFactory.createQuizSessionQuestion(session, question2, 1);
 
-        quizSession.Current_Question__r = question2;
-        quizSession.Phase__c = PHASE_QUESTION;
-        update quizSession;
+        session.Current_Question__r = question2;
+        session.Phase__c = PHASE_QUESTION;
+        update session;
 
-        quizSession.Phase__c = PHASE_REGISTRATION;
-        update quizSession;
+        session.Phase__c = PHASE_REGISTRATION;
+        update session;
 
         Quiz_Session__c updatedSession = [
             SELECT Current_Question__c
@@ -41,22 +37,22 @@ public class QuizSessionTriggerHelperTest {
             new TestUtils.MockSuccessHttpResponse()
         );
 
-        Quiz_Session__c quizSession = QuizSessionTestFactory.createQuizSession();
-        Quiz_Question__c question = quizSession.Current_Question__r;
+        Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
+        Quiz_Question__c question = session.Current_Question__r;
         Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(1)[0];
-        Quiz_Answer__c quizAnswer = QuizSessionTestFactory.createQuizAnswer(
+        QuizSessionTestFactory.createQuizAnswer(
             player.Id,
             question.Id,
             question.Correct_Answer__c
         );
 
         // change to Registration from non-Registration phase
-        quizSession.Phase__c = PHASE_QUESTION;
-        update quizSession;
+        session.Phase__c = PHASE_QUESTION;
+        update session;
 
         Test.startTest();
-        quizSession.Phase__c = PHASE_REGISTRATION;
-        update quizSession;
+        session.Phase__c = PHASE_REGISTRATION;
+        update session;
         Test.stopTest();
 
         Integer playerCount = [SELECT COUNT() FROM Quiz_Player__c];

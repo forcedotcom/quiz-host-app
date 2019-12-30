@@ -3,6 +3,7 @@ public class QuizAnswerService extends QuizAbstractDataService {
     private static final QuizPlayerService playerService = new QuizPlayerService();
 
     public PlayerStats getPlayerAnswerStats(Id playerId) {
+        Quiz_Player__c player = playerService.getFromId(playerId);
         List<Quiz_Answer__c> allAnswersFromPlayer = [
             SELECT Player__c, Score__c, IsCorrect__c
             FROM Quiz_Answer__c
@@ -14,8 +15,6 @@ public class QuizAnswerService extends QuizAbstractDataService {
                 correctCount++;
             }
         }
-
-        Quiz_Player__c player = playerService.getFromId(playerId);
         Integer totalCount = allAnswersFromPlayer.size();
         return new PlayerStats(
             totalCount - correctCount,
@@ -43,10 +42,13 @@ public class QuizAnswerService extends QuizAbstractDataService {
             GROUP BY Answer__c
         ];
         for (AggregateResult answerRes : answerCount) {
-            answerMap.put(
-                answerRes.get('Answer__c').toString(),
-                Integer.valueOf(answerRes.get('expr0'))
-            );
+            String answerValue;
+            try {
+                answerValue = answerRes.get('sfq__Answer__c').toString();
+            } catch (SObjectException e) {
+                answerValue = answerRes.get('Answer__c').toString();
+            }
+            answerMap.put(answerValue, Integer.valueOf(answerRes.get('expr0')));
         }
         return answerMap;
     }
@@ -126,8 +128,6 @@ public class QuizAnswerService extends QuizAbstractDataService {
     public class InvalidPhaseException extends Exception {
     }
     public class DuplicateAnswerException extends Exception {
-    }
-    public class UnknownUserException extends Exception {
     }
 
     public class PlayerStats {

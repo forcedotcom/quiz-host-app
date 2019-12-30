@@ -14,8 +14,8 @@ public with sharing class QuizSessionTriggerHelper {
                 updatedSession.Phase__c == PHASE_REGISTRATION
             ) {
                 // Reset current question
-                QuizSessionService quizSessionService = new QuizSessionService();
-                List<Quiz_Question__c> questions = quizSessionService.getSessionQuestions(
+                QuizSessionService sessionService = new QuizSessionService();
+                List<Quiz_Question__c> questions = sessionService.getSessionQuestions(
                     updatedSession.Id
                 );
                 if (questions.size() > 0) {

@@ -16,7 +16,7 @@ global abstract class QuizPlayerStatsRestResource {
             try {
                 responseData = answerService.getPlayerAnswerStats(playerId);
                 statusCode = 200;
-            } catch (QuizAnswerService.UnknownUserException e) {
+            } catch (QuizAbstractDataService.NoRecordFoundException e) {
                 responseData = new ErrorMessage(e.getMessage());
                 statusCode = 400;
             }

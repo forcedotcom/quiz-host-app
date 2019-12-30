@@ -1,4 +1,4 @@
-public abstract class QuizAbstractDataService {
+public virtual class QuizAbstractDataService {
     public sObject getSingleRecord(String objectName, List<sObject> objects) {
         Integer count = objects.size();
         if (count == 0) {

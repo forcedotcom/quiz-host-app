@@ -16,4 +16,18 @@ public class TestUtils {
             return res;
         }
     }
+
+    public class MockSimpleHttpResponse implements HttpCalloutMock {
+        private Integer statusCode;
+
+        public MockSimpleHttpResponse(Integer statusCode) {
+            this.statusCode = statusCode;
+        }
+
+        public HTTPResponse respond(HTTPRequest req) {
+            HttpResponse res = new HttpResponse();
+            res.setStatusCode(this.statusCode);
+            return res;
+        }
+    }
 }

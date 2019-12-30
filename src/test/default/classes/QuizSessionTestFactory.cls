@@ -1,20 +1,18 @@
 @isTest
 public class QuizSessionTestFactory {
+    private static final String PHASE_REGISTRATION = QuizSessionService.Phase.Registration.name();
+
     public static Quiz_Session__c createQuizSession() {
         // create one quiz session with all the relevant records
         Quiz_Question__c question = createQuizQuestion();
-        Quiz_Session__c quizSession = new Quiz_Session__c(
-            Phase__c = 'Registration',
+        Quiz_Session__c session = new Quiz_Session__c(
+            Phase__c = PHASE_REGISTRATION,
             Current_Question__r = question,
             Current_Question__c = question.Id
         );
-        insert quizSession;
-        Quiz_Session_Question__c quizSessionQuestion = createQuizSessionQuestion(
-            quizSession,
-            question,
-            0
-        );
-        return quizSession;
+        insert session;
+        createQuizSessionQuestion(session, question, 0);
+        return session;
     }
 
     public static Quiz_Question__c createQuizQuestion() {
@@ -70,14 +68,14 @@ public class QuizSessionTestFactory {
         Quiz_Question__c question,
         Integer index
     ) {
-        Quiz_Session_Question__c quizSessionQuestion = new Quiz_Session_Question__c(
+        Quiz_Session_Question__c sessionQuestion = new Quiz_Session_Question__c(
             Session__r = session,
             Session__c = session.Id,
             Question_Index__c = index,
             Question__r = question,
             Question__c = question.Id
         );
-        insert quizSessionQuestion;
-        return quizSessionQuestion;
+        insert sessionQuestion;
+        return sessionQuestion;
     }
 }

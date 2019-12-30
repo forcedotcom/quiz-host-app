@@ -4,7 +4,7 @@
 
 # Multiplayer quiz app built on Salesforce technology (host app)
 
-[![Github Workflow](<https://github.com/pozil/quiz-host-app/workflows/Salesforce%20DX%20CI%20(scratch%20org%20only)/badge.svg?branch=master>)](https://github.com/pozil/quiz-host-app/actions)
+[![Github Workflow](https://github.com/pozil/quiz-host-app/workflows/CI/badge.svg?branch=master)](https://github.com/pozil/quiz-host-app/actions)
 
 1. [About](#about)
 1. [Installation](#installation)

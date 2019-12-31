@@ -23,7 +23,7 @@ public class QuizSettingsServiceTest {
             settingsService.checkSettings();
             // expect to fail
             System.assert(false);
-        } catch (QuizSettingsService.MissingRemoteSiteException e) {
+        } catch (QuizSettingsService.PlayerAppUrlException e) {
             System.assert(true);
         }
     }

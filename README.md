@@ -130,12 +130,15 @@ cd quiz-host-app</pre>
 The default installation provides a set of sample questions but you can customize questions as you see fit as these are based on records.
 
 The easiest way to add new questions is to import them using the Salesforce CLI.
+
 1. Run this script to remove existing questions:
+
 ```
 sfdx force:apex:execute -f bin/wipe-data.apex
 ```
 
 2. Run this script where `YOUR_QUESTION_FOLDER` is a folder containing a set of question files:
+
 ```
 sfdx force:data:tree:import -p data/YOUR_QUESTION_FOLDER/plan.json
 ```
@@ -186,7 +189,6 @@ You can reset the game at any time by clicking on the Reset button on top right 
 ```
 sfdx force:apex:execute -f bin/wipe-data.apex
 ```
-
 
 ## Building and contributing
 

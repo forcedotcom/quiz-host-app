@@ -19,11 +19,12 @@ export default class LeaderBoard extends LightningElement {
     }
 
     displayPlayers(players) {
+        const playersToDisplay = JSON.parse(JSON.stringify(players));
         this.players = [];
         // eslint-disable-next-line @lwc/lwc/no-async-operation
         const intervalId = setInterval(() => {
-            if (players.length > 0) {
-                const player = players.shift();
+            if (playersToDisplay.length > 0) {
+                const player = playersToDisplay.shift();
                 this.players.push(player);
             } else {
                 clearInterval(intervalId);

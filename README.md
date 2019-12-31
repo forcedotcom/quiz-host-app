@@ -4,13 +4,13 @@
 
 # Multiplayer quiz app built on Salesforce technology (host app)
 
-[![Github Workflow](https://github.com/pozil/quiz-host-app/workflows/CI/badge.svg?branch=master)](https://github.com/pozil/quiz-host-app/actions)
+[![GitHub Workflow](https://github.com/pozil/quiz-host-app/workflows/CI/badge.svg?branch=master)](https://github.com/pozil/quiz-host-app/actions)
 
 1. [About](#about)
 1. [Installation](#installation)
     - [Requirements](#requirements)
     - [Steps](#steps)
-    - [Manual scratch org deployment](#manual-scratch-org-deployment)
+    - [Importing other questions](#importing-other-questions)
 1. [Usage](#usage)
 1. [Troubleshooting](#troubleshooting)
 1. [Building and contributing](#building-and-contributing)
@@ -33,7 +33,7 @@ The quiz app was launched during Developer Game Night at Dreamforce 2019.
 The quiz requires two applications: a host app and a player app.
 
 The host app is a Lightning Web Component (LWC) app running on a Salesforce Org.
-You'll need a free [Salesforce Developer Edition (DE)](https://developer.salesforce.com/signup) org or a [scratch org]().
+You'll need to set up Salesforce DX to deploy it.
 
 The player app is a mobile app built with Lightning Web Component Open Source (LWC OSS). It runs on Node.js deployed on Heroku.
 You'll need a free [Heroku account](https://signup.heroku.com) to set it up.
@@ -41,24 +41,29 @@ You'll need a free [Heroku account](https://signup.heroku.com) to set it up.
 ### Steps
 
 <ol>
-    <li>Set up your environment. Follow the steps in the <a href="https://trailhead.salesforce.com/content/learn/projects/quick-start-lightning-web-components/">Quick Start: Lightning Web Components</a> Trailhead project. The steps include:
+    <li>Set up your Salesforce DX environment:
       <ul>
-        <li>Enable Dev Hub in your Trailhead Playground</li>
-        <li>Install Salesforce CLI</li>
-        <li>Install Visual Studio Code</li>
-        <li>Install the Visual Studio Code Salesforce extensions, including the Lightning Web Components extension</li>
-      </ul>
-    </li>
-    <li>If you haven't already done so, authenticate with your hub org and provide it with an alias (<b>myhuborg</b> in the command below):
+        <li><a href="https://developer.salesforce.com/tools/sfdxcli">Install Salesforce CLI</a></li>
+        <li>Enable <a href="https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_enable_devhub.htm">Dev Hub</a> on a Salesforce org. You can do that on a <a href="https://developer.salesforce.com/signup">free Developer Edition</a>.</li>
+        <li>Authenticate with your Dev Hub org and provide it with an alias (<b>myhuborg</b> in the command below):
 <pre>sfdx force:auth:web:login -d -a myhuborg</pre>
     </li>
-    <li>Clone the repository:
+      </ul>
+    </li>
+    <li>Open a Terminal and clone the git repository:
 <pre>git clone https://github.com/pozil/quiz-host-app.git
 cd quiz-host-app</pre>
+<p>Tip: you can also download the files from the website if you don't want to install git.</p>
     </li>
-    <li>Deploy the host app on a scratch org. If your OS is Linux or MacOS, run <code>install-dev.sh quiz developer</code>. If running on Windows, follow these steps for <a href="#manual-scratch-org-deployment">manual scratch org deployment</a>.</li>
+    <li><p>Run the installation script. The script deploys the quiz host app on a scratch org with a <code>quiz</code> alias and pre-loads <code>sample</code> questions.</p>
+    <p>MacOS or Linux</p>
+    <pre>./install-dev.sh quiz sample</pre>
+    <p>Windows</p>
+    <pre>./install-dev.bat quiz sample</pre>
+    <p>Once the script completes, it will open your new scratch org in a browser tab. If you close the tab or get disconnected, run this command to reopen the org <code>sfdx force:org:open -u quiz</code></p>
+    </li>
     <li>Generate a <a target="_blank" href="https://help.salesforce.com/articleView?id=user_security_token.htm">security token</a> for your user</li>
-    <li>Generate a password using <a target="_blank" href="https://passwordsgenerator.net/">this service</a>. This will be the <b>Quiz API Key</b> that you'll set later in both applications.
+    <li>Generate a password using <a target="_blank" href="https://passwordsgenerator.net/">this service</a>. This will be the secret <b>Quiz API Key</b> that you'll set later in both applications.
     <li>Deploy the <b>Quiz Player App</b> to Heroku by clicking this button:<br/>
       <p align="center">
         <a target="_blank" href="https://heroku.com/deploy?template=https://github.com/pozil/quiz-player-app/edit/master" title="Deploy to Heroku">
@@ -66,7 +71,7 @@ cd quiz-host-app</pre>
         </a>
       <p>
     </li>
-    <li>Set the <b>Config Vars</b> for he Heroku Player app as following:
+    <li>Set the <b>Config Vars</b> for the Heroku Player app as following:
       <table>
         <tr>
           <th>Variable</th>
@@ -74,11 +79,13 @@ cd quiz-host-app</pre>
         </tr>
         <tr>
           <td>QUIZ_API_KEY</td>
-          <td>The Quiz API key that was generated in step 6.</td>
+          <td>The Quiz API key that was generated in step 5.</td>
         </tr>
         <tr>
           <td>SF_LOGIN_URL</td>
-          <td>The login URL of your Salesforce org: `https://test.salesforce.com/` for sandboxes or scratch orgs, `https://login.salesforce.com/` for Developer Edition and production.</td>
+          <td>The login URL of your Salesforce org:<br/>
+          <code>https://test.salesforce.com/</code> for scratch orgs and sandboxes<br/>
+          <code>https://login.salesforce.com/</code> for Developer Edition and production</td>
         </tr>
         <tr>
           <td>SF_PASSWORD</td>
@@ -86,7 +93,7 @@ cd quiz-host-app</pre>
         </tr>
         <tr>
           <td>SF_TOKEN</td>
-          <td>Your Salesforce user's security token that was generated in step 5.</td>
+          <td>Your Salesforce user's security token that was generated in step 4.</td>
         </tr>
         <tr>
           <td>SF_USERNAME</td>
@@ -104,56 +111,33 @@ cd quiz-host-app</pre>
       </tr>
       <tr>
         <td>Player App URL</td>
-        <td>The Heroku player app URL that was generated in step 7.</td>
+        <td>The Heroku player app URL that was generated in step 6.</td>
       </tr>
       <tr>
         <td>Player App URL Minified</td>
-        <td>The minified URL for the player app that was generated in step 6.</td>
+        <td>The minified URL for the player app that was generated in step 8.</td>
       </tr>
       <tr>
         <td>Quiz API Key</td>
-        <td>The password that was generated in step 9.</td>
+        <td>The password that was generated in step 5.</td>
       </tr>
       </table>
     </li>
 </ol>
 
-### Manual scratch org deployment
+### Importing other questions
 
-1. Create a scratch org and provide it with an alias (**quiz** in the command below):
+The default installation provides a set of sample questions but you can customize questions as you see fit as these are based on records.
 
+The easiest way to add new questions is to import them using the Salesforce CLI.
+1. Run this script to remove existing questions:
 ```
-sfdx force:org:create -s -f config/project-scratch-def.json -a quiz -d 30
-```
-
-2. Push the app to your scratch org:
-
-```
-sfdx force:source:push
+sfdx force:apex:execute -f bin/wipe-data.apex
 ```
 
-3. Assign the **Quiz_Host** permission set to the default user:
-
+2. Run this script where `YOUR_QUESTION_FOLDER` is a folder containing a set of question files:
 ```
-sfdx force:user:permset:assign -n Quiz_Host
-```
-
-4. Load developer questions records:
-
-```
-sfdx force:data:tree:import --plan ./data/developer/plan.json
-```
-
-5. Generate a password for your user:
-
-```
-sfdx force:user:password:generate
-```
-
-6. Open the scratch org:
-
-```
-sfdx force:org:open
+sfdx force:data:tree:import -p data/YOUR_QUESTION_FOLDER/plan.json
 ```
 
 ## Usage
@@ -162,7 +146,7 @@ Once you have installed the app, test it in private to confirm that it works.
 
 Here is how the game works:
 
-1. Open the Salesforce org.
+1. Open the Salesforce org. You log in with your browser or simply run this command: `sfdx force:org:open -u quiz`
 1. Open the **Quiz app** from App Launcher.
 1. Make sure that the screen is showing the **Registration** screen. If not, click the **Reset** button.
 1. Open the mini URL or scan the QR code with your phone. That should open the player app.
@@ -173,7 +157,7 @@ Here is how the game works:
 **Scoring system**
 
 Players start with a zero score. The fastest player to answer a question correctly earns 1000 points.
-Players who also answered correctly but later will earn a decreasing number of points depending on how late their anwers were. Wrong answers grant no points. The player that scores the most points at the end of the game wins.
+Players who also answered correctly but slower will earn a decreasing number of points depending on how late they answered. Wrong answers grant no points. The player that scores the most points at the end of the game wins.
 
 **Warm up time**
 
@@ -197,7 +181,12 @@ You can reset the game at any time by clicking on the Reset button on top right 
 **Solution:**
 
 -   Reset the game using the Reset button on the quiz app. This resets the quiz session to the registration phase, clears players and previous answers.
--   Run the content of the `bin/wipe-data.apxs` file as anonymous apex. This will wipe all quiz data. You'll have to reimport questions.
+-   Run the following script wipe ALL quiz data. You'll have to reimport questions.
+
+```
+sfdx force:apex:execute -f bin/wipe-data.apex
+```
+
 
 ## Building and contributing
 

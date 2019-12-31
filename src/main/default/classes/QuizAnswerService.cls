@@ -42,13 +42,10 @@ public class QuizAnswerService extends QuizAbstractDataService {
             GROUP BY Answer__c
         ];
         for (AggregateResult answerRes : answerCount) {
-            String answerValue;
-            try {
-                answerValue = answerRes.get('sfq__Answer__c').toString();
-            } catch (SObjectException e) {
-                answerValue = answerRes.get('Answer__c').toString();
-            }
-            answerMap.put(answerValue, Integer.valueOf(answerRes.get('expr0')));
+            answerMap.put(
+                answerRes.get('Answer__c').toString(),
+                Integer.valueOf(answerRes.get('expr0'))
+            );
         }
         return answerMap;
     }

@@ -25,12 +25,15 @@ public class QuizSettingsService extends QuizAbstractDataService {
         req.setMethod('GET');
         HttpResponse res = new Http().send(req);
         if (res.getStatusCode() < 200 || res.getStatusCode() > 300) {
-            throw new MissingRemoteSiteException(
-                'Failed to reach player app. Check if URL is valid.'
+            throw new PlayerAppUrlException(
+                'Failed to reach player app (HTTP ' +
+                res.getStatusCode() +
+                '). Check if URL is valid: ' +
+                settings.Player_App_URL__c
             );
         }
     }
 
-    public class MissingRemoteSiteException extends Exception {
+    public class PlayerAppUrlException extends Exception {
     }
 }

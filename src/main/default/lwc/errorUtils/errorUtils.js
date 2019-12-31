@@ -4,6 +4,9 @@
  * @return {String[]} Error messages
  */
 export function reduceErrors(errors) {
+    // eslint-disable-next-line no-console
+    console.error(JSON.stringify(errors));
+
     if (!Array.isArray(errors)) {
         errors = [errors];
     }

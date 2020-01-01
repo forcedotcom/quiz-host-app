@@ -10,7 +10,7 @@
 1. [Installation](#installation)
     - [Requirements](#requirements)
     - [Steps](#steps)
-    - [Importing other questions](#importing-other-questions)
+    - [Setting up questions](#setting-up-questions)
 1. [Usage](#usage)
 1. [Troubleshooting](#troubleshooting)
 1. [Building and contributing](#building-and-contributing)
@@ -127,23 +127,45 @@ cd quiz-host-app</pre>
     </li>
 </ol>
 
-### Importing other questions
+### Setting up questions
 
-The default installation provides a set of sample questions but you can customize questions as you see fit as these are based on records.
+The default installation provides a limited set of sample questions but you can customize questions as you see fit as these are based on records.
 
+#### Importing other questions
 The easiest way to add new questions is to import them using the Salesforce CLI.
 
-1. Run this script to remove existing questions:
+1. Get a zip with custom questions and extract in the `data` folder. Assuming that your custom question folder is named `CUSTOM_QUESTIONS`, you should have the following files and:
+```
+/data
+  /CUSTOM_QUESTIONS
+    /plan.json
+    /Quiz_Question__cs.json
+    /Quiz_Session__cs.json
+    /Quiz_Session_Question__cs.json
+```
+
+2. Run this script to remove existing questions:
 
 ```
 sfdx force:apex:execute -f bin/wipe-data.apex
 ```
 
-2. Run this script where `YOUR_QUESTION_FOLDER` is a folder containing a set of question files:
+3. Run this script from the project root to import your custom questions:
 
 ```
-sfdx force:data:tree:import -p data/YOUR_QUESTION_FOLDER/plan.json
+sfdx force:data:tree:import -p data/CUSTOM_QUESTIONS/plan.json
 ```
+
+#### Adding/editing questions
+You can add or edit `Quiz_Question__c` records to customize the game.
+
+Follow this process to add a new question:
+
+1. Create a `Quiz_Question__c` record with a question label, the four possible answers and a correct answer.
+1. Create a `Quiz_Session_Question__c` to tie your `Quiz_Question__c` to the `Quiz_Session__c`. You'll need to specify an unique index number for the question. This index is used to order questions during the game.
+
+**Note:** if you change the first quiz question, make sure to hit the reset button on the quiz host app.
+
 
 ## Usage
 

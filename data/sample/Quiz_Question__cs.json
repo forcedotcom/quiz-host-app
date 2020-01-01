@@ -17,24 +17,24 @@
                 "type": "Quiz_Question__c",
                 "referenceId": "Quiz_Question__cRef2"
             },
-            "Label__c": "What is the API version for Winter 20?",
-            "Answer_A__c": "45.0",
-            "Answer_B__c": "47.0",
-            "Answer_C__c": "46.0",
-            "Answer_D__c": "48.0",
-            "Correct_Answer__c": "B"
+            "Label__c": "There are how many major Salesforce releases each year?",
+            "Answer_A__c": "1",
+            "Answer_B__c": "2",
+            "Answer_C__c": "3",
+            "Answer_D__c": "4",
+            "Correct_Answer__c": "C"
         },
         {
             "attributes": {
                 "type": "Quiz_Question__c",
                 "referenceId": "Quiz_Question__cRef3"
             },
-            "Label__c": "How many streaming APIs exist?",
-            "Answer_A__c": "1",
-            "Answer_B__c": "2",
-            "Answer_C__c": "3",
-            "Answer_D__c": "4",
-            "Correct_Answer__c": "D"
+            "Label__c": "Which mascot represents architects?",
+            "Answer_A__c": "Earnie",
+            "Answer_B__c": "Ruth",
+            "Answer_C__c": "Hootie",
+            "Answer_D__c": "Max",
+            "Correct_Answer__c": "B"
         }
     ]
 }

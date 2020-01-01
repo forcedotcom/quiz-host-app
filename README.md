@@ -40,6 +40,8 @@ You'll need a free [Heroku account](https://signup.heroku.com) to set it up.
 
 ### Steps
 
+🎥 [Watch the installation video](https://youtu.be/oDXUMldi0lw)
+
 <ol>
     <li>Set up your Salesforce DX environment:
       <ul>
@@ -144,6 +146,8 @@ sfdx force:data:tree:import -p data/YOUR_QUESTION_FOLDER/plan.json
 ```
 
 ## Usage
+
+🎥 [Watch the playthrough video](https://www.youtube.com/watch?v=vLTZ_jdwhRo)
 
 Once you have installed the app, test it in private to confirm that it works.
 

@@ -132,9 +132,11 @@ cd quiz-host-app</pre>
 The default installation provides a limited set of sample questions but you can customize questions as you see fit as these are based on records.
 
 #### Importing other questions
+
 The easiest way to add new questions is to import them using the Salesforce CLI.
 
 1. Get a zip with custom questions and extract in the `data` folder. Assuming that your custom question folder is named `CUSTOM_QUESTIONS`, you should have the following files and:
+
 ```
 /data
   /CUSTOM_QUESTIONS
@@ -157,6 +159,7 @@ sfdx force:data:tree:import -p data/CUSTOM_QUESTIONS/plan.json
 ```
 
 #### Adding/editing questions
+
 You can add or edit `Quiz_Question__c` records to customize the game.
 
 Follow this process to add a new question:
@@ -165,7 +168,6 @@ Follow this process to add a new question:
 1. Create a `Quiz_Session_Question__c` to tie your `Quiz_Question__c` to the `Quiz_Session__c`. You'll need to specify an unique index number for the question. This index is used to order questions during the game.
 
 **Note:** if you change the first quiz question, make sure to hit the reset button on the quiz host app.
-
 
 ## Usage
 

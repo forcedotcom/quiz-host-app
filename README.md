@@ -190,9 +190,12 @@ Here is how the game works:
 Players start with a zero score. The fastest player to answer a question correctly earns 1000 points.
 Players who also answered correctly but slower will earn a decreasing number of points depending on how late they answered. Wrong answers grant no points. The player that scores the most points at the end of the game wins.
 
-**Warm up time**
+**App wake-up time**
 
-Shortly before running the official game, make sure to access the player app a first time to load it. This is needed when running on a free Heroku dyno (default install) because there is a wake-up time for the app.
+Shortly before running the official game, make sure to access the player app a first time to load it.<br/>
+The default Heroku setup uses a free Heroku dyno. This implies that apps that are inactive for more than 30 minutes are put to sleep. Any connection to the app will wake it up but it takes a bit less than a minute. You may experience some "Request time out" errors during that wake-up time.
+
+If you are running the game with 30+ players, consider upgrading to a Hobby dyno (\$7/month).
 
 **Resetting the game**
 

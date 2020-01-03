@@ -6,14 +6,17 @@
 
 [![GitHub Workflow](https://github.com/pozil/quiz-host-app/workflows/CI/badge.svg?branch=master)](https://github.com/pozil/quiz-host-app/actions)
 
-1. [About](#about)
-1. [Installation](#installation)
+- [Multiplayer quiz app built on Salesforce technology (host app)](#multiplayer-quiz-app-built-on-salesforce-technology-host-app)
+  - [About](#about)
+  - [Installation](#installation)
     - [Requirements](#requirements)
     - [Steps](#steps)
     - [Setting up questions](#setting-up-questions)
-1. [Usage](#usage)
-1. [Troubleshooting](#troubleshooting)
-1. [Building and contributing](#building-and-contributing)
+      - [Importing other questions](#importing-other-questions)
+      - [Adding/editing questions](#addingediting-questions)
+  - [Usage](#usage)
+  - [Troubleshooting](#troubleshooting)
+  - [Building and contributing](#building-and-contributing)
 
 ## About
 
@@ -61,7 +64,7 @@ cd quiz-host-app</pre>
     <p>MacOS or Linux</p>
     <pre>./install-dev.sh quiz sample</pre>
     <p>Windows</p>
-    <pre>./install-dev.bat quiz sample</pre>
+    <pre>install-dev.bat quiz sample</pre>
     <p>Once the script completes, it will open your new scratch org in a browser tab. If you close the tab or get disconnected, run this command to reopen the org <code>sfdx force:org:open -u quiz</code></p>
     </li>
     <li>Generate a <a target="_blank" href="https://help.salesforce.com/articleView?id=user_security_token.htm">security token</a> for your user</li>

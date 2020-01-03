@@ -1,4 +1,4 @@
-<div align="center">
+﻿<div align="center">
   <img src="doc-media/quiz-icon.png" alt="Quiz icon" width="150"/>
 </div>
 
@@ -6,17 +6,14 @@
 
 [![GitHub Workflow](https://github.com/pozil/quiz-host-app/workflows/CI/badge.svg?branch=master)](https://github.com/pozil/quiz-host-app/actions)
 
-- [Multiplayer quiz app built on Salesforce technology (host app)](#multiplayer-quiz-app-built-on-salesforce-technology-host-app)
-  - [About](#about)
-  - [Installation](#installation)
+1. [About](#about)
+1. [Installation](#installation)
     - [Requirements](#requirements)
     - [Steps](#steps)
     - [Setting up questions](#setting-up-questions)
-      - [Importing other questions](#importing-other-questions)
-      - [Adding/editing questions](#addingediting-questions)
-  - [Usage](#usage)
-  - [Troubleshooting](#troubleshooting)
-  - [Building and contributing](#building-and-contributing)
+1. [Usage](#usage)
+1. [Troubleshooting](#troubleshooting)
+1. [Building and contributing](#building-and-contributing)
 
 ## About
 

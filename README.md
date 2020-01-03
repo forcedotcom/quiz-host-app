@@ -190,18 +190,20 @@ Here is how the game works:
 Players start with a zero score. The fastest player to answer a question correctly earns 1000 points.
 Players who also answered correctly but slower will earn a decreasing number of points depending on how late they answered. Wrong answers grant no points. The player that scores the most points at the end of the game wins.
 
-**App wake-up time**
+**Player app wake-up**
 
 Shortly before running the official game, make sure to access the player app a first time to load it.<br/>
 The default Heroku setup uses a free Heroku dyno. This implies that apps that are inactive for more than 30 minutes are put to sleep. Any connection to the app will wake it up but it takes a bit less than a minute. You may experience some "Request time out" errors during that wake-up time.
 
-If you are running the game with 30+ players, consider upgrading to a Hobby dyno (\$7/month).
+If you are running the game with 40+ players, consider upgrading to a [Hobby dyno](https://www.heroku.com/dynos).
 
 **Resetting the game**
 
 You can reset the game at any time by clicking on the Reset button on top right of the Quiz app. This resets the quiz session to the registration phase, clears players and previous answers.
 
 ## Troubleshooting
+
+Review these common problems. If you can't find a solution to your problem, [open a new issue](https://github.com/pozil/quiz-host-app/issues).
 
 **Problem:** Player app is not updating when switching game phase (from registration to question for example)
 
@@ -216,10 +218,14 @@ You can reset the game at any time by clicking on the Reset button on top right 
 
 -   Reset the game using the Reset button on the quiz app. This resets the quiz session to the registration phase, clears players and previous answers.
 -   Run the following script wipe ALL quiz data. You'll have to reimport questions.
+    ```
+    sfdx force:apex:execute -f bin/wipe-data.apex
+    ```
 
-```
-sfdx force:apex:execute -f bin/wipe-data.apex
-```
+**Problem:** You're seeing a "Failed to validate Quiz app settings: Read timed out" error on the host app.
+
+**Solution:**
+Refresh the page to fix the problem. Refer to the **Player app wake-up** section of this document for more information.
 
 ## Building and contributing
 

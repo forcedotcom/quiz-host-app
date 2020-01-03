@@ -1,4 +1,4 @@
-<div align="center">
+﻿<div align="center">
   <img src="doc-media/quiz-icon.png" alt="Quiz icon" width="150"/>
 </div>
 
@@ -61,7 +61,7 @@ cd quiz-host-app</pre>
     <p>MacOS or Linux</p>
     <pre>./install-dev.sh quiz sample</pre>
     <p>Windows</p>
-    <pre>./install-dev.bat quiz sample</pre>
+    <pre>install-dev.bat quiz sample</pre>
     <p>Once the script completes, it will open your new scratch org in a browser tab. If you close the tab or get disconnected, run this command to reopen the org <code>sfdx force:org:open -u quiz</code></p>
     </li>
     <li>Generate a <a target="_blank" href="https://help.salesforce.com/articleView?id=user_security_token.htm">security token</a> for your user</li>

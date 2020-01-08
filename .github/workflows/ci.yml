@@ -79,9 +79,13 @@ jobs:
             - name: 'Push source'
               run: 'sfdx force:source:push'
 
-            # Assign permissionset
-            - name: 'Assign permissionset'
+            # Assign permission set
+            - name: 'Assign permission set'
               run: 'sfdx force:user:permset:assign -n Quiz_Host'
+
+            # Deploy test metadata
+            - name: 'Deploy test metadata'
+              run: sfdx force:mdapi:deploy -d test-metadata -w 10
 
             # Run Apex tests in scratch org
             - name: 'Run Apex tests'

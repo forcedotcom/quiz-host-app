@@ -4,7 +4,7 @@
     <defaultValue>0</defaultValue>
     <externalId>false</externalId>
     <label>Score</label>
-    <precision>4</precision>
+    <precision>8</precision>
     <required>false</required>
     <scale>0</scale>
     <trackTrending>false</trackTrending>

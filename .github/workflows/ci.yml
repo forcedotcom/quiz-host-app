@@ -69,25 +69,25 @@ jobs:
 
             # Authenticate dev hub
             - name: 'Authenticate Dev Hub'
-              run: 'sfdx:force:auth:sfdxurl:store -f ./DEVHUB_SFDX_URL.txt -a devhub -d'
+              run: 'sfdx force:auth:sfdxurl:store -f ./DEVHUB_SFDX_URL.txt -a devhub -d'
 
             # Create scratch org
             - name: 'Create scratch org'
-              run: 'sfdx:force:org:create -f config/project-scratch-def.json -a quiz-ci -s -d 1'
+              run: 'sfdx force:org:create -f config/project-scratch-def.json -a quiz-ci -s -d 1'
 
             # Deploy source to scratch org
             - name: 'Push source'
-              run: 'sfdx:force:source:push'
+              run: 'sfdx force:source:push'
 
             # Assign permissionset
             - name: 'Assign permissionset'
-              run: 'sfdx:force:user:permset:assign -n Quiz_Host'
+              run: 'sfdx force:user:permset:assign -n Quiz_Host'
 
             # Run Apex tests in scratch org
             - name: 'Run Apex tests'
-              run: 'sfdx:force:apex:test:run -r human -d ./tests/apex -w 20'
+              run: 'sfdx force:apex:test:run -r human -d ./tests/apex -w 20'
 
             # Housekeeping
             - name: 'Delete scratch org'
               if: always()
-              run: 'sfdx:force:org:delete -p -u quiz-ci'
+              run: 'sfdx force:org:delete -p -u quiz-ci'

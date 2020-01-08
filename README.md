@@ -38,6 +38,8 @@ You'll need to set up Salesforce DX to deploy it.
 The player app is a mobile app built with Lightning Web Component Open Source (LWC OSS). It runs on Node.js deployed on Heroku.
 You'll need a free [Heroku account](https://signup.heroku.com) to set it up.
 
+<img src="doc-media/architecture.jpg" alt="Quiz app architecture"/>
+
 ### Steps
 
 🎥 [Watch the installation video](https://youtu.be/oDXUMldi0lw)

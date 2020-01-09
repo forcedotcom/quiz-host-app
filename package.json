@@ -1,6 +1,6 @@
 {
     "name": "sfdx-quiz",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "private": true,
     "description": "Lightning Web Component Quiz App on a Salesforce Org",
     "engines": {
@@ -52,5 +52,8 @@
     "bugs": {
         "url": "https://github.com/pozil/quiz-sfdx/issues"
     },
-    "homepage": "https://github.com/pozil/quiz-sfdx#readme"
+    "homepage": "https://github.com/pozil/quiz-sfdx#readme",
+    "dependencies": {
+        "replace-in-file": "^5.0.2"
+    }
 }

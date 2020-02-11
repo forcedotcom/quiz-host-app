@@ -218,6 +218,7 @@ Review these common problems. If you can't find a solution to your problem, [ope
 -   Check that your Quiz API Key is correctly set up in both the Custom Metadata Types and in the configuration variables of your Heroku app.
 
 **Player app is slow/lags, questions do not show up on time**
+
 The default player app installation uses Heroku. Heroku datacenters are only available in North America and Europe. If you are running the quiz in Asia or Oceania, there's a good chance that your player will experience some lag. Consider switching to another cloud provider that let's you run a Node.js environment.
 
 **Something is wrong with the quiz data or you'd like to reset it**
@@ -229,6 +230,7 @@ The default player app installation uses Heroku. Heroku datacenters are only ava
     ```
 
 **You're seeing a "Failed to validate Quiz app settings: Read timed out" error on the host app**
+
 Refresh the page to fix the problem. Refer to the **Player app wake-up** section of this document for more information.
 
 ## Building and contributing

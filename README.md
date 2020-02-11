@@ -208,10 +208,12 @@ You can reset the game at any time by clicking on the Reset button on top right 
 Review these common problems. If you can't find a solution to your problem, [open a new issue](https://github.com/pozil/quiz-host-app/issues).
 
 **Player app is not starting (Heroku error page is displayed)**
+
 -   Check the Heroku app logs for the cause of the error. The app will refuse to start if your Salesforce credentials are incorrect (most likely error).
 -   Verify your Salesforce credentials in the configuration variables of your Heroku app.
 
 **Player app is not updating when switching game phase (from registration to question for example)**
+
 -   Check that you have registered the correct Remote Site in your org.
 -   Check that your Quiz API Key is correctly set up in both the Custom Metadata Types and in the configuration variables of your Heroku app.
 
@@ -219,6 +221,7 @@ Review these common problems. If you can't find a solution to your problem, [ope
 The default player app installation uses Heroku. Heroku datacenters are only available in North America and Europe. If you are running the quiz in Asia or Oceania, there's a good chance that your player will experience some lag. Consider switching to another cloud provider that let's you run a Node.js environment.
 
 **Something is wrong with the quiz data or you'd like to reset it**
+
 -   Reset the game using the Reset button on the quiz app. This resets the quiz session to the registration phase, clears players and previous answers.
 -   Run the following script wipe ALL quiz data. You'll have to reimport questions.
     ```

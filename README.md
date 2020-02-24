@@ -36,7 +36,7 @@ The host app is a Lightning Web Component (LWC) app running on a Salesforce Org.
 You'll need to set up Salesforce DX to deploy it.
 
 The player app is a mobile app built with Lightning Web Component Open Source (LWC OSS). It runs on Node.js deployed on Heroku.
-You'll need a free [Heroku account](https://signup.heroku.com) to set it up.
+You'll need a free [Heroku account](https://signup.heroku.com) to set it up. A free account let's you run the game with a small group of players. If you run the game with a larger group, consider upgrading to a [Hobby Dyno](https://www.heroku.com/dynos).
 
 <img src="doc-media/architecture.jpg" alt="Quiz app architecture"/>
 
@@ -219,7 +219,7 @@ Review these common problems. If you can't find a solution to your problem, [ope
 
 **Player app is slow/lags, questions do not show up on time**
 
-The default player app installation uses Heroku. Heroku datacenters are only available in North America and Europe. If you are running the quiz in Asia or Oceania, there's a good chance that your player will experience some lag. Consider switching to another cloud provider that let's you run a Node.js environment.
+The default player app installation uses Heroku. Heroku datacenters are only available in North America and Europe. If you are running the quiz from another region (ie: India, Australia...), there's a good chance that your player will experience some lag. Consider switching to another cloud provider that let's you run a Node.js environment.
 
 **Something is wrong with the quiz data or you'd like to reset it**
 

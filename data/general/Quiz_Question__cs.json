@@ -1,0 +1,124 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef1"
+            },
+            "Label__c": "How many major Salesforce releases are there each year?",
+            "Answer_A__c": "1",
+            "Answer_B__c": "2",
+            "Answer_C__c": "3",
+            "Answer_D__c": "4",
+            "Correct_Answer__c": "C"
+        },
+        {
+            "attributes": {
+                "type": "Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef2"
+            },
+            "Label__c": "The Salesforce Platform is based on what architecture?",
+            "Answer_A__c": "Multi tower",
+            "Answer_B__c": "Multi terrabyte",
+            "Answer_C__c": "Multi threaded",
+            "Answer_D__c": "Multi tenant",
+            "Correct_Answer__c": "D"
+        },
+        {
+            "attributes": {
+                "type": "Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef3"
+            },
+            "Label__c": "Which mascot was recently introduced to represent architects?",
+            "Answer_A__c": "Earnie",
+            "Answer_B__c": "Ruth",
+            "Answer_C__c": "Hootie",
+            "Answer_D__c": "Max",
+            "Correct_Answer__c": "B"
+        },
+        {
+            "attributes": {
+                "type": "Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef4"
+            },
+            "Label__c": "Which new cloud was unveiled at Dreamforce?",
+            "Answer_A__c": "Sustainability Cloud",
+            "Answer_B__c": "Equality Cloud",
+            "Answer_C__c": "Diversity Cloud",
+            "Answer_D__c": "STEM Cloud",
+            "Correct_Answer__c": "A"
+        },
+        {
+            "attributes": {
+                "type": "Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef5"
+            },
+            "Label__c": "Which new AI feature reduces the amount of typing on mobile?",
+            "Answer_A__c": "Einstein Language",
+            "Answer_B__c": "Einstein Dictation",
+            "Answer_C__c": "Einstein Voice Assistant",
+            "Answer_D__c": "Einstein Scribe",
+            "Correct_Answer__c": "C"
+        },
+        {
+            "attributes": {
+                "type": "Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef6"
+            },
+            "Label__c": "How can you experience Trailhead from a mobile device?",
+            "Answer_A__c": "Trailhead GO",
+            "Answer_B__c": "Trailhead Mobile",
+            "Answer_C__c": "Trailhead Air",
+            "Answer_D__c": "iTrail and TrailDroid",
+            "Correct_Answer__c": "A"
+        },
+        {
+            "attributes": {
+                "type": "Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef7"
+            },
+            "Label__c": "Which mascot is featured on the Spring '20 logo?",
+            "Answer_A__c": "Astro",
+            "Answer_B__c": "Codey",
+            "Answer_C__c": "Ruth",
+            "Answer_D__c": "Blaze",
+            "Correct_Answer__c": "D"
+        },
+        {
+            "attributes": {
+                "type": "Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef8"
+            },
+            "Label__c": "Which new feature lets you anonymize production data in sandboxes?",
+            "Answer_A__c": "Data Mask",
+            "Answer_B__c": "Data Anonymizer",
+            "Answer_C__c": "Data Obfuscator",
+            "Answer_D__c": "Data Cleaner",
+            "Correct_Answer__c": "A"
+        },
+        {
+            "attributes": {
+                "type": "Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef9"
+            },
+            "Label__c": "What declarative tool let's you customize Ligthning pages?",
+            "Answer_A__c": "Page Builder",
+            "Answer_B__c": "App Builder",
+            "Answer_C__c": "Process Builder",
+            "Answer_D__c": "Flow Builder",
+            "Correct_Answer__c": "B"
+        },
+        {
+            "attributes": {
+                "type": "Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef10"
+            },
+            "Label__c": "What is the fastest and safest place get custom apps and components from third parties?",
+            "Answer_A__c": "Partner Community",
+            "Answer_B__c": "Trailblazer Community",
+            "Answer_C__c": "GitHub",
+            "Answer_D__c": "AppExchange",
+            "Correct_Answer__c": "D"
+        }
+    ]
+}

@@ -1,0 +1,124 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef1"
+            },
+            "Label__c": "The Salesforce platform is based on what architecture?",
+            "Answer_A__c": "Multi tower",
+            "Answer_B__c": "Multi terrabyte",
+            "Answer_C__c": "Multi threaded",
+            "Answer_D__c": "Multi tenant",
+            "Correct_Answer__c": "D"
+        },
+        {
+            "attributes": {
+                "type": "Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef2"
+            },
+            "Label__c": "Which new feature brings serverless functions and microservices to the Platform?",
+            "Answer_A__c": "Cloud Native",
+            "Answer_B__c": "Salesforce Sunrise",
+            "Answer_C__c": "Salesforce Evergreen",
+            "Answer_D__c": "Lightning Severless",
+            "Correct_Answer__c": "C"
+        },
+        {
+            "attributes": {
+                "type": "Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef3"
+            },
+            "Label__c": "What kind of Salesforce environment has a maximum life of 30 days?",
+            "Answer_A__c": "Developer Org",
+            "Answer_B__c": "Scratch Org",
+            "Answer_C__c": "Temp Org",
+            "Answer_D__c": "Sandbox Org",
+            "Correct_Answer__c": "B"
+        },
+        {
+            "attributes": {
+                "type": "Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef4"
+            },
+            "Label__c": "What is the command to open your default org?",
+            "Answer_A__c": "sfdx force:open",
+            "Answer_B__c": "sfdx force:open:org",
+            "Answer_C__c": "sfdx force:org:open",
+            "Answer_D__c": "sfdx open",
+            "Correct_Answer__c": "C"
+        },
+        {
+            "attributes": {
+                "type": "Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef5"
+            },
+            "Label__c": "What is the decorator that makes a LWC property reactive?",
+            "Answer_A__c": "@observe",
+            "Answer_B__c": "@track",
+            "Answer_C__c": "@reactive",
+            "Answer_D__c": "@watch",
+            "Correct_Answer__c": "B"
+        },
+        {
+            "attributes": {
+                "type": "Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef6"
+            },
+            "Label__c": "Which service connects LWC to data in your org without writing any server side code?",
+            "Answer_A__c": "Lightning Connector Service",
+            "Answer_B__c": "Lightning Data Service",
+            "Answer_C__c": "Lightning Data Connector",
+            "Answer_D__c": "Lightning Record Service",
+            "Correct_Answer__c": "B"
+        },
+        {
+            "attributes": {
+                "type": "Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef7"
+            },
+            "Label__c": "What is the data type that represents data in Apex?",
+            "Answer_A__c": "Data Object",
+            "Answer_B__c": "Record Object",
+            "Answer_C__c": "SObject",
+            "Answer_D__c": "Trigger",
+            "Correct_Answer__c": "C"
+        },
+        {
+            "attributes": {
+                "type": "Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef8"
+            },
+            "Label__c": "What is the Apex annotation to make a method invocable from a Lightning component?",
+            "Answer_A__c": "@AuraEnabled",
+            "Answer_B__c": "@ComponentEnabled",
+            "Answer_C__c": "@Invocable",
+            "Answer_D__c": "@LightningEnabled",
+            "Correct_Answer__c": "A"
+        },
+        {
+            "attributes": {
+                "type": "Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef9"
+            },
+            "Label__c": "What is the Spring '20 API version number?",
+            "Answer_A__c": "45.0",
+            "Answer_B__c": "46.0",
+            "Answer_C__c": "47.0",
+            "Answer_D__c": "48.0",
+            "Correct_Answer__c": "D"
+        },
+        {
+            "attributes": {
+                "type": "Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef10"
+            },
+            "Label__c": "Which feature allows integration to OData sources without code?",
+            "Answer_A__c": "Lightning Connect",
+            "Answer_B__c": "Salesforce Connect",
+            "Answer_C__c": "Lightning OData",
+            "Answer_D__c": "Salesforce OData",
+            "Correct_Answer__c": "B"
+        }
+    ]
+}

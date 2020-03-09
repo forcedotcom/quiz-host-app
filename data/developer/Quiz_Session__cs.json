@@ -1,0 +1,12 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "Quiz_Session__c",
+                "referenceId": "Quiz_Session__cRef1"
+            },
+            "Phase__c": "Registration",
+            "Current_Question__c": "@Quiz_Question__cRef1"
+        }
+    ]
+}

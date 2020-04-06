@@ -45,7 +45,7 @@ You'll need a free [Heroku account](https://signup.heroku.com) to set it up. A f
 🎥 [Watch the installation video](https://youtu.be/oDXUMldi0lw)
 
 <ol>
-    <li>Set up your Salesforce DX environment:
+    <li>Set up your Salesforce DX environment (see this <a href="https://trailhead.salesforce.com/en/content/learn/modules/sfdx_app_dev/sfdx_app_dev_setup_dx">Trailhead project</a> for guided steps):
       <ul>
         <li><a href="https://developer.salesforce.com/tools/sfdxcli">Install Salesforce CLI</a></li>
         <li>Enable <a href="https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_enable_devhub.htm">Dev Hub</a> on a Salesforce org. You can do that on a <a href="https://developer.salesforce.com/signup">free Developer Edition</a>.</li>

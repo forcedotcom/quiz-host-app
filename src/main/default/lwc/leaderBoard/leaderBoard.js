@@ -8,11 +8,11 @@ export default class LeaderBoard extends LightningElement {
 
     connectedCallback() {
         getPlayersSortedByScore({ maxFetchCount: 10 })
-            .then(players => {
+            .then((players) => {
                 this.error = undefined;
                 this.displayPlayers(players);
             })
-            .catch(error => {
+            .catch((error) => {
                 this.error = reduceErrors(error);
                 this.players = undefined;
             });

@@ -44,7 +44,15 @@ public with sharing class QuizController {
         if (sessionId == null) {
             throw new AuraHandledException('Missing session Id.');
         }
-        return sessionService.getCurrentQuestion(sessionId);
+        Quiz_Question__c question = sessionService.getCurrentQuestion(
+            sessionId
+        );
+        if (question == null) {
+            throw new AuraHandledException(
+                'Missing current question for session.'
+            );
+        }
+        return question;
     }
 
     @AuraEnabled

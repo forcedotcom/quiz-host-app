@@ -16,11 +16,11 @@ export default class AnswerBarChart extends LightningElement {
 
     connectedCallback() {
         getAnswerStats()
-            .then(data => {
-                this.answerStats = ANSWER_LABELS.map(label => data[label]);
+            .then((data) => {
+                this.answerStats = ANSWER_LABELS.map((label) => data[label]);
                 this.error = undefined;
             })
-            .catch(error => {
+            .catch((error) => {
                 this.error = reduceErrors(error);
                 this.answerStats = undefined;
             });
@@ -99,7 +99,7 @@ export default class AnswerBarChart extends LightningElement {
                 };
                 this.chart = new window.Chart(ctx, config);
             })
-            .catch(error => {
+            .catch((error) => {
                 this.answerStats = undefined;
                 this.error = error;
             });

@@ -11,24 +11,24 @@ export default class playerList extends LightningElement {
 
     connectedCallback() {
         getPlayersSortedByScore()
-            .then(players => {
-                this.playerNames = players.map(player => player.Name);
+            .then((players) => {
+                this.playerNames = players.map((player) => player.Name);
                 this.error = undefined;
                 this.initEmpApi();
             })
-            .catch(error => {
+            .catch((error) => {
                 this.error = reduceErrors(error);
                 this.playerNames = undefined;
             });
     }
 
     initEmpApi() {
-        empApi.onError(error => {
+        empApi.onError((error) => {
             // eslint-disable-next-line no-console
             console.error('Streaming API error: ' + JSON.stringify(error));
         });
         empApi
-            .subscribe('/data/Quiz_Player__ChangeEvent', -1, cdcEvent => {
+            .subscribe('/data/Quiz_Player__ChangeEvent', -1, (cdcEvent) => {
                 if (
                     cdcEvent.data.payload.ChangeEventHeader.changeType ===
                     'CREATE'
@@ -36,7 +36,7 @@ export default class playerList extends LightningElement {
                     this.handlePlayerCreationEvent(cdcEvent);
                 }
             })
-            .then(response => {
+            .then((response) => {
                 this.subscription = response;
             });
     }

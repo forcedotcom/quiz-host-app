@@ -14,7 +14,7 @@ export default class GameApp extends LightningElement {
     @track isNextButtonDisabled = true;
     @track currentQuestion;
 
-    HOST_APP_VERSION = '1.0.2';
+    HOST_APP_VERSION = '1.1.0';
 
     @wire(getQuizSettings)
     wiredQuizSettings({ error, data }) {
@@ -27,16 +27,16 @@ export default class GameApp extends LightningElement {
     }
 
     connectedCallback() {
-        checkSettings().catch(error => {
+        checkSettings().catch((error) => {
             this.error = reduceErrors(error);
             this.isNextButtonDisabled = true;
         });
         getQuizSession()
-            .then(quizSession => {
+            .then((quizSession) => {
                 this.quizSession = quizSession;
                 this.refreshCurrentQuestion();
             })
-            .catch(error => {
+            .catch((error) => {
                 this.error = reduceErrors(error);
                 this.quizSession = undefined;
             });
@@ -44,7 +44,7 @@ export default class GameApp extends LightningElement {
 
     refreshCurrentQuestion() {
         getCurrentQuestion({ sessionId: this.quizSession.Id })
-            .then(currentQuestion => {
+            .then((currentQuestion) => {
                 this.currentQuestion = currentQuestion;
                 // Double phase change click prevention
                 // eslint-disable-next-line @lwc/lwc/no-async-operation
@@ -54,7 +54,7 @@ export default class GameApp extends LightningElement {
                     }
                 }, 2000);
             })
-            .catch(error => {
+            .catch((error) => {
                 this.error = reduceErrors(error);
                 this.currentQuestion = undefined;
                 this.isNextButtonDisabled = true;
@@ -65,12 +65,12 @@ export default class GameApp extends LightningElement {
         this.isNextButtonDisabled = true;
         this.answerCount = undefined;
         triggerNextPhase({ sessionId: this.quizSession.Id })
-            .then(updatedSession => {
+            .then((updatedSession) => {
                 this.quizSession = updatedSession;
                 this.error = undefined;
                 this.refreshCurrentQuestion();
             })
-            .catch(error => {
+            .catch((error) => {
                 this.error = reduceErrors(error);
                 this.quizSession = undefined;
             });

@@ -1,0 +1,34 @@
+<template>
+    <lightning-card title={cardTitle}>
+        <lightning-button
+            slot="actions"
+            label="Select random questions"
+            onclick={handleRandomizeClick}
+        ></lightning-button>
+
+        <div class="slds-var-p-horizontal_small">
+            <lightning-spinner
+                if:true={isLoading}
+                variant="brand"
+                alternative-text="Loading questions"
+            ></lightning-spinner>
+
+            <lightning-dual-listbox
+                label="Select and sort questions for this session"
+                source-label="Available"
+                selected-label={selectedLabel}
+                options={allQuestions}
+                value={selectedQuestionIds}
+                onchange={handleQuestionChange}
+            ></lightning-dual-listbox>
+            <div class="slds-var-m-top_small slds-align_absolute-center">
+                <lightning-button
+                    label="Save"
+                    variant="brand"
+                    onclick={handleSaveClick}
+                    disabled={isLoading}
+                ></lightning-button>
+            </div>
+        </div>
+    </lightning-card>
+</template>

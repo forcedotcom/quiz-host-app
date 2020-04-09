@@ -54,4 +54,33 @@ public class QuizSessionService extends QuizAbstractDataService {
         }
         return questions;
     }
+
+    public void setSessionQuestions(Id sessionId, List<Id> questionIds) {
+        // Get session
+        Quiz_Session__c session = [
+            SELECT Current_Question__c
+            FROM Quiz_Session__c
+            WHERE Id = :sessionId
+        ];
+        // Overwrite session questions
+        delete [
+            SELECT Id
+            FROM Quiz_Session_Question__c
+            WHERE Session__c = :sessionId
+        ];
+        List<Quiz_Session_Question__c> questions = new List<Quiz_Session_Question__c>();
+        for (Integer i = 0; i < questionIds.size(); i++) {
+            questions.add(
+                new Quiz_Session_Question__c(
+                    Question__c = questionIds[i],
+                    Question_Index__c = i,
+                    Session__c = sessionId
+                )
+            );
+        }
+        insert questions;
+        // Replace current question
+        session.Current_Question__c = questionIds[0];
+        update session;
+    }
 }

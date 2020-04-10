@@ -34,6 +34,11 @@
         <field>Quiz_Question__c.Label__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quiz_Session__c.Current_Question__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Quiz Host</label>
     <objectPermissions>

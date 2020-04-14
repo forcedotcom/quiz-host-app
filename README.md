@@ -125,6 +125,10 @@ cd quiz-host-app</pre>
         <td>Quiz API Key</td>
         <td>The password that was generated in step 5.</td>
       </tr>
+      <tr>
+        <td>Question Timer</td>
+        <td>The duration of the question timer (default: 12 seconds).</td>
+      </tr>
       </table>
     </li>
 </ol>

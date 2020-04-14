@@ -22,6 +22,10 @@
                 <behavior>Required</behavior>
                 <field>Quiz_API_Key__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>Question_Timer__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

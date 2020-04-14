@@ -3,6 +3,7 @@
     <fullName>Player_App_URL_Minified__c</fullName>
     <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Player app URL in minified form (use a URL shortener service to generate that)</inlineHelpText>
     <label>Player App URL Minified</label>
     <required>true</required>
     <type>Url</type>

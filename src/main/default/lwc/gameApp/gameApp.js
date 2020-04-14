@@ -14,7 +14,7 @@ export default class GameApp extends LightningElement {
     @track isNextButtonDisabled = true;
     @track currentQuestion;
 
-    HOST_APP_VERSION = '1.1.1';
+    HOST_APP_VERSION = '1.2.0';
 
     @wire(getQuizSettings)
     wiredQuizSettings({ error, data }) {

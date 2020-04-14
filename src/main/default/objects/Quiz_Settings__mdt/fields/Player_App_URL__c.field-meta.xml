@@ -3,6 +3,7 @@
     <fullName>Player_App_URL__c</fullName>
     <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Heroku player app URL</inlineHelpText>
     <label>Player App URL</label>
     <required>true</required>
     <type>Url</type>

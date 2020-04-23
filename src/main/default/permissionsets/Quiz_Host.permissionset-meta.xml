@@ -39,6 +39,26 @@
         <field>Quiz_Session__c.Current_Question__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quiz_Summary__c.Number_of_Players__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quiz_Winner__c.Player_Unique_Identifier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quiz_Winner__c.Ranking__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quiz_Winner__c.Score__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Quiz Host</label>
     <objectPermissions>
@@ -86,6 +106,24 @@
         <object>Quiz_Session__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Quiz_Summary__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Quiz_Winner__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
     <tabSettings>
         <tab>Quiz_Answer__c</tab>
         <visibility>Visible</visibility>
@@ -100,6 +138,10 @@
     </tabSettings>
     <tabSettings>
         <tab>Quiz_Session__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Quiz_Summary__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
 </PermissionSet>

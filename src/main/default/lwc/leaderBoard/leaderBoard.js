@@ -1,10 +1,12 @@
-import { LightningElement, track } from 'lwc';
+import { LightningElement, track, api } from 'lwc';
 import getPlayersSortedByScore from '@salesforce/apex/QuizController.getPlayersSortedByScore';
+import saveLeaderboard from '@salesforce/apex/QuizController.saveLeaderboard';
 import { reduceErrors } from 'c/errorUtils';
 
 export default class LeaderBoard extends LightningElement {
     @track error;
     @track players;
+    @api isResultPhase;
 
     connectedCallback() {
         getPlayersSortedByScore({ maxFetchCount: 10 })
@@ -16,6 +18,17 @@ export default class LeaderBoard extends LightningElement {
                 this.error = reduceErrors(error);
                 this.players = undefined;
             });
+
+        if (this.isResultPhase) {
+            saveLeaderboard()
+                .then((result) => {
+                    console.log('Saved to leaderboard successfully!');
+                    console.log(result);
+                })
+                .catch((error) => {
+                    this.error = reduceErrors(error);
+                });
+        }
     }
 
     displayPlayers(players) {

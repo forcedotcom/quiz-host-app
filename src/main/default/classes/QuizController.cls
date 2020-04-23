@@ -108,4 +108,35 @@ public with sharing class QuizController {
             );
         }
     }
+
+    @AuraEnabled
+    public static void saveLeaderboard() {
+        List<Quiz_Player__c> players = QuizController.getPlayersSortedByScore(
+            null
+        );
+
+        Quiz_Summary__c qs = new Quiz_Summary__c();
+        qs.Number_of_Players__c = players.size();
+        insert qs;
+
+        Integer playerLimit = players.size();
+        if (playerLimit > 10) {
+            playerLimit = 10;
+        }
+
+        List<Quiz_Winner__c> winners = new List<Quiz_Winner__c>();
+        for (Integer i = 0; i < playerLimit; i++) {
+            Quiz_Player__c qp = players[i];
+            String playerId = qp.Id;
+            playerId = playerId.toUpperCase();
+            Quiz_Winner__c qw = new Quiz_Winner__c();
+            qw.Name = qp.Name;
+            qw.Player_Unique_Identifier__c = playerId.right(6);
+            qw.Ranking__c = qp.Ranking__c;
+            qw.Score__c = qp.Score__c;
+            qw.Quiz_Summary__c = qs.Id;
+            winners.add(qw);
+        }
+        insert winners;
+    }
 }

@@ -16,13 +16,16 @@ public class QuizAnswerService extends QuizAbstractDataService {
             }
         }
         Integer totalCount = allAnswersFromPlayer.size();
+        String playerUniqueIdentifier = player.Id;
+        playerUniqueIdentifier = playerUniqueIdentifier.toUpperCase();
         return new PlayerStats(
             totalCount - correctCount,
             correctCount,
             totalCount,
             player.Score__c,
             player.Ranking__c.intValue(),
-            player.Name
+            player.Name,
+            playerUniqueIdentifier.right(6)
         );
     }
 
@@ -140,6 +143,8 @@ public class QuizAnswerService extends QuizAbstractDataService {
         public Integer rank;
         @AuraEnabled
         public String name;
+        @AuraEnabled
+        public String playerUniqueId;
 
         public PlayerStats(
             Integer wrongCount,
@@ -147,7 +152,8 @@ public class QuizAnswerService extends QuizAbstractDataService {
             Integer totalCount,
             Decimal score,
             Integer rank,
-            String name
+            String name,
+            String playerUniqueId
         ) {
             this.wrongCount = wrongCount;
             this.correctCount = correctCount;
@@ -155,6 +161,7 @@ public class QuizAnswerService extends QuizAbstractDataService {
             this.score = score;
             this.rank = rank;
             this.name = name;
+            this.playerUniqueId = playerUniqueId;
         }
     }
 }

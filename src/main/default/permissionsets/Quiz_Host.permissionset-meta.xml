@@ -21,6 +21,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Quiz_Player__c.Email__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Quiz_Player__c.Ranking__c</field>
         <readable>true</readable>
     </fieldPermissions>

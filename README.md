@@ -103,9 +103,13 @@ cd quiz-host-app</pre>
           <td>SF_USERNAME</td>
           <td>Your Salesforce username.</td>
         </tr>
+        <tr>
+          <td>COLLECT_PLAYER_EMAILS</td>
+          <td>Whether app should collect player emails (true/false).</td>
+        </tr>
       </table>
     </li>
-    <li>Generate a minified URL for the Heroku player app using <a target="_blank" href="https://bit.do/">this service</a> (I suggest a custom link for greater readability).</li>
+    <li>Generate a minified URL for the Heroku player app using <a target="_blank" href="https://bit.do/">this service</a> or another URL shortener (opt for a custom link for greater readability).</li>
     <li>In your Salesforce org, go to <b>Setup &gt; Remote Site Settings</b> and add the complete player app URL (not the minified URL).</li>
     <li>Go to <b>Setup &gt; Custom Metadata Types</b> and add a <b>Quiz Settings</b> record. Set it up with these values:
       <table>

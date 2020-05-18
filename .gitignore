@@ -8,6 +8,7 @@
 .localdevserver
 node_modules
 **/jsconfig.json
+/coverage
 
 # Hide config including API key
 src/main/default/customMetadata

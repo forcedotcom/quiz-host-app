@@ -4,7 +4,7 @@
 
 # Multiplayer quiz app built on Salesforce technology (host app)
 
-[![GitHub Workflow](https://github.com/pozil/quiz-host-app/workflows/CI/badge.svg?branch=master)](https://github.com/pozil/quiz-host-app/actions)
+[![GitHub Workflow](https://github.com/pozil/quiz-host-app/workflows/CI/badge.svg?branch=master)](https://github.com/pozil/quiz-host-app/actions) [![codecov](https://codecov.io/gh/pozil/quiz-host-app/branch/master/graph/badge.svg)](https://codecov.io/gh/pozil/quiz-host-app)
 
 1. [About](#about)
 1. [Installation](#installation)

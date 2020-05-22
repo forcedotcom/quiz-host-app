@@ -1,17 +1,27 @@
 public class QuizSettingsService extends QuizAbstractDataService {
     public Quiz_Settings__mdt get() {
-        Quiz_Settings__mdt settings = (Quiz_Settings__mdt) getSingleRecord(
-            'Quiz_Settings__mdt',
-            [
-                SELECT
-                    Id,
-                    Player_App_URL__c,
-                    Player_App_URL_Minified__c,
-                    Quiz_API_Key__c,
-                    Question_Timer__c
-                FROM Quiz_Settings__mdt
-            ]
-        );
+        Quiz_Settings__mdt settings;
+        if (Test.isRunningTest()) {
+            settings = new Quiz_Settings__mdt(
+                Player_App_URL__c = 'https://mock-full.url',
+                Player_App_URL_Minified__c = 'https://mock-mini.url',
+                Quiz_API_Key__c = 'mock-key',
+                Question_Timer__c = 12
+            );
+        } else {
+            settings = (Quiz_Settings__mdt) getSingleRecord(
+                'Quiz_Settings__mdt',
+                [
+                    SELECT
+                        Id,
+                        Player_App_URL__c,
+                        Player_App_URL_Minified__c,
+                        Quiz_API_Key__c,
+                        Question_Timer__c
+                    FROM Quiz_Settings__mdt
+                ]
+            );
+        }
         // Normalize player app URL
         settings.Player_App_URL__c = settings.Player_App_URL__c.removeEnd('/');
         return settings;

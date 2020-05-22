@@ -12,6 +12,7 @@
     "sfdcLoginUrl": "https://login.salesforce.com",
     "sourceApiVersion": "48.0",
     "packageAliases": {
-        "Quiz": "0Ho0N000000KyksSAC"
+        "Quiz": "0Ho0N000000KyksSAC",
+        "Quiz@1.4.0-3": "04t0N000001Bl41QAC"
     }
 }

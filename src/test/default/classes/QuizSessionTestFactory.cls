@@ -1,5 +1,6 @@
 @isTest
 public class QuizSessionTestFactory {
+    public static final String PLAYER_NAME_PREFIX = 'player';
     private static final String PHASE_REGISTRATION = QuizSessionService.Phase.Registration.name();
 
     public static Quiz_Session__c createQuizSession() {
@@ -43,7 +44,7 @@ public class QuizSessionTestFactory {
     public static List<Quiz_Player__c> createQuizPlayers(Integer playerCount) {
         List<Quiz_Player__c> players = new List<Quiz_Player__c>();
         for (Integer i = 0; i < playerCount; i++) {
-            players.add(new Quiz_Player__c(Name = 'player' + i));
+            players.add(new Quiz_Player__c(Name = PLAYER_NAME_PREFIX + i));
         }
         insert players;
         return players;

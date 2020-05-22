@@ -26,7 +26,7 @@ public class QuizPlayerStatsRestResourceTest {
     }
 
     @isTest
-    static void getPlayerStats_failsWhenMissingPlayerId() {
+    static void getPlayerStats_fails_whenMissingPlayerId() {
         RestRequest request = new RestRequest();
         request.requestUri = '/services/apexrest/quiz/player/stats';
 
@@ -46,7 +46,7 @@ public class QuizPlayerStatsRestResourceTest {
     }
 
     @isTest
-    static void getPlayerStats_failsWhenUnknownPlayerId() {
+    static void getPlayerStats_fails_whenUnknownPlayerId() {
         RestRequest request = new RestRequest();
         request.requestUri = '/services/apexrest/quiz/player/stats';
         request.params.put(

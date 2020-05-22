@@ -1,7 +1,21 @@
 @isTest(isParallel=true)
 public class QuizPlayerServiceTest {
     @isTest
-    static void onlyPlayerRanksOne() {
+    static void getFromName_works() {
+        List<Quiz_Player__c> players = QuizSessionTestFactory.createQuizPlayers(
+            1
+        );
+
+        QuizPlayerService playerService = new QuizPlayerService();
+        Quiz_Player__c player = playerService.getFromName(
+            QuizSessionTestFactory.PLAYER_NAME_PREFIX + '0'
+        );
+
+        System.assertEquals(players[0].Id, player.Id);
+    }
+
+    @isTest
+    static void assignRanking_works_with_one_player() {
         QuizSessionTestFactory.createQuizPlayers(1);
 
         QuizPlayerService playerService = new QuizPlayerService();
@@ -16,7 +30,7 @@ public class QuizPlayerServiceTest {
     }
 
     @isTest
-    static void twoPlayersSameScoreBothRankOne() {
+    static void assignRanking_works_with_two_player_same_score() {
         Quiz_Player__c player1 = QuizSessionTestFactory.createQuizPlayerWithScore(
             'one',
             100
@@ -46,7 +60,7 @@ public class QuizPlayerServiceTest {
     }
 
     @isTest
-    static void twoPlayersDifferentScoreDifferentRanking() {
+    static void assignRanking_works_with_two_player_different_score() {
         Quiz_Player__c player1 = QuizSessionTestFactory.createQuizPlayerWithScore(
             'one',
             100
@@ -76,7 +90,7 @@ public class QuizPlayerServiceTest {
     }
 
     @isTest
-    static void threePlayersMixedRanking() {
+    static void assignRanking_works_with_three_players() {
         Quiz_Player__c player1 = QuizSessionTestFactory.createQuizPlayerWithScore(
             'one',
             100

@@ -8,9 +8,8 @@ on:
 
 # Jobs to be executed
 jobs:
-    release:
+    packaging:
         runs-on: ubuntu-latest
-        needs: packaging
         steps:
             # Install Salesforce CLI
             - name: Install Salesforce CLI

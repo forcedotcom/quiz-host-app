@@ -3,3 +3,4 @@
 .sfdx
 .vscode
 .localdevserver
+/coverage

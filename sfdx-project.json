@@ -2,10 +2,16 @@
     "packageDirectories": [
         {
             "path": "src",
-            "default": true
+            "default": true,
+            "package": "Quiz",
+            "versionName": "ver 1.3.0",
+            "versionNumber": "1.3.0.NEXT"
         }
     ],
     "namespace": "",
     "sfdcLoginUrl": "https://login.salesforce.com",
-    "sourceApiVersion": "48.0"
+    "sourceApiVersion": "48.0",
+    "packageAliases": {
+        "Quiz": "0Ho0N000000KyksSAC"
+    }
 }

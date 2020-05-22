@@ -47,7 +47,15 @@ There are two installation options for the host app:
 #### Option 1: Managed Package (recommended)
 
 1. Click [this link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t0N000001Bl41QAC) to install the host app package and choose **Install for All Users**.
+
+    You'll need to approve access to `https://chart.googleapis.com`. We use this library to draw leaderboads.
+
 1. Navigate to **Setup > Integrations > Change Data Capture**, enable Change Data Capture for the **Quiz Player** object and **Save**.
+1. Set up permissions:
+    1. Navigate to **Setup > Users > Permission Sets**, click **Quiz Host**
+    1. Click **Manage Assignements**
+    1. Click **Add Assignement**
+    1. Check your user and click **Assign**.
 1. Using the App Switcher, navigate to the **Quiz** Lightning app.
 1. Select the **Quiz Sessions** tab and click **New**. Leave the default values and create a Quiz Session record.
 1. Continue setup by [installing the player app](#player-app-installation)

@@ -36,14 +36,14 @@ public class QuizAnswerService extends QuizAbstractDataService {
             'D' => 0
         };
         List<AggregateResult> answerCount = [
-            SELECT Answer__c, COUNT(Id)
+            SELECT Answer__c answer, COUNT(Id)
             FROM Quiz_Answer__c
             WHERE Question__c = :questionId
             GROUP BY Answer__c
         ];
         for (AggregateResult answerRes : answerCount) {
             answerMap.put(
-                answerRes.get('Answer__c').toString(),
+                answerRes.get('answer').toString(),
                 Integer.valueOf(answerRes.get('expr0'))
             );
         }

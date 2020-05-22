@@ -9,9 +9,10 @@
 1. [About](#about)
 1. [Installation](#installation)
     - [Requirements](#requirements)
-    - [Steps](#steps)
-    - [Setting up questions](#setting-up-questions)
-1. [Usage](#usage)
+    - [Host App Installation](#host-app-installation)
+    - [Player App Installation](#player-app-installation)
+    - [Questions Setup](#questions-setup)
+1. [Playing](#playing)
 1. [Troubleshooting](#troubleshooting)
 1. [Building and contributing](#building-and-contributing)
 
@@ -32,154 +33,119 @@ The quiz app was launched during Developer Game Night at Dreamforce 2019.
 
 The quiz requires two applications: a host app and a player app.
 
-The host app is a Lightning Web Component (LWC) app running on a Salesforce Org.
-You'll need to set up Salesforce DX to deploy it.
+The host app is a Lightning Web Component (LWC) app running on a Salesforce org.
 
 The player app is a mobile app built with Lightning Web Component Open Source (LWC OSS). It runs on Node.js deployed on Heroku.
-You'll need a free [Heroku account](https://signup.heroku.com) to set it up. A free account let's you run the game with a small group of players. If you run the game with a larger group, consider upgrading to a [Hobby Dyno](https://www.heroku.com/dynos).
+You'll need a free [Heroku account](https://signup.heroku.com) to set it up. A free account lets you run the game with a small group of players. If you run the game with a larger group, consider upgrading to a [Hobby Dyno](https://www.heroku.com/dynos).
 
 <img src="doc-media/architecture.jpg" alt="Quiz app architecture"/>
 
-### Steps
+### Host App Installation
 
-🎥 [Watch the installation video](https://youtu.be/oDXUMldi0lw)
+There are two installation options for the host app:
 
-<ol>
-    <li>Set up your Salesforce DX environment (see this <a href="https://trailhead.salesforce.com/en/content/learn/modules/sfdx_app_dev/sfdx_app_dev_setup_dx">Trailhead project</a> for guided steps):
-      <ul>
-        <li><a href="https://developer.salesforce.com/tools/sfdxcli">Install Salesforce CLI</a></li>
-        <li>Enable <a href="https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_enable_devhub.htm">Dev Hub</a> on a Salesforce org. You can do that on a <a href="https://developer.salesforce.com/signup">free Developer Edition</a>.</li>
-        <li>Authenticate with your Dev Hub org and provide it with an alias (<b>myhuborg</b> in the command below):
-<pre>sfdx force:auth:web:login -d -a myhuborg</pre>
-    </li>
-      </ul>
-    </li>
-    <li>Open a Terminal and clone the git repository:
-<pre>git clone https://github.com/pozil/quiz-host-app.git
-cd quiz-host-app</pre>
-<p>Tip: you can also download the files from the website if you don't want to install git.</p>
-    </li>
-    <li><p>Run the installation script. The script deploys the quiz host app on a scratch org with a <code>quiz</code> alias and pre-loads <code>sample</code> questions.</p>
-    <p>MacOS or Linux</p>
-    <pre>./install-dev.sh quiz sample</pre>
-    <p>Windows</p>
-    <pre>install-dev.bat quiz sample</pre>
-    <p>Once the script completes, it will open your new scratch org in a browser tab. If you close the tab or get disconnected, run this command to reopen the org <code>sfdx force:org:open -u quiz</code></p>
-    </li>
-    <li>Generate a <a target="_blank" href="https://help.salesforce.com/articleView?id=user_security_token.htm">security token</a> for your user</li>
-    <li>Generate a password using <a target="_blank" href="https://passwordsgenerator.net/">this service</a>. This will be the secret <b>Quiz API Key</b> that you'll set later in both applications.
-    <li>Deploy the <b>Quiz Player App</b> to Heroku by clicking this button:<br/>
-      <p align="center">
-        <a target="_blank" href="https://heroku.com/deploy?template=https://github.com/pozil/quiz-player-app/edit/master" title="Deploy to Heroku">
-          <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku"/>
-        </a>
-      <p>
-    </li>
-    <li>Set the <b>Config Vars</b> for the Heroku Player app as following:
-      <table>
-        <tr>
-          <th>Variable</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <td>QUIZ_API_KEY</td>
-          <td>The Quiz API key that was generated in step 5.</td>
-        </tr>
-        <tr>
-          <td>SF_LOGIN_URL</td>
-          <td>The login URL of your Salesforce org:<br/>
-          <code>https://test.salesforce.com/</code> for scratch orgs and sandboxes<br/>
-          <code>https://login.salesforce.com/</code> for Developer Edition and production</td>
-        </tr>
-        <tr>
-          <td>SF_PASSWORD</td>
-          <td>Your Salesforce password.</td>
-        </tr>
-        <tr>
-          <td>SF_TOKEN</td>
-          <td>Your Salesforce user's security token that was generated in step 4.</td>
-        </tr>
-        <tr>
-          <td>SF_USERNAME</td>
-          <td>Your Salesforce username.</td>
-        </tr>
-        <tr>
-          <td>COLLECT_PLAYER_EMAILS</td>
-          <td>Whether app should collect player emails (true/false).</td>
-        </tr>
-      </table>
-    </li>
-    <li>Generate a minified URL for the Heroku player app using <a target="_blank" href="https://bit.do/">this service</a> or another URL shortener (opt for a custom link for greater readability).</li>
-    <li>In your Salesforce org, go to <b>Setup &gt; Remote Site Settings</b> and add the complete player app URL (not the minified URL).</li>
-    <li>Go to <b>Setup &gt; Custom Metadata Types</b> and add a <b>Quiz Settings</b> record. Set it up with these values:
-      <table>
-      <tr>
-        <th>Field</th>
-        <th>Description</th>
-      </tr>
-      <tr>
-        <td>Player App URL</td>
-        <td>The Heroku player app URL that was generated in step 6.</td>
-      </tr>
-      <tr>
-        <td>Player App URL Minified</td>
-        <td>The minified URL for the player app that was generated in step 8.</td>
-      </tr>
-      <tr>
-        <td>Quiz API Key</td>
-        <td>The password that was generated in step 5.</td>
-      </tr>
-      <tr>
-        <td>Question Timer</td>
-        <td>The duration of the question timer (default: 12 seconds).</td>
-      </tr>
-      </table>
-    </li>
-</ol>
+#### Option 1: Managed Package (recommended)
 
-### Setting up questions
+1. Click [this link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t0N000001Bl41QAC) to install the host app package and choose **Install for All Users**.
+1. Navigate to **Setup > Integrations > Change Data Capture**, enable Change Data Capture for the **Quiz Player** object and **Save**.
+1. Using the App Switcher, navigate to the **Quiz** Lightning app.
+1. Select the **Quiz Sessions** tab and click **New**. Leave the default values and create a Quiz Session record.
+1. Continue setup by [installing the player app](#player-app-installation)
 
-The default installation provides a limited set of sample questions but you can customize questions as you see fit as these are based on records.
+#### Option 2: Scratch Org (for development purposes)
 
-#### Importing other questions
+We assume that you have a working Salesforce DX environment (Salesforce CLI installed, Dev Hub configured and authorized). See this [Trailhead project](https://trailhead.salesforce.com/en/content/learn/modules/sfdx_app_dev/sfdx_app_dev_setup_dx) for guided steps.
 
-The easiest way to add new questions is to import them using the Salesforce CLI.
+1. Open a Terminal and clone the git repository:
 
-1. Get a zip with custom questions and extract in the `data` folder. Assuming that your custom question folder is named `CUSTOM_QUESTIONS`, you should have the following files and:
+    ```
+    git clone https://github.com/pozil/quiz-host-app.git
+    cd quiz-host-app
+    ```
 
-```
-/data
-  /CUSTOM_QUESTIONS
-    /plan.json
-    /Quiz_Question__cs.json
-    /Quiz_Session__cs.json
-    /Quiz_Session_Question__cs.json
-```
+1. Run the installation script. The script deploys the quiz host app on a scratch org with a `quiz` alias and pre-loads `sample` questions.
 
-2. Run this script to remove existing questions:
+    MacOS or Linux
 
-```
-sfdx force:apex:execute -f bin/wipe-data.apex
-```
+    ```
+    ./install-dev.sh quiz sample
+    ```
 
-3. Run this script from the project root to import your custom questions:
+    Windows
 
-```
-sfdx force:data:tree:import -p data/CUSTOM_QUESTIONS/plan.json
-```
+    ```
+    install-dev.bat quiz sample
+    ```
 
-#### Adding/editing questions
+    Once the script completes, it will open your new scratch org in a browser tab. If you close the tab or get disconnected, run this command to reopen the org `sfdx force:org:open -u quiz`
 
-You can add or edit `Quiz_Question__c` records to customize the game.
+1. Continue setup by [installing the player app](#player-app-installation)
 
-Follow this process to add a new question:
+### Player App Installation
 
-1. Create a `Quiz_Question__c` record with a question label, the four possible answers and a correct answer.
-1. Create a `Quiz_Session_Question__c` to tie your `Quiz_Question__c` to the `Quiz_Session__c`. You'll need to specify an unique index number for the question. This index is used to order questions during the game.
+1. Generate a [security token](https://help.salesforce.com/articleView?id=user_security_token.htm) for your Salesforce user.
+1. Generate a secure password using [this service](https://passwordsgenerator.net/) or any other. This will be the secret **Quiz API Key** that you'll set later in both applications.
+1. Deploy the **Quiz Player App** to Heroku by clicking this button:
+   <a target="_blank" href="https://heroku.com/deploy?template=https://github.com/pozil/quiz-player-app/edit/master" title="Deploy to Heroku">
+   <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku"/>
+   </a>
 
-**Note:** if you change the first quiz question, make sure to hit the reset button on the quiz host app.
+1. Set the <b>Config Vars</b> for the Heroku Player app as following:
 
-## Usage
+    | Variable                | Description                                                                                                                                                                     |
+    | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | `QUIZ_API_KEY`          | The Quiz API key.                                                                                                                                                               |
+    | `SF_LOGIN_URL`          | The login URL of your Salesforce org:<br>`https://test.salesforce.com/` for scratch orgs and sandboxes<br/>`https://login.salesforce.com/` for Developer Edition and production |
+    | `SF_PASSWORD`           | Your Salesforce user's password.                                                                                                                                                |
+    | `SF_TOKEN`              | Your Salesforce user's security token.                                                                                                                                          |
+    | `SF_USERNAME`           | Your Salesforce username.                                                                                                                                                       |
+    | `COLLECT_PLAYER_EMAILS` | Whether the app should collect player emails (true/false).                                                                                                                      |
+
+1. Generate a minified URL for the Heroku player app using [this service](https://bit.do/) or any other URL shortener (opt for a custom link for greater readability).
+1. In your Salesforce org, go to **Setup > Remote Site Settings** and add the complete player app URL (not the minified URL).
+1. Go to **Setup > Custom Metadata Types** and add a **Quiz Settings** record. Set it up with these values:
+
+    | Field                     | Description                                               |
+    | ------------------------- | --------------------------------------------------------- |
+    | `Player App URL`          | The Heroku player app URL.                                |
+    | `Player App URL Minified` | The minified URL for the player app.                      |
+    | `Quiz API Key`            | The password that was generated earlier.                  |
+    | `Question Timer`          | The duration of the question timer (default: 12 seconds). |
+
+### Questions Setup
+
+Questions are stored as `Quiz_Question__c` records. You can create or import questions by adding records manually or by importing them a CSV or XLS files with the [Data Import Wizard](https://help.salesforce.com/apex/HTViewHelpDoc?id=data_import_wizard.htm).
+
+You org should have one and only one `Quiz_Session__c` record. This records controls the list of selected questions and specifies the questions' order.
+
+#### Importing Questions Using the Salesforce CLI
+
+You can import questions with the Salesforce CLI.
+
+1. Get a zip with custom questions and extract in the `data` folder. Assuming that your custom question folder is named `CUSTOM_QUESTIONS`, you should have the following files and folders:
+
+    ```
+    /data
+    /CUSTOM_QUESTIONS
+        /plan.json
+        /Quiz_Question__cs.json
+        /Quiz_Session__cs.json
+        /Quiz_Session_Question__cs.json
+    ```
+
+1. Run this script to remove existing questions:
+
+    ```
+    sfdx force:apex:execute -f bin/wipe-data.apex
+    ```
+
+1. Run this script from the project root to import your custom questions:
+
+    ```
+    sfdx force:data:tree:import -p data/CUSTOM_QUESTIONS/plan.json
+    ```
+
+## Playing
 
 🎥 [Watch the playthrough video](https://www.youtube.com/watch?v=vLTZ_jdwhRo)
 
@@ -227,7 +193,7 @@ Review these common problems. If you can't find a solution to your problem, [ope
 
 **Player app is slow/lags, questions do not show up on time**
 
-The default player app installation uses Heroku. Heroku datacenters are only available in North America and Europe. If you are running the quiz from another region (ie: India, Australia...), there's a good chance that your player will experience some lag. Consider switching to another cloud provider that let's you run a Node.js environment.
+The default player app installation uses Heroku. Heroku datacenters are only available in North America and Europe. If you are running the quiz from another region (i.e.: India, Australia...), there's a good chance that your player will experience some lag. Consider switching to another cloud provider that lets you run a Node.js environment.
 
 **Something is wrong with the quiz data or you'd like to reset it**
 

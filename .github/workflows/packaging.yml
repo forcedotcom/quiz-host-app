@@ -41,6 +41,10 @@ jobs:
               run: |
                   sed -i 's,"namespace": "","namespace": "sfqz",' sfdx-project.json
 
+            # Remove unpackageable metadata
+            - name: Remove unpackageable metadata (PlatformEventChannelMember)
+              run: rm -fr src/main/default/platformEventChannelMembers
+
             # Create package version and extract its id
             - name: Create package version
               id: create-package-version

@@ -8,10 +8,11 @@
 
 1. [About](#about)
 1. [Installation](#installation)
-    - [Requirements](#requirements)
-    - [Host App Installation](#host-app-installation)
-    - [Player App Installation](#player-app-installation)
-    - [Questions Setup](#questions-setup)
+    1. [Requirements](#requirements)
+    1. [Host App Installation](#step-1-host-app-installation)
+    1. [Player App Installation](#step-2-player-app-installation)
+    1. [Host App Configuration](#step-3-host-app-configuration)
+    1. [Questions Setup](#step-4-questions-setup)
 1. [Playing](#playing)
 1. [Troubleshooting](#troubleshooting)
 1. [Building and contributing](#building-and-contributing)
@@ -40,7 +41,7 @@ You'll need a free [Heroku account](https://signup.heroku.com) to set it up. A f
 
 <img src="doc-media/architecture.jpg" alt="Quiz app architecture"/>
 
-### Host App Installation
+### Step 1: Host App Installation
 
 There are two installation options for the host app:
 
@@ -56,9 +57,6 @@ There are two installation options for the host app:
     1. Click **Add Assignement**
     1. Check your user and click **Assign**.
 1. Navigate to **Setup > Integrations > Change Data Capture**, enable Change Data Capture for the **Quiz Player** object and **Save**.
-1. Using the App Switcher, navigate to the **Quiz** Lightning app.
-1. Select the **Quiz Sessions** tab and click **New**. Leave the default values and create a Quiz Session record.
-1. Continue setup by [installing the player app](#player-app-installation)
 
 #### Option 2: Scratch Org (for development purposes)
 
@@ -87,9 +85,7 @@ We assume that you have a working Salesforce DX environment (Salesforce CLI inst
 
     Once the script completes, it will open your new scratch org in a browser tab. If you close the tab or get disconnected, run this command to reopen the org `sfdx force:org:open -u quiz`
 
-1. Continue setup by [installing the player app](#player-app-installation)
-
-### Player App Installation
+### Step 2: Player App Installation
 
 1. Generate a [security token](https://help.salesforce.com/articleView?id=user_security_token.htm) for your Salesforce user.
 1. Generate a secure password using [this service](https://passwordsgenerator.net/) or any other. This will be the secret **Quiz API Key** that you'll set later in both applications.
@@ -107,11 +103,15 @@ We assume that you have a working Salesforce DX environment (Salesforce CLI inst
     | `SF_PASSWORD`           | Your Salesforce user's password.                                                                                                                                                |
     | `SF_TOKEN`              | Your Salesforce user's security token.                                                                                                                                          |
     | `SF_USERNAME`           | Your Salesforce username.                                                                                                                                                       |
+    | `SF_NAMESPACE`          | The Salesforce package namespace (leave the `sfqz` default value unless you are developping with a Scratch org).                                                                |
     | `COLLECT_PLAYER_EMAILS` | Whether the app should collect player emails (true/false).                                                                                                                      |
 
+### Step 3: Host App Configuration
+
+1. In your Salesforce org, go to **Setup > Remote Site Settings** and add a new site named `Quiz_Player_App` with the player app URL.
 1. Generate a minified URL for the Heroku player app using [this service](https://bit.do/) or any other URL shortener (opt for a custom link for greater readability).
-1. In your Salesforce org, go to **Setup > Remote Site Settings** and add the complete player app URL (not the minified URL).
-1. Go to **Setup > Custom Metadata Types** and add a **Quiz Settings** record. Set it up with these values:
+1. Go to **Setup > Custom Metadata Types** and click **Manage Records** next to **Quiz Settings**.
+1. Click **New** and add a record with these values:
 
     | Field                     | Description                                               |
     | ------------------------- | --------------------------------------------------------- |
@@ -120,13 +120,31 @@ We assume that you have a working Salesforce DX environment (Salesforce CLI inst
     | `Quiz API Key`            | The password that was generated earlier.                  |
     | `Question Timer`          | The duration of the question timer (default: 12 seconds). |
 
-### Questions Setup
+1. Using the App Switcher, navigate to the **Quiz** Lightning app. At this point you can safelty ignore the error about the missing session record.
+1. Select the **Quiz Sessions** tab.
+1. If no session record shows up, click **New**. Leave the default values and create a Quiz Session record.
 
-Questions are stored as `Quiz_Question__c` records. You can create or import questions by adding records manually or by importing them a CSV or XLS files with the [Data Import Wizard](https://help.salesforce.com/apex/HTViewHelpDoc?id=data_import_wizard.htm).
+### Step 4: Questions Setup
 
-You org should have one and only one `Quiz_Session__c` record. This records controls the list of selected questions and specifies the questions' order.
+Questions are stored as **Quiz Question** records.
 
-#### Importing Questions Using the Salesforce CLI
+The **Quiz Session** record controls the list of selected questions and specifies the questions' order. Use the component on this record page to rearrange questions (don't forget to save your changes).
+
+You org should have one and only one **Quiz Session** record at any time.
+
+Make sure to edit the **Quiz Session** record after adding new questions as they aren't automatically added to the quiz.
+
+#### Option 1: Importing questions using the Data Import Wizard (Recommended)
+
+You can create or import questions by adding records manually or by importing them in a CSV or XLS file with the [Data Import Wizard](https://help.salesforce.com/apex/HTViewHelpDoc?id=data_import_wizard.htm).
+
+Use this table template to save time:
+
+| Label     | Answer A | Answer B | Answer C | Answer D | Correct Answer |
+| --------- | ---------|----------|----------|----------|--------------- |
+| 1 + 1 = ? | 1        | 2        | 3        | 4        | B              |
+
+#### Option 2: Importing questions using the Salesforce CLI
 
 You can import questions with the Salesforce CLI.
 
@@ -136,9 +154,9 @@ You can import questions with the Salesforce CLI.
     /data
     /CUSTOM_QUESTIONS
         /plan.json
-        /Quiz_Question__cs.json
-        /Quiz_Session__cs.json
-        /Quiz_Session_Question__cs.json
+        /sfqz__Quiz_Question__cs.json
+        /sfqz__Quiz_Session__cs.json
+        /sfqz__Quiz_Session_Question__cs.json
     ```
 
 1. Run this script to remove existing questions:
@@ -161,7 +179,7 @@ Once you have installed the app, test it in private to confirm that it works.
 
 Here is how the game works:
 
-1. Open the Salesforce org. You log in with your browser or simply run this command: `sfdx force:org:open -u quiz`
+1. Open the Salesforce org.
 1. Open the **Quiz app** from App Launcher.
 1. Make sure that the screen is showing the **Registration** screen. If not, click the **Reset** button.
 1. Open the mini URL or scan the QR code with your phone. That should open the player app.

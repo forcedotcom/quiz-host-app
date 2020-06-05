@@ -143,7 +143,7 @@ public with sharing class QuizSessionHelper {
         request.setEndpoint(settings.Player_App_URL__c + '/api/quiz-sessions');
         request.setHeader('Content-Type', 'application/json');
         request.setHeader('Api-Key', settings.Quiz_Api_Key__c);
-        request.setBody('{ "Phase__c": "' + phase + '" }');
+        request.setBody('{ "phase": "' + phase + '" }');
 
         Http httpClient = new Http();
         HttpResponse response = httpClient.send(request);

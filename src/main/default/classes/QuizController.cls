@@ -8,8 +8,9 @@ public with sharing class QuizController {
     private static final QuizSettingsService settingsService = new QuizSettingsService();
 
     @AuraEnabled(cacheable=true)
-    public static Quiz_Settings__mdt getQuizSettings() {
-        return settingsService.get();
+    public static QuizSettings getQuizSettings() {
+        Quiz_Settings__mdt settings = settingsService.get();
+        return new QuizSettings(settings);
     }
 
     @AuraEnabled(cacheable=true)
@@ -40,7 +41,7 @@ public with sharing class QuizController {
     }
 
     @AuraEnabled
-    public static Quiz_Question__c getCurrentQuestion(Id sessionId) {
+    public static QuizQuestion getCurrentQuestion(Id sessionId) {
         if (sessionId == null) {
             throw new AuraHandledException('Missing session Id.');
         }
@@ -52,7 +53,7 @@ public with sharing class QuizController {
                 'Missing current question for session.'
             );
         }
-        return question;
+        return new QuizQuestion(question);
     }
 
     @AuraEnabled
@@ -61,23 +62,28 @@ public with sharing class QuizController {
     }
 
     @AuraEnabled
-    public static List<Quiz_Player__c> getPlayersSortedByScore(
+    public static List<QuizPlayer> getPlayersSortedByScore(
         Integer maxFetchCount
     ) {
-        return playerService.getPlayersSortedByScore(maxFetchCount);
+        List<Quiz_Player__c> players = playerService.getPlayersSortedByScore(
+            maxFetchCount
+        );
+        return QuizPlayer.fromRecordList(players);
     }
 
     @AuraEnabled
-    public static Quiz_Session__c getQuizSession() {
-        return sessionService.getQuizSession();
+    public static QuizSession getQuizSession() {
+        Quiz_Session__c session = sessionService.getQuizSession();
+        return new QuizSession(session);
     }
 
     @AuraEnabled
-    public static Quiz_Session__c triggerNextPhase(Id sessionId) {
+    public static QuizSession triggerNextPhase(Id sessionId) {
         if (sessionId == null) {
             throw new AuraHandledException('Missing session Id.');
         }
-        return sessionHelper.triggerNextPhase(sessionId);
+        Quiz_Session__c session = sessionHelper.triggerNextPhase(sessionId);
+        return new QuizSession(session);
     }
 
     @AuraEnabled

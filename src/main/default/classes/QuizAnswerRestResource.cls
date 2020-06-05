@@ -7,7 +7,11 @@ global abstract class QuizAnswerRestResource {
         Object responseData;
         Integer statusCode;
         try {
-            responseData = answerService.create(playerId, answer);
+            Quiz_Answer__c answerRecord = answerService.create(
+                playerId,
+                answer
+            );
+            responseData = new QuizAnswer(answerRecord);
             statusCode = 200;
         } catch (QuizAnswerService.InvalidPhaseException e) {
             responseData = new ErrorMessage(

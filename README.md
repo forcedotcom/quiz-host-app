@@ -43,6 +43,23 @@ You'll need a free [Heroku account](https://signup.heroku.com) to set it up. A f
 
 ### Step 1: Host App Installation
 
+There are two installation options for the host app:
+
+#### Option 1: Managed Package (recommended)
+
+1. Click [this link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t0N000001Bl41QAC) to install the host app package and choose **Install for All Users**.
+
+    You'll need to approve access to `https://chart.googleapis.com`. We use this library to draw leaderboads.
+
+1. Set up permissions:
+    1. Navigate to **Setup > Users > Permission Sets**, click **Quiz Host**
+    1. Click **Manage Assignements**
+    1. Click **Add Assignement**
+    1. Check your user and click **Assign**.
+1. Navigate to **Setup > Integrations > Change Data Capture**, enable Change Data Capture for the **Quiz Player** object and **Save**.
+
+#### Option 2: Scratch Org (for development purposes)
+
 We assume that you have a working Salesforce DX environment (Salesforce CLI installed, Dev Hub configured and authorized). See this [Trailhead project](https://trailhead.salesforce.com/en/content/learn/modules/sfdx_app_dev/sfdx_app_dev_setup_dx) for guided steps.
 
 1. Open a Terminal and clone the git repository:
@@ -124,7 +141,7 @@ You can create or import questions by adding records manually or by importing th
 Use this table template to save time:
 
 | Label     | Answer A | Answer B | Answer C | Answer D | Correct Answer |
-| --------- | ---------|----------|----------|----------|--------------- |
+| --------- | -------- | -------- | -------- | -------- | -------------- |
 | 1 + 1 = ? | 1        | 2        | 3        | 4        | B              |
 
 #### Option 2: Importing questions using the Salesforce CLI

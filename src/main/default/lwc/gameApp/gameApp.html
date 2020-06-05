@@ -74,7 +74,7 @@
                     <!-- Question -->
                     <template if:true={isQuestionPhase}>
                         <c-progress-bar
-                            duration={quizSettings.Question_Timer__c}
+                            duration={quizSettings.questionTimer}
                             ontimeout={handleNextPhaseClick}
                         ></c-progress-bar>
                         <c-question
@@ -88,7 +88,7 @@
                         <div class="slds-grid slds-gutters">
                             <div class="slds-col slds-size_1-of-2">
                                 <c-answer-bar-chart
-                                    correct-answer={currentQuestion.Correct_Answer__c}
+                                    correct-answer={currentQuestion.correctAnswer}
                                 ></c-answer-bar-chart>
                             </div>
                             <div class="slds-col slds-size_1-of-2">

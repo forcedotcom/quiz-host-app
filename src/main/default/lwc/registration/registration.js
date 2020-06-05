@@ -5,7 +5,7 @@ export default class Registration extends LightningElement {
 
     get shortMobileAppUrl() {
         if (this.quizSettings) {
-            return this.quizSettings.Player_App_URL_Minified__c.replace(
+            return this.quizSettings.playerAppUrlMinified.replace(
                 'https://',
                 ''
             );

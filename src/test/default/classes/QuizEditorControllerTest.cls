@@ -26,9 +26,9 @@ public class QuizEditorControllerTest {
     }
 
     @isTest
-    static void getSessionQuestions_fails_when_no_session_id() {
+    static void getSessionQuestionIds_fails_when_no_session_id() {
         try {
-            QuizEditorController.getSessionQuestions(null);
+            QuizEditorController.getSessionQuestionIds(null);
             // expect to fail
             System.assert(false);
         } catch (AuraHandledException e) {

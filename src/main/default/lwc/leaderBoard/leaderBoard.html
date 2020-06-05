@@ -6,15 +6,15 @@
     <template if:false={error}>
         <div class="leaderboard">
             <template for:each={players} for:item="player">
-                <div key={player.Id} class="slds-grid">
+                <div key={player.id} class="slds-grid">
                     <span class="slds-col slds-size_2-of-12 rank"
-                        >{player.Ranking__c}.</span
+                        >{player.rank}.</span
                     >
                     <span class="slds-col slds-size_7-of-12 name"
-                        >{player.Name}</span
+                        >{player.name}</span
                     >
                     <span class="slds-col slds-size_3-of-12 score"
-                        >{player.Score__c}</span
+                        >{player.score}</span
                     >
                 </div>
             </template>

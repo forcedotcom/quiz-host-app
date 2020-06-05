@@ -1,4 +1,4 @@
-import { LightningElement, api, track } from 'lwc';
+import { LightningElement, api } from 'lwc';
 import getAnswerStats from '@salesforce/apex/QuizController.getAnswerStats';
 import { loadScript } from 'lightning/platformResourceLoader';
 import chartjs from '@salesforce/resourceUrl/chart';
@@ -8,9 +8,11 @@ import { reduceErrors } from 'c/errorUtils';
 const ANSWER_LABELS = ['A', 'B', 'C', 'D'];
 
 export default class AnswerBarChart extends LightningElement {
-    @track answerStats;
-    @track error;
+    answerStats;
+    error;
+
     @api correctAnswer; // A, B, C, or D
+
     chart;
     chartjsInitialized = false;
 

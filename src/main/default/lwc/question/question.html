@@ -1,24 +1,24 @@
 <template>
-    <h1>{questionObject.Label__c}</h1>
+    <h1>{questionObject.label}</h1>
     <div class="answerContainer">
         <div class="answer">
             <div onclick={handleAnswerClick} data-answer="A">
-                <span>A. </span> {questionObject.Answer_A__c}
+                <span>A. </span> {questionObject.answerA}
             </div>
         </div>
         <div class="answer">
             <div onclick={handleAnswerClick} data-answer="B">
-                <span>B. </span> {questionObject.Answer_B__c}
+                <span>B. </span> {questionObject.answerB}
             </div>
         </div>
         <div class="answer">
             <div onclick={handleAnswerClick} data-answer="C">
-                <span>C. </span> {questionObject.Answer_C__c}
+                <span>C. </span> {questionObject.answerC}
             </div>
         </div>
         <div class="answer">
             <div onclick={handleAnswerClick} data-answer="D">
-                <span>D. </span> {questionObject.Answer_D__c}
+                <span>D. </span> {questionObject.answerD}
             </div>
         </div>
     </div>

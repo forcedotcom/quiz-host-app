@@ -1,11 +1,11 @@
-import { LightningElement, track, api } from 'lwc';
+import { LightningElement, api } from 'lwc';
 
 const TIMER_INTERVAL_MS = 20;
 
 export default class ProgressBar extends LightningElement {
     @api duration = 6;
-    @track progress = 0;
-    @track progressBarStyle = '';
+    progress = 0;
+    progressBarStyle = '';
     timerId;
 
     connectedCallback() {

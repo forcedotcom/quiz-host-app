@@ -1,10 +1,10 @@
-import { LightningElement, track, wire } from 'lwc';
+import { LightningElement, wire } from 'lwc';
 import getWinnerStats from '@salesforce/apex/QuizController.getWinnerStats';
 import { reduceErrors } from 'c/errorUtils';
 
 export default class Winner extends LightningElement {
-    @track winnerStats;
-    @track error;
+    winnerStats;
+    error;
 
     @wire(getWinnerStats)
     wiredPlayer({ error, data }) {

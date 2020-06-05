@@ -4,15 +4,15 @@ import { reduceErrors } from 'c/errorUtils';
 import * as empApi from 'lightning/empApi';
 
 export default class playerList extends LightningElement {
-    @track error;
-    @track playerNames;
+    error;
+    @track playerNames = [];
 
     subscription;
 
     connectedCallback() {
         getPlayersSortedByScore()
             .then((players) => {
-                this.playerNames = players.map((player) => player.Name);
+                this.playerNames = players.map((player) => player.name);
                 this.error = undefined;
                 this.initEmpApi();
             })

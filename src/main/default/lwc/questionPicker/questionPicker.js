@@ -1,7 +1,7 @@
 import { LightningElement, api, wire } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import setSessionQuestions from '@salesforce/apex/QuizEditorController.setSessionQuestions';
-import getSessionQuestions from '@salesforce/apex/QuizEditorController.getSessionQuestions';
+import getSessionQuestionIds from '@salesforce/apex/QuizEditorController.getSessionQuestionIds';
 import getAllQuestions from '@salesforce/apex/QuizEditorController.getAllQuestions';
 
 export default class QuestionPicker extends LightningElement {
@@ -16,8 +16,8 @@ export default class QuestionPicker extends LightningElement {
     getAllQuestions({ data, error }) {
         if (data) {
             this.allQuestions = data.map((question) => ({
-                value: question.Id,
-                label: question.Label__c
+                value: question.id,
+                label: question.label
             }));
         } else if (error) {
             console.error(error);
@@ -25,10 +25,10 @@ export default class QuestionPicker extends LightningElement {
         }
     }
 
-    @wire(getSessionQuestions, { sessionId: '$recordId' })
-    getSessionQuestions({ data, error }) {
+    @wire(getSessionQuestionIds, { sessionId: '$recordId' })
+    getSessionQuestionIds({ data, error }) {
         if (data) {
-            this.selectedQuestionIds = data.map((question) => question.Id);
+            this.selectedQuestionIds = data;
         } else if (error) {
             console.error(error);
             this.showToast(

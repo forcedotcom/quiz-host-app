@@ -3,8 +3,9 @@ public with sharing class QuizEditorController {
     private static final QuizSessionService sessionService = new QuizSessionService();
 
     @AuraEnabled(cacheable=true)
-    public static List<Quiz_Question__c> getAllQuestions() {
-        return questionService.getQuestions();
+    public static List<QuizQuestion> getAllQuestions() {
+        List<Quiz_Question__c> questions = questionService.getQuestions();
+        return QuizQuestion.fromRecordList(questions);
     }
 
     @AuraEnabled
@@ -19,10 +20,17 @@ public with sharing class QuizEditorController {
     }
 
     @AuraEnabled(cacheable=true)
-    public static List<Quiz_Question__c> getSessionQuestions(Id sessionId) {
+    public static List<Id> getSessionQuestionIds(Id sessionId) {
         if (sessionId == null) {
             throw new AuraHandledException('Missing session Id.');
         }
-        return sessionService.getSessionQuestions(sessionId);
+        List<Quiz_Question__c> questions = sessionService.getSessionQuestions(
+            sessionId
+        );
+        List<Id> questionIds = new List<Id>();
+        for (Quiz_Question__c question : questions) {
+            questionIds.add(question.Id);
+        }
+        return questionIds;
     }
 }

@@ -1,4 +1,4 @@
-import { LightningElement, track, wire } from 'lwc';
+import { LightningElement, wire } from 'lwc';
 import getCurrentQuestion from '@salesforce/apex/QuizController.getCurrentQuestion';
 import resetGame from '@salesforce/apex/QuizController.resetGame';
 import checkSettings from '@salesforce/apex/QuizController.checkSettings';
@@ -8,13 +8,13 @@ import triggerNextPhase from '@salesforce/apex/QuizController.triggerNextPhase';
 import { reduceErrors } from 'c/errorUtils';
 
 export default class GameApp extends LightningElement {
-    @track error;
-    @track quizSession;
-    @track quizSettings;
-    @track isNextButtonDisabled = true;
-    @track currentQuestion;
+    error;
+    quizSession;
+    quizSettings;
+    isNextButtonDisabled = true;
+    currentQuestion;
 
-    HOST_APP_VERSION = '1.4.0';
+    HOST_APP_VERSION = '2.0.0';
 
     @wire(getQuizSettings)
     wiredQuizSettings({ error, data }) {
@@ -43,7 +43,7 @@ export default class GameApp extends LightningElement {
     }
 
     refreshCurrentQuestion() {
-        getCurrentQuestion({ sessionId: this.quizSession.Id })
+        getCurrentQuestion({ sessionId: this.quizSession.id })
             .then((currentQuestion) => {
                 this.currentQuestion = currentQuestion;
                 // Double phase change click prevention
@@ -64,7 +64,7 @@ export default class GameApp extends LightningElement {
     handleNextPhaseClick() {
         this.isNextButtonDisabled = true;
         this.answerCount = undefined;
-        triggerNextPhase({ sessionId: this.quizSession.Id })
+        triggerNextPhase({ sessionId: this.quizSession.id })
             .then((updatedSession) => {
                 this.quizSession = updatedSession;
                 this.error = undefined;
@@ -108,35 +108,35 @@ export default class GameApp extends LightningElement {
 
     get correctAnswerLabel() {
         const { currentQuestion } = this;
-        const correctAnswer = currentQuestion.Correct_Answer__c;
-        const answerLabel = this.currentQuestion[`Answer_${correctAnswer}__c`];
+        const correctAnswer = currentQuestion.correctAnswer;
+        const answerLabel = this.currentQuestion[`answer${correctAnswer}`];
         return `${correctAnswer}: ${answerLabel}`;
     }
 
     get cardBodyClasses() {
         let bgColorClass = this.quizSession
-            ? `bg-${this.quizSession.Phase__c}`
+            ? `bg-${this.quizSession.phase}`
             : '';
         return `slds-card__body slds-card__body_inner ${bgColorClass}`;
     }
 
     get isRegistrationPhase() {
-        return this.quizSession.Phase__c === 'Registration';
+        return this.quizSession.phase === 'Registration';
     }
 
     get isPreQuestionPhase() {
-        return this.quizSession.Phase__c === 'PreQuestion';
+        return this.quizSession.phase === 'PreQuestion';
     }
 
     get isQuestionPhase() {
-        return this.quizSession.Phase__c === 'Question';
+        return this.quizSession.phase === 'Question';
     }
 
     get isQuestionResultsPhase() {
-        return this.quizSession.Phase__c === 'QuestionResults';
+        return this.quizSession.phase === 'QuestionResults';
     }
 
     get isGameResultsPhase() {
-        return this.quizSession.Phase__c === 'GameResults';
+        return this.quizSession.phase === 'GameResults';
     }
 }

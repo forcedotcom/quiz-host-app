@@ -3,8 +3,8 @@ import getPlayersSortedByScore from '@salesforce/apex/QuizController.getPlayersS
 import { reduceErrors } from 'c/errorUtils';
 
 export default class LeaderBoard extends LightningElement {
-    @track error;
-    @track players;
+    error;
+    @track players = [];
 
     connectedCallback() {
         getPlayersSortedByScore({ maxFetchCount: 10 })

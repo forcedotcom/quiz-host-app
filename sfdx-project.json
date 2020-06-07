@@ -4,8 +4,8 @@
             "path": "src",
             "default": true,
             "package": "Quiz",
-            "versionName": "ver 2.0.1",
-            "versionNumber": "2.0.1.NEXT"
+            "versionName": "ver 2.1.0",
+            "versionNumber": "2.1.0.NEXT"
         }
     ],
     "namespace": "",

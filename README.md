@@ -47,7 +47,7 @@ There are two installation options for the host app:
 
 #### Option 1: Managed Package (recommended)
 
-1. Click [this link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t0N000001Bl5EQAS) to install the host app package and choose **Install for All Users**.
+1. Click [this link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t0N000001Bl5JQAS) to install the host app package and choose **Install for All Users**.
 
     You'll need to approve access to `https://chart.googleapis.com`. We use this library to draw leaderboads.
 

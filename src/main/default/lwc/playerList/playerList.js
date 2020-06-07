@@ -2,8 +2,9 @@ import { LightningElement, track } from 'lwc';
 import getPlayersSortedByScore from '@salesforce/apex/QuizController.getPlayersSortedByScore';
 import { reduceErrors } from 'c/errorUtils';
 import * as empApi from 'lightning/empApi';
+import PLAYER_OBJECT from '@salesforce/schema/Quiz_Player__c';
 
-export default class playerList extends LightningElement {
+export default class PlayerList extends LightningElement {
     error;
     @track playerNames = [];
 
@@ -23,22 +24,34 @@ export default class playerList extends LightningElement {
     }
 
     initEmpApi() {
+        const ns = PlayerList.getNamespacePrefix(PLAYER_OBJECT.objectApiName);
         empApi.onError((error) => {
             // eslint-disable-next-line no-console
             console.error('Streaming API error: ' + JSON.stringify(error));
         });
         empApi
-            .subscribe('/data/Quiz_Player__ChangeEvent', -1, (cdcEvent) => {
-                if (
-                    cdcEvent.data.payload.ChangeEventHeader.changeType ===
-                    'CREATE'
-                ) {
-                    this.handlePlayerCreationEvent(cdcEvent);
+            .subscribe(
+                `/data/${ns}Quiz_Player__ChangeEvent`,
+                -1,
+                (cdcEvent) => {
+                    if (
+                        cdcEvent.data.payload.ChangeEventHeader.changeType ===
+                        'CREATE'
+                    ) {
+                        this.handlePlayerCreationEvent(cdcEvent);
+                    }
                 }
-            })
+            )
             .then((response) => {
                 this.subscription = response;
             });
+    }
+
+    static getNamespacePrefix(objectApiName) {
+        if (objectApiName.match(/__/g).length === 2) {
+            return objectApiName.split('__')[0] + '__';
+        }
+        return '';
     }
 
     handlePlayerCreationEvent(cdcEvent) {

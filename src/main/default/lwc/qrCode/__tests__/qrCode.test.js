@@ -4,7 +4,7 @@ import QrCode from 'c/qrCode';
 const IMAGE_BASE_URL = 'https://localhost/hello';
 const IMAGE_SIZE = 300;
 
-describe('c-qr-code', () => {
+describe('qr-code', () => {
     afterEach(() => {
         // The jsdom instance is shared across test cases in a single file so reset the DOM
         while (document.body.firstChild) {

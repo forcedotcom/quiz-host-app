@@ -7,7 +7,7 @@ public class QuizAnswerRestResourceTest {
     static void submitAnswer_works() {
         Test.setMock(
             HttpCalloutMock.class,
-            new TestUtils.MockSuccessHttpResponse()
+            new QuizTestUtils.MockSuccessHttpResponse()
         );
 
         RestResponse response = new RestResponse();
@@ -45,7 +45,7 @@ public class QuizAnswerRestResourceTest {
     static void submitAnswer_failsWhenDuplicateAnswer() {
         Test.setMock(
             HttpCalloutMock.class,
-            new TestUtils.MockSuccessHttpResponse()
+            new QuizTestUtils.MockSuccessHttpResponse()
         );
 
         RestResponse response = new RestResponse();

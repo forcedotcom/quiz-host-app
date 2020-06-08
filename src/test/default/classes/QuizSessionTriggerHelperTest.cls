@@ -8,7 +8,7 @@ public class QuizSessionTriggerHelperTest {
     static void changePhaseToRegistrationResetsCurrentQuestion() {
         Test.setMock(
             HttpCalloutMock.class,
-            new TestUtils.MockSuccessHttpResponse()
+            new QuizTestUtils.MockSuccessHttpResponse()
         );
 
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
@@ -34,7 +34,7 @@ public class QuizSessionTriggerHelperTest {
     static void changePhaseToRegistrationRemovesPlayersAndAnswers() {
         Test.setMock(
             HttpCalloutMock.class,
-            new TestUtils.MockSuccessHttpResponse()
+            new QuizTestUtils.MockSuccessHttpResponse()
         );
 
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();

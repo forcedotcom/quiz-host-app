@@ -1,5 +1,5 @@
 @isTest
-public class TestUtils {
+public class QuizTestUtils {
     private static Integer idCounter = 1;
 
     public static String getFakeId(Schema.SObjectType objectType) {

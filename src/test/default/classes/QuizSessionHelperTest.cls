@@ -10,7 +10,7 @@ public class QuizSessionHelperTest {
     static void playerAccumulatesScore() {
         Test.setMock(
             HttpCalloutMock.class,
-            new TestUtils.MockSuccessHttpResponse()
+            new QuizTestUtils.MockSuccessHttpResponse()
         );
 
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
@@ -54,7 +54,7 @@ public class QuizSessionHelperTest {
     static void stressTestCorrectAnswerIncrementScorePlayer() {
         Test.setMock(
             HttpCalloutMock.class,
-            new TestUtils.MockSuccessHttpResponse()
+            new QuizTestUtils.MockSuccessHttpResponse()
         );
 
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
@@ -103,7 +103,7 @@ public class QuizSessionHelperTest {
     static void stressTestCorrectAnswerIncrementScoreAnswer() {
         Test.setMock(
             HttpCalloutMock.class,
-            new TestUtils.MockSuccessHttpResponse()
+            new QuizTestUtils.MockSuccessHttpResponse()
         );
 
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
@@ -142,7 +142,7 @@ public class QuizSessionHelperTest {
     static void updateScoreOnAnswerWithFullMarks() {
         Test.setMock(
             HttpCalloutMock.class,
-            new TestUtils.MockSuccessHttpResponse()
+            new QuizTestUtils.MockSuccessHttpResponse()
         );
 
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
@@ -172,7 +172,7 @@ public class QuizSessionHelperTest {
     static void lastCorrectAnswerGets500Points() {
         Test.setMock(
             HttpCalloutMock.class,
-            new TestUtils.MockSuccessHttpResponse()
+            new QuizTestUtils.MockSuccessHttpResponse()
         );
 
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
@@ -211,7 +211,7 @@ public class QuizSessionHelperTest {
     static void doNotUpdatePlayerScoreIfAnswerWrong() {
         Test.setMock(
             HttpCalloutMock.class,
-            new TestUtils.MockSuccessHttpResponse()
+            new QuizTestUtils.MockSuccessHttpResponse()
         );
 
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
@@ -241,7 +241,7 @@ public class QuizSessionHelperTest {
     static void doNotUpdateAnswerScoreIfAnswerWrong() {
         Test.setMock(
             HttpCalloutMock.class,
-            new TestUtils.MockSuccessHttpResponse()
+            new QuizTestUtils.MockSuccessHttpResponse()
         );
 
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();

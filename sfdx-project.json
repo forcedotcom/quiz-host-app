@@ -4,7 +4,7 @@
             "path": "src",
             "default": true,
             "package": "Quiz",
-            "postInstallScript": "PostInstallScript",
+            "postInstallScript": "QuizPostInstallScript",
             "versionName": "ver 2.2.0",
             "versionNumber": "2.2.0.NEXT"
         }

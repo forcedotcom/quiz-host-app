@@ -51,7 +51,7 @@ public class QuizPlayerStatsRestResourceTest {
         request.requestUri = '/services/apexrest/quiz/player/stats';
         request.params.put(
             'id',
-            TestUtils.getFakeId(Quiz_Player__c.SObjectType)
+            QuizTestUtils.getFakeId(Quiz_Player__c.SObjectType)
         );
 
         RestResponse response = new RestResponse();

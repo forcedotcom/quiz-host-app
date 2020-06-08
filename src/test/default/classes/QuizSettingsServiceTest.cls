@@ -4,7 +4,7 @@ public class QuizSettingsServiceTest {
     static void checkSettings_works() {
         Test.setMock(
             HttpCalloutMock.class,
-            new TestUtils.MockSuccessHttpResponse()
+            new QuizTestUtils.MockSuccessHttpResponse()
         );
         QuizSettingsService settingsService = new QuizSettingsService();
 
@@ -15,7 +15,7 @@ public class QuizSettingsServiceTest {
     static void checkSettings_failsWhenPlayerAppIsUnreachable() {
         Test.setMock(
             HttpCalloutMock.class,
-            new TestUtils.MockSimpleHttpResponse(404)
+            new QuizTestUtils.MockSimpleHttpResponse(404)
         );
         QuizSettingsService settingsService = new QuizSettingsService();
 

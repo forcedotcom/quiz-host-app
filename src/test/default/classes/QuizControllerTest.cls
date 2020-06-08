@@ -47,7 +47,7 @@ public class QuizControllerTest {
 
     @isTest
     static void getPlayerAnswerStats_failsWhenUnknownPlayerId() {
-        Id fakePlayerId = TestUtils.getFakeId(Quiz_Player__c.SObjectType);
+        Id fakePlayerId = QuizTestUtils.getFakeId(Quiz_Player__c.SObjectType);
         try {
             QuizController.getPlayerAnswerStats(fakePlayerId);
             // expect to fail
@@ -61,7 +61,7 @@ public class QuizControllerTest {
     static void resetGame_works() {
         Test.setMock(
             HttpCalloutMock.class,
-            new TestUtils.MockSuccessHttpResponse()
+            new QuizTestUtils.MockSuccessHttpResponse()
         );
 
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();

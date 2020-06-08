@@ -49,16 +49,16 @@ There are two installation options for the host app:
 
 1. Click [this link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t0N000001Bl5JQAS) to install the host app package and choose **Install for All Users**.
 
-    You'll need to approve access to `https://chart.googleapis.com`. We use this library to draw leaderboads.
+    You'll need to approve access to `https://chart.googleapis.com`. We use this library to draw leaderboards.
 
 1. Set up permissions:
     1. Navigate to **Setup > Users > Permission Sets**, click **Quiz Host**
-    1. Click **Manage Assignements**
-    1. Click **Add Assignement**
+    1. Click **Manage Assignments**
+    1. Click **Add Assignment**
     1. Check your user and click **Assign**.
 1. Navigate to **Setup > Integrations > Change Data Capture**, enable Change Data Capture for the **Quiz Player** object and **Save**.
 
-#### Option 2: Scratch Org (for development purposes)
+#### Option 2: Scratch Orgde (for development purposes)
 
 We assume that you have a working Salesforce DX environment (Salesforce CLI installed, Dev Hub configured and authorized). See this [Trailhead project](https://trailhead.salesforce.com/en/content/learn/modules/sfdx_app_dev/sfdx_app_dev_setup_dx) for guided steps.
 
@@ -103,7 +103,7 @@ We assume that you have a working Salesforce DX environment (Salesforce CLI inst
     | `SF_PASSWORD`           | Your Salesforce user's password.                                                                                                                                                |
     | `SF_TOKEN`              | Your Salesforce user's security token.                                                                                                                                          |
     | `SF_USERNAME`           | Your Salesforce username.                                                                                                                                                       |
-    | `SF_NAMESPACE`          | The Salesforce package namespace (leave the `sfqz` default value unless you are developping with a Scratch org).                                                                |
+    | `SF_NAMESPACE`          | The Salesforce package namespace (leave the `sfqz` default value unless you are developing with a Scratch org).                                                                 |
     | `COLLECT_PLAYER_EMAILS` | Whether the app should collect player emails (true/false).                                                                                                                      |
 
 ### Step 3: Host App Configuration
@@ -120,9 +120,14 @@ We assume that you have a working Salesforce DX environment (Salesforce CLI inst
     | `Quiz API Key`            | The password that was generated earlier.                  |
     | `Question Timer`          | The duration of the question timer (default: 12 seconds). |
 
-1. Using the App Switcher, navigate to the **Quiz** Lightning app. At this point you can safelty ignore the error about the missing session record.
-1. Select the **Quiz Sessions** tab.
-1. If no session record shows up, click **New**. Leave the default values and create a Quiz Session record.
+1. Using the App Switcher, navigate to the **Quiz** Lightning app. If the installation went well, the quiz page should appear with no errors:
+
+<img src="doc-media/registration-host.png" alt="Quiz registration page on host app"/>
+
+At this point you can:
+
+-   [test the game](#playing) with the sample question.
+-   [set up extra questions](#step-4-questions-setup)
 
 ### Step 4: Questions Setup
 

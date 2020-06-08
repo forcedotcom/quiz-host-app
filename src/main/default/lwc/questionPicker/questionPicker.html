@@ -21,13 +21,21 @@
                 value={selectedQuestionIds}
                 onchange={handleQuestionChange}
             ></lightning-dual-listbox>
-            <div class="slds-var-m-top_small slds-align_absolute-center">
-                <lightning-button
-                    label="Save"
-                    variant="brand"
-                    onclick={handleSaveClick}
-                    disabled={isLoading}
-                ></lightning-button>
+
+            <div class="slds-text-align_center">
+                <template if:true={isDirty}>
+                    <div class="slds-var-m-top_small slds-text-color_weak">
+                        There are unsaved changes.
+                    </div>
+                </template>
+                <div class="slds-var-m-top_small">
+                    <lightning-button
+                        label="Save"
+                        variant="brand"
+                        onclick={handleSaveClick}
+                        disabled={isLoading}
+                    ></lightning-button>
+                </div>
             </div>
         </div>
     </lightning-card>

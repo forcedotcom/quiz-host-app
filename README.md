@@ -58,7 +58,7 @@ There are two installation options for the host app:
     1. Check your user and click **Assign**.
 1. Navigate to **Setup > Integrations > Change Data Capture**, enable Change Data Capture for the **Quiz Player** object and **Save**.
 
-#### Option 2: Scratch Orgde (for development purposes)
+#### Option 2: Scratch Org (for development purposes)
 
 We assume that you have a working Salesforce DX environment (Salesforce CLI installed, Dev Hub configured and authorized). See this [Trailhead project](https://trailhead.salesforce.com/en/content/learn/modules/sfdx_app_dev/sfdx_app_dev_setup_dx) for guided steps.
 

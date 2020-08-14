@@ -47,6 +47,8 @@ There are two installation options for the host app:
 
 #### Option 1: Managed Package (recommended)
 
+If installing on a Developer Edition org, you first need to set up **My domain** by following [these instructions](https://help.salesforce.com/articleView?id=environment_hub_get_started_my_domain.htm&type=5) and keeping the default login policy.
+
 1. Click [this link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t0N000001Bl5iQAC) to install the host app package and choose **Install for All Users**.
 
     You'll need to approve access to `https://chart.googleapis.com`. We use this library to draw leaderboards.

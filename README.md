@@ -2,6 +2,9 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- prettier-ignore-end -->
 
 <div align="center">
@@ -281,10 +284,16 @@ Thanks goes to these wonderful ✨ people ([emoji key](https://allcontributors.o
 
 <!-- prettier-ignore-start -->
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
-
+<table>
+  <tr>
+    <td align="center"><a href="https://pozil.github.io"><img src="https://avatars1.githubusercontent.com/u/5071767?v=4" width="100px;" alt=""/><br /><sub><b>Philippe Ozil</b></sub></a><br /><a href="https://github.com/fostive/quiz-host-app/commits?author=pozil" title="Code">💻</a> <a href="#design-pozil" title="Design">🎨</a> <a href="#ideas-pozil" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/fostive/quiz-host-app/commits?author=pozil" title="Documentation">📖</a> <a href="https://github.com/fostive/quiz-host-app/pulls?q=is%3Apr+reviewed-by%3Apozil" title="Reviewed Pull Requests">👀</a></td>
+  </tr>
+</table>
 
 <!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 <!-- prettier-ignore-end -->
 
@@ -297,3 +306,16 @@ Please review and adhere to our [CODE_OF_CONDUCT.md](https://github.com/fostive/
 ## 📝 License
 
 This project is licensed under the Creative Commons Zero v1.0 License. See the [LICENSE](LICENSE) file for details.
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

@@ -4,7 +4,7 @@
 
 # Multiplayer quiz app built on Salesforce technology (host app)
 
-[![GitHub Workflow](https://github.com/pozil/quiz-host-app/workflows/CI/badge.svg?branch=master)](https://github.com/pozil/quiz-host-app/actions) [![GitHub Workflow](https://github.com/pozil/quiz-host-app/workflows/Packaging/badge.svg)](https://github.com/pozil/quiz-host-app/actions) [![codecov](https://codecov.io/gh/pozil/quiz-host-app/branch/master/graph/badge.svg)](https://codecov.io/gh/pozil/quiz-host-app)
+[![GitHub Workflow](https://github.com/fostive/quiz-host-app/workflows/CI/badge.svg?branch=master)](https://github.com/fostive/quiz-host-app/actions) [![GitHub Workflow](https://github.com/fostive/quiz-host-app/workflows/Packaging/badge.svg)](https://github.com/fostive/quiz-host-app/actions) [![codecov](https://codecov.io/gh/fostive/quiz-host-app/branch/master/graph/badge.svg)](https://codecov.io/gh/fostive/quiz-host-app)
 
 1. [About](#about)
 1. [Installation](#installation)
@@ -13,6 +13,7 @@
     1. [Player App Installation](#step-2-player-app-installation)
     1. [Host App Configuration](#step-3-host-app-configuration)
     1. [Questions Setup](#step-4-questions-setup)
+1. [Performance and Scalability](#performance-and-scalability)
 1. [Playing](#playing)
 1. [Troubleshooting](#troubleshooting)
 1. [Building and contributing](#building-and-contributing)
@@ -67,7 +68,7 @@ We assume that you have a working Salesforce DX environment (Salesforce CLI inst
 1. Open a Terminal and clone the git repository:
 
     ```
-    git clone https://github.com/pozil/quiz-host-app.git
+    git clone https://github.com/fostive/quiz-host-app.git
     cd quiz-host-app
     ```
 
@@ -92,7 +93,7 @@ We assume that you have a working Salesforce DX environment (Salesforce CLI inst
 1. Generate a [security token](https://help.salesforce.com/articleView?id=user_security_token.htm) for your Salesforce user.
 1. Generate a secure password using [this service](https://passwordsgenerator.net/) or any other. This will be the secret **Quiz API Key** that you'll set later in both applications.
 1. Deploy the **Quiz Player App** to Heroku by clicking this button:
-   <a target="_blank" href="https://heroku.com/deploy?template=https://github.com/pozil/quiz-player-app/edit/master" title="Deploy to Heroku">
+   <a target="_blank" href="https://heroku.com/deploy?template=https://github.com/fostive/quiz-player-app/edit/master" title="Deploy to Heroku">
    <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku"/>
    </a>
 
@@ -178,6 +179,19 @@ You can import questions with the Salesforce CLI.
     sfdx force:data:tree:import -p data/CUSTOM_QUESTIONS/plan.json
     ```
 
+## Performance and Scalability
+
+Performance is critical to the game experience: it must be as close as possible to real-time.
+
+In full transparency, we have no precise benchmark on how well the game scales and which kind of Dyno to use but here are some pointers:
+
+-   A free Heroku Dyno supports a 50 player game just fine.
+-   The app has worked flawlessly with 400 players on a Heroku Performance dyno but we never tested with more.
+
+All the pressure lies on the Heroku infrastructure and in particular on the Node.js WebSocket server. We cannot guarantee how the network (sockets and load balancer) behave at large scale.
+
+Note that Heroku datacenters are only available in North America and Europe. If you are running the quiz from another region (i.e.: India, Australia...), there's a chance that players will experience some lag.
+
 ## Playing
 
 🎥 [Watch the playthrough video](https://www.youtube.com/watch?v=vLTZ_jdwhRo)
@@ -204,7 +218,7 @@ Players who also answered correctly but slower will earn a decreasing number of 
 Shortly before running the official game, make sure to access the player app a first time to load it.<br/>
 The default Heroku setup uses a free Heroku dyno. This implies that apps that are inactive for more than 30 minutes are put to sleep. Any connection to the app will wake it up but it takes a bit less than a minute. You may experience some "Request time out" errors during that wake-up time.
 
-If you are running the game with 40+ players, consider upgrading to a [Hobby dyno](https://www.heroku.com/dynos).
+If you are running the game with 50+ players, consider upgrading to a [Hobby dyno](https://www.heroku.com/dynos).
 
 **Resetting the game**
 
@@ -212,7 +226,7 @@ You can reset the game at any time by clicking on the Reset button on top right 
 
 ## Troubleshooting
 
-Review these common problems. If you can't find a solution to your problem, [open a new issue](https://github.com/pozil/quiz-host-app/issues).
+Review these common problems. If you can't find a solution to your problem, [open a new issue](https://github.com/fostive/quiz-host-app/issues).
 
 **Player app is not starting (Heroku error page is displayed)**
 
@@ -226,7 +240,7 @@ Review these common problems. If you can't find a solution to your problem, [ope
 
 **Player app is slow/lags, questions do not show up on time**
 
-The default player app installation uses Heroku. Heroku datacenters are only available in North America and Europe. If you are running the quiz from another region (i.e.: India, Australia...), there's a good chance that your player will experience some lag. Consider switching to another cloud provider that lets you run a Node.js environment.
+See the [Performance and Scalability](#performance-and-scalability) section.
 
 **Something is wrong with the quiz data or you'd like to reset it**
 
@@ -244,4 +258,4 @@ Refresh the page to fix the problem. Refer to the **Player app wake-up** section
 
 If you want to build the project from sources and contribute, run `npm install` to install the project build tools.
 
-Here is the [Quiz Player App repository](https://github.com/pozil/quiz-player-app).
+Here is the [Quiz Player App repository](https://github.com/fostive/quiz-player-app).

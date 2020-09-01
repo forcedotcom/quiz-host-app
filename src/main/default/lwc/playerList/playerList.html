@@ -1,9 +1,7 @@
 <template>
     <h1>Players {playerCount}</h1>
 
-    <template if:true={error}>
-        {error}
-    </template>
+    <template if:true={error}> {error} </template>
 
     <template if:false={error}>
         <div class="slds-grid slds-wrap">

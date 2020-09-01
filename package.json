@@ -1,6 +1,6 @@
 {
     "name": "sfdx-quiz",
-    "version": "2.2.0",
+    "version": "2.3.0",
     "private": true,
     "description": "Lightning Web Component Quiz App on a Salesforce Org",
     "engines": {
@@ -20,12 +20,12 @@
     },
     "devDependencies": {
         "@salesforce/eslint-config-lwc": "^0.7.0",
-        "@salesforce/sfdx-lwc-jest": "^0.7.1",
-        "eslint": "^7.2.0",
+        "@salesforce/sfdx-lwc-jest": "^0.9.2",
+        "eslint": "^7.8.0",
         "husky": "^4.2.5",
-        "lint-staged": "^10.2.9",
-        "prettier": "^2.0.5",
-        "prettier-plugin-apex": "^1.5.0",
+        "lint-staged": "^10.2.13",
+        "prettier": "^2.1.1",
+        "prettier-plugin-apex": "^1.6.0",
         "semver": "^7.3.2"
     },
     "husky": {
@@ -43,12 +43,12 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/pozil/quiz-sfdx.git"
+        "url": "git+https://github.com/fostive/quiz-sfdx.git"
     },
     "author": "salesforce.com",
     "license": "CC0-1.0",
     "bugs": {
-        "url": "https://github.com/pozil/quiz-sfdx/issues"
+        "url": "https://github.com/fostive/quiz-sfdx/issues"
     },
-    "homepage": "https://github.com/pozil/quiz-sfdx#readme"
+    "homepage": "https://github.com/fostive/quiz-sfdx#readme"
 }

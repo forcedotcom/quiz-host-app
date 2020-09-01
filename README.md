@@ -1,6 +1,8 @@
+<!-- prettier-ignore-start -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+<!-- prettier-ignore-end -->
 
 <div align="center">
   <img src="doc-media/quiz-icon.png" alt="Quiz icon" width="150"/>
@@ -20,7 +22,10 @@
 1. [Performance and Scalability](#performance-and-scalability)
 1. [Playing](#playing)
 1. [Troubleshooting](#troubleshooting)
-1. [Building and contributing](#building-and-contributing)
+1. [Building / Developing](#building--developing)
+1. [Contributing](#contributing)
+1. [Code of Conduct](#-code-of-conduct)
+1. [License](#-license)
 
 ## About
 
@@ -274,14 +279,14 @@ Also, review our [code of conduct](https://github.com/fostive/.github/blob/main/
 
 Thanks goes to these wonderful ✨ people ([emoji key](https://allcontributors.org/docs/en/emoji-key)) for contributing to the project:
 
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- markdownlint-disable -->
 
 
 <!-- markdownlint-enable -->
-<!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
+<!-- prettier-ignore-end -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 

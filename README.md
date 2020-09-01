@@ -1,4 +1,10 @@
-﻿<div align="center">
+<!-- prettier-ignore-start -->
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+<!-- prettier-ignore-end -->
+
+<div align="center">
   <img src="doc-media/quiz-icon.png" alt="Quiz icon" width="150"/>
 </div>
 
@@ -16,7 +22,10 @@
 1. [Performance and Scalability](#performance-and-scalability)
 1. [Playing](#playing)
 1. [Troubleshooting](#troubleshooting)
-1. [Building and contributing](#building-and-contributing)
+1. [Building / Developing](#building--developing)
+1. [Contributing](#contributing)
+1. [Code of Conduct](#-code-of-conduct)
+1. [License](#-license)
 
 ## About
 
@@ -254,8 +263,37 @@ See the [Performance and Scalability](#performance-and-scalability) section.
 
 Refresh the page to fix the problem. Refer to the **Player app wake-up** section of this document for more information.
 
-## Building and contributing
+## Building / Developing
 
 If you want to build the project from sources and contribute, run `npm install` to install the project build tools.
 
 Here is the [Quiz Player App repository](https://github.com/fostive/quiz-player-app).
+
+## Contributing
+
+We love contributions, small or big, from others!
+
+Please see our [CONTRIBUTING](https://github.com/fostive/.github/blob/main/CONTRIBUTING.md) guidelines. The first thing to do is to discuss the change you wish to make via issue, email, or any other method with the owners of this repository.
+
+Also, review our [code of conduct](https://github.com/fostive/.github/blob/main/CODE_OF_CONDUCT.md). Please adhere to it in all your interactions with this project.
+
+Thanks goes to these wonderful ✨ people ([emoji key](https://allcontributors.org/docs/en/emoji-key)) for contributing to the project:
+
+<!-- prettier-ignore-start -->
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- markdownlint-disable -->
+
+
+<!-- markdownlint-enable -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+<!-- prettier-ignore-end -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+## 📄 Code of Conduct
+
+Please review and adhere to our [CODE_OF_CONDUCT.md](https://github.com/fostive/.github/blob/main/CODE_OF_CONDUCT.md) before contributing to this project in any way (e.g. creating an issue, writing code, etc).
+
+## 📝 License
+
+This project is licensed under the Creative Commons Zero v1.0 License. See the [LICENSE](LICENSE) file for details.

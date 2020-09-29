@@ -4,9 +4,4 @@
     <endpointUrl>https://chart.googleapis.com</endpointUrl>
     <isActive>true</isActive>
     <isApplicableToConnectSrc>true</isApplicableToConnectSrc>
-    <isApplicableToFontSrc>true</isApplicableToFontSrc>
-    <isApplicableToFrameSrc>true</isApplicableToFrameSrc>
-    <isApplicableToImgSrc>true</isApplicableToImgSrc>
-    <isApplicableToMediaSrc>false</isApplicableToMediaSrc>
-    <isApplicableToStyleSrc>true</isApplicableToStyleSrc>
 </CspTrustedSite>

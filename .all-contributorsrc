@@ -17,6 +17,15 @@
         "doc",
         "review"
       ]
+    },
+    {
+      "login": "mlezer-bd",
+      "name": "mlezer-bd",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/29126265?v=4",
+      "profile": "https://github.com/mlezer-bd",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,

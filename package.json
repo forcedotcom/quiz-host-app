@@ -1,6 +1,6 @@
 {
     "name": "sfdx-quiz",
-    "version": "2.3.0",
+    "version": "2.3.1",
     "private": true,
     "description": "Lightning Web Component Quiz App on a Salesforce Org",
     "engines": {

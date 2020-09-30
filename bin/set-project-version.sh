@@ -10,14 +10,17 @@ else
   exit -1
 fi
 
+cd ..
 # Update node package
-sed -E -i '' -e "s|\"version\": \"[0-9]+\.[0-9]+\.[0-9]+\",|\"version\": \"$version\",|" ../package.json && \
+sed -E -i '' -e "s|\"version\": \"[0-9]+\.[0-9]+\.[0-9]+\",|\"version\": \"$version\",|" package.json && \
 # Update UI
-sed -E -i '' -e "s|HOST_APP_VERSION = '[0-9]+\.[0-9]+\.[0-9]+';|HOST_APP_VERSION = '$version';|" ../src/main/default/lwc/gameApp/gameApp.js && \
+sed -E -i '' -e "s|HOST_APP_VERSION = '[0-9]+\.[0-9]+\.[0-9]+';|HOST_APP_VERSION = '$version';|" src/main/default/lwc/gameApp/gameApp.js && \
 # Update DX Project config
-sed -E -i '' -e "s|\"versionName\": \"ver [0-9]+\.[0-9]+\.[0-9]+\"|\"versionName\": \"ver $version\"|" ../sfdx-project.json && \
-sed -E -i '' -e "s|\"versionNumber\": \"[0-9]+\.[0-9]+\.[0-9]+\.NEXT\"|\"versionNumber\": \"$version.NEXT\"|" ../sfdx-project.json && \
+sed -E -i '' -e "s|\"versionName\": \"ver [0-9]+\.[0-9]+\.[0-9]+\"|\"versionName\": \"ver $version\"|" sfdx-project.json && \
+sed -E -i '' -e "s|\"versionNumber\": \"[0-9]+\.[0-9]+\.[0-9]+\.NEXT\"|\"versionNumber\": \"$version.NEXT\"|" sfdx-project.json && \
 npm install
+# Stage changed files
+git add package.json package-lock.json sfdx-project.json src/main/default/lwc/gameApp/gameApp.js
 
 EXIT_CODE="$?"
 

@@ -1,7 +1,7 @@
 <!-- prettier-ignore-start -->
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- prettier-ignore-end -->
@@ -288,12 +288,12 @@ Thanks goes to these wonderful ✨ people ([emoji key](https://allcontributors.o
   <tr>
     <td align="center"><a href="https://pozil.github.io"><img src="https://avatars1.githubusercontent.com/u/5071767?v=4" width="100px;" alt=""/><br /><sub><b>Philippe Ozil</b></sub></a><br /><a href="https://github.com/fostive/quiz-host-app/commits?author=pozil" title="Code">💻</a> <a href="#design-pozil" title="Design">🎨</a> <a href="#ideas-pozil" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/fostive/quiz-host-app/commits?author=pozil" title="Documentation">📖</a> <a href="https://github.com/fostive/quiz-host-app/pulls?q=is%3Apr+reviewed-by%3Apozil" title="Reviewed Pull Requests">👀</a></td>
     <td align="center"><a href="https://github.com/mlezer-bd"><img src="https://avatars1.githubusercontent.com/u/29126265?v=4" width="100px;" alt=""/><br /><sub><b>mlezer-bd</b></sub></a><br /><a href="https://github.com/fostive/quiz-host-app/commits?author=mlezer-bd" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://www.mhamza.com"><img src="https://avatars3.githubusercontent.com/u/4003164?v=4" width="100px;" alt=""/><br /><sub><b>M Hamza Siddiqui</b></sub></a><br /><a href="#security-mhamzas" title="Security">🛡️</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

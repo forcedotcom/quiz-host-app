@@ -26,6 +26,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "mhamzas",
+      "name": "M Hamza Siddiqui",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/4003164?v=4",
+      "profile": "https://www.mhamza.com",
+      "contributions": [
+        "security"
+      ]
     }
   ],
   "contributorsPerLine": 7,

@@ -16,6 +16,10 @@
         <apexClass>QuizEditorController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>QuizPlayerStatsRestResource</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <fieldPermissions>
         <editable>true</editable>
         <field>Quiz_Answer__c.IsCorrect__c</field>

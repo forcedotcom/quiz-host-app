@@ -1,10 +1,12 @@
+# .forceignore v2
+
 # Standard metadata
 package.xml
-**appMenu
-**appSwitcher
-**objectTranslations
-**profiles
-**settings
+**/appMenus/**
+**/appSwitcher/**
+**/objectTranslations/**
+**/profiles/**
+**/settings/**
 
 # LWC configuration files
 **/jsconfig.json

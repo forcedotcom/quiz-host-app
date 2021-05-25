@@ -16,7 +16,8 @@
         "test:unit:coverage": "sfdx-lwc-jest --coverage --skipApiVersionCheck",
         "prettier": "prettier --write '**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,yaml,yml}'",
         "prettier:verify": "prettier --list-different '**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,yaml,yml}'",
-        "postinstall": "node bin/check-version.js"
+        "postinstall": "node bin/check-version.js && husky install",
+        "precommit": "lint-staged"
     },
     "devDependencies": {
         "@lwc/eslint-plugin-lwc": "^1.0.1",
@@ -31,11 +32,6 @@
         "prettier": "^2.3.0",
         "prettier-plugin-apex": "^1.9.1",
         "semver": "^7.3.5"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
-        }
     },
     "lint-staged": {
         "**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,yaml,yml}": [

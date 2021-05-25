@@ -21,6 +21,7 @@
     "devDependencies": {
         "@lwc/eslint-plugin-lwc": "^1.0.1",
         "@salesforce/eslint-config-lwc": "^2.0.0",
+        "@salesforce/eslint-plugin-lightning": "^0.1.0",
         "@salesforce/sfdx-lwc-jest": "^0.10.4",
         "eslint": "^7.27.0",
         "eslint-plugin-import": "^2.23.3",

@@ -5,9 +5,9 @@
             "default": true,
             "package": "Quiz",
             "postInstallScript": "QuizPostInstallScript",
-            "versionName": "ver 2.6.0",
-            "versionNumber": "2.6.0.NEXT",
-            "ancestorVersion": "2.5.0.1"
+            "versionName": "ver 2.6.1",
+            "versionNumber": "2.6.1.NEXT",
+            "ancestorVersion": "2.6.0.2"
         }
     ],
     "namespace": "",

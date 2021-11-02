@@ -91,7 +91,7 @@ jobs:
 
             # Update sfdx-project.json and README to use only latest package version
             - name: 'Update sfdx-project.json and README'
-              uses: muenzpraeger/github-action-sfdx-packaging-updater@master
+              uses: trailheadapps/github-action-sfdx-packaging-updater@main
 
             # Remove namespace from project config
             - name: Remove namespace from project config

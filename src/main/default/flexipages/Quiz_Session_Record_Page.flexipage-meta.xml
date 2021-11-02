@@ -14,6 +14,7 @@
                 <name>numVisibleActions</name>
                 <value>3</value>
             </componentInstanceProperties>
+            <identifier>highlightsPanel</identifier>
             <componentName>force:highlightsPanel</componentName>
         </componentInstance></itemInstances>
         <name>header</name>
@@ -21,6 +22,7 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <itemInstances><componentInstance>
+            <identifier>questionPicker</identifier>
             <componentName>questionPicker</componentName>
         </componentInstance></itemInstances>
         <name>leftcol</name>
@@ -28,6 +30,7 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <itemInstances><componentInstance>
+            <identifier>detailPanel</identifier>
             <componentName>force:detailPanel</componentName>
         </componentInstance></itemInstances>
         <name>rightcol</name>

@@ -3,6 +3,7 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <identifier>gameApp</identifier>
                 <componentName>gameApp</componentName>
             </componentInstance>
         </itemInstances>

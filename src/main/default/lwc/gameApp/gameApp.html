@@ -1,11 +1,7 @@
 <template>
     <template if:true={error}>
         <div
-            class="
-                slds-notify slds-notify_alert
-                slds-theme_alert-texture slds-theme_error
-                slds-m-bottom_small
-            "
+            class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-m-bottom_small"
             role="alert"
         >
             <span class="slds-assistive-text">error</span>
@@ -24,22 +20,12 @@
                     ></lightning-button>
                 </div>
                 <div
-                    class="
-                        slds-col
-                        slds-size_8-of-12
-                        slds-align-middle
-                        header-title
-                    "
+                    class="slds-col slds-size_8-of-12 slds-align-middle header-title"
                 >
                     {quizPhaseLabel}
                 </div>
                 <div
-                    class="
-                        slds-col
-                        slds-size_2-of-12
-                        slds-align-middle
-                        slds-text-align_right
-                    "
+                    class="slds-col slds-size_2-of-12 slds-align-middle slds-text-align_right"
                 >
                     <!-- Next phase button -->
                     <lightning-button

@@ -1,6 +1,6 @@
 {
     "name": "sfdx-quiz",
-    "version": "2.7.0",
+    "version": "2.8.0",
     "private": true,
     "description": "Lightning Web Component Quiz App on a Salesforce Org",
     "scripts": {
@@ -20,11 +20,11 @@
         "@salesforce/eslint-config-lwc": "^3.2.1",
         "@salesforce/eslint-plugin-lightning": "^1.0.0",
         "@salesforce/sfdx-lwc-jest": "^1.1.0",
-        "eslint": "^8.6.0",
+        "eslint": "^8.7.0",
         "eslint-plugin-import": "^2.25.4",
-        "eslint-plugin-jest": "^25.3.4",
+        "eslint-plugin-jest": "^25.7.0",
         "husky": "^7.0.4",
-        "lint-staged": "^12.1.5",
+        "lint-staged": "^12.2.0",
         "prettier": "^2.5.1",
         "prettier-plugin-apex": "^1.10.0"
     },

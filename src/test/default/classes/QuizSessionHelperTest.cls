@@ -45,6 +45,7 @@ public class QuizSessionHelperTest {
                 SELECT Id, Score__c
                 FROM Quiz_Player__c
                 WHERE Id = :player.Id
+                WITH SECURITY_ENFORCED
             ]
             .Score__c.intValue();
         System.assertEquals(2000, score);
@@ -84,6 +85,7 @@ public class QuizSessionHelperTest {
         List<Quiz_Answer__c> updatedAnswers = [
             SELECT Id, Player__c, Score__c
             FROM Quiz_Answer__c
+            WITH SECURITY_ENFORCED
         ];
         Set<Id> updatedPlayerIds = new Set<Id>();
         for (Integer i = 0; i < updatedAnswers.size(); i++) {
@@ -93,6 +95,7 @@ public class QuizSessionHelperTest {
             SELECT Id, Score__c
             FROM Quiz_Player__c
             WHERE Id IN :updatedPlayerIds
+            WITH SECURITY_ENFORCED
         ];
         for (Integer i = 1; i <= updatedPlayers.size(); i++) {
             System.assert(updatedPlayers[i - 1].Score__c > 0);
@@ -132,6 +135,7 @@ public class QuizSessionHelperTest {
         List<Quiz_Answer__c> updatedAnswers = [
             SELECT Id, Score__c
             FROM Quiz_Answer__c
+            WITH SECURITY_ENFORCED
         ];
         for (Integer i = 1; i <= updatedAnswers.size(); i++) {
             System.assert(updatedAnswers[i - 1].Score__c > 0);
@@ -163,6 +167,7 @@ public class QuizSessionHelperTest {
                 SELECT Id, Score__c
                 FROM Quiz_Answer__c
                 WHERE Id = :quizAnswer.Id
+                WITH SECURITY_ENFORCED
             ]
             .Score__c.intValue();
         System.assertEquals(1000, score);
@@ -203,6 +208,7 @@ public class QuizSessionHelperTest {
             SELECT Id, Score__c
             FROM Quiz_Answer__c
             WHERE Id IN :quizAnswerIds
+            WITH SECURITY_ENFORCED
         ];
         System.assertEquals(500, updatedQuizAnswers[1].Score__c);
     }
@@ -232,6 +238,7 @@ public class QuizSessionHelperTest {
                 SELECT Id, Score__c
                 FROM Quiz_Player__c
                 WHERE Id = :player.Id
+                WITH SECURITY_ENFORCED
             ]
             .Score__c.intValue();
         System.assertEquals(0, score);
@@ -262,6 +269,7 @@ public class QuizSessionHelperTest {
                 SELECT Id, Score__c
                 FROM Quiz_Answer__c
                 WHERE Id = :quizAnswer.Id
+                WITH SECURITY_ENFORCED
             ]
             .Score__c.intValue();
         System.assertEquals(0, score);

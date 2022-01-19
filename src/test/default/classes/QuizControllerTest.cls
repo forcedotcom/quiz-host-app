@@ -82,11 +82,11 @@ public class QuizControllerTest {
         Test.stopTest();
 
         Integer playerCount = Database.countQuery(
-            'SELECT COUNT() FROM Quiz_Player__c'
+            'SELECT COUNT() FROM Quiz_Player__c WITH SECURITY_ENFORCED'
         );
         System.assertEquals(0, playerCount);
         Integer answerCount = Database.countQuery(
-            'SELECT COUNT() FROM Quiz_Answer__c'
+            'SELECT COUNT() FROM Quiz_Answer__c WITH SECURITY_ENFORCED'
         );
         System.assertEquals(0, answerCount);
         QuizSessionService sessionService = new QuizSessionService();

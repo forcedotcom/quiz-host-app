@@ -14,6 +14,7 @@ public class QuizPostInstallScriptTest {
         List<Quiz_Session__c> sessions = [
             SELECT Id, Phase__c, Current_Question__c
             FROM Quiz_Session__c
+            WITH SECURITY_ENFORCED
         ];
         System.assertEquals(1, sessions.size(), 'Session not found');
         Quiz_Session__c session = sessions[0];
@@ -23,6 +24,7 @@ public class QuizPostInstallScriptTest {
         List<Quiz_Session_Question__c> sessionQuestions = [
             SELECT Question__c
             FROM Quiz_Session_Question__c
+            WITH SECURITY_ENFORCED
         ];
         System.assertEquals(
             1,

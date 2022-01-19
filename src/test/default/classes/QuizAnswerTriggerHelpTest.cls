@@ -21,7 +21,11 @@ public class QuizAnswerTriggerHelpTest {
             System.assert(false);
         } catch (DmlException e) {
             System.assert(e.getMessage().contains('Duplicate answer'));
-            Integer answerCount = [SELECT COUNT() FROM Quiz_Answer__c];
+            Integer answerCount = [
+                SELECT COUNT()
+                FROM Quiz_Answer__c
+                WITH SECURITY_ENFORCED
+            ];
             System.assertEquals(1, answerCount);
         }
     }
@@ -41,6 +45,7 @@ public class QuizAnswerTriggerHelpTest {
             SELECT Id, Score__c, Timestamp__c
             FROM Quiz_Answer__c
             WHERE Id = :quizAnswer.Id
+            WITH SECURITY_ENFORCED
         ]
         .Timestamp__c;
         Long baseline = Long.valueOf('1569261277045');

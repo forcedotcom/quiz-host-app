@@ -24,6 +24,7 @@ public class QuizPlayerServiceTest {
         List<Quiz_Player__c> updatedPlayers = [
             SELECT Id, Ranking__c
             FROM Quiz_Player__c
+            WITH SECURITY_ENFORCED
         ];
         System.assertEquals(1, updatedPlayers.size());
         System.assertEquals(1, updatedPlayers[0].Ranking__c);
@@ -46,12 +47,14 @@ public class QuizPlayerServiceTest {
                 SELECT Id, Ranking__c
                 FROM Quiz_Player__c
                 WHERE Id = :player1.Id
+                WITH SECURITY_ENFORCED
             ]
             .Ranking__c.intValue();
         Integer ranking2 = [
                 SELECT Id, Ranking__c
                 FROM Quiz_Player__c
                 WHERE Id = :player2.Id
+                WITH SECURITY_ENFORCED
             ]
             .Ranking__c.intValue();
 
@@ -76,12 +79,14 @@ public class QuizPlayerServiceTest {
                 SELECT Id, Ranking__c
                 FROM Quiz_Player__c
                 WHERE Id = :player1.Id
+                WITH SECURITY_ENFORCED
             ]
             .Ranking__c.intValue();
         Integer ranking2 = [
                 SELECT Id, Ranking__c
                 FROM Quiz_Player__c
                 WHERE Id = :player2.Id
+                WITH SECURITY_ENFORCED
             ]
             .Ranking__c.intValue();
 
@@ -110,18 +115,21 @@ public class QuizPlayerServiceTest {
                 SELECT Id, Ranking__c
                 FROM Quiz_Player__c
                 WHERE Id = :player1.Id
+                WITH SECURITY_ENFORCED
             ]
             .Ranking__c.intValue();
         Integer ranking2 = [
                 SELECT Id, Ranking__c
                 FROM Quiz_Player__c
                 WHERE Id = :player2.Id
+                WITH SECURITY_ENFORCED
             ]
             .Ranking__c.intValue();
         Integer ranking3 = [
                 SELECT Id, Ranking__c
                 FROM Quiz_Player__c
                 WHERE Id = :player3.Id
+                WITH SECURITY_ENFORCED
             ]
             .Ranking__c.intValue();
 

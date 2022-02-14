@@ -5,14 +5,14 @@
             "default": true,
             "package": "Quiz",
             "postInstallScript": "QuizPostInstallScript",
-            "versionName": "ver 2.7.0",
-            "versionNumber": "2.7.0.NEXT",
-            "ancestorVersion": "2.6.0.2"
+            "versionName": "ver 2.8.0",
+            "versionNumber": "2.8.0.NEXT",
+            "ancestorVersion": "HIGHEST"
         }
     ],
     "namespace": "",
     "sfdcLoginUrl": "https://login.salesforce.com",
-    "sourceApiVersion": "53.0",
+    "sourceApiVersion": "54.0",
     "packageAliases": {
         "Quiz": "0Ho0N000000KyksSAC",
         "Quiz@2.7.0-1": "04t5p0000013n96AAA"

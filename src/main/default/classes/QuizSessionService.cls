@@ -10,7 +10,11 @@ public class QuizSessionService extends QuizAbstractDataService {
     public Quiz_Session__c getQuizSession() {
         return (Quiz_Session__c) getSingleRecord(
             'Quiz_Session__c',
-            [SELECT Id, Phase__c, Current_Question__c FROM Quiz_Session__c]
+            [
+                SELECT Id, Phase__c, Current_Question__c
+                FROM Quiz_Session__c
+                WITH SECURITY_ENFORCED
+            ]
         );
     }
 
@@ -28,6 +32,7 @@ public class QuizSessionService extends QuizAbstractDataService {
                     Current_Question__r.Correct_Answer__c
                 FROM Quiz_Session__c
                 WHERE Id = :sessionId
+                WITH SECURITY_ENFORCED
             ]
         );
         return session.Current_Question__r;
@@ -47,6 +52,7 @@ public class QuizSessionService extends QuizAbstractDataService {
                 Question__r.Correct_Answer__c
             FROM Quiz_Session_Question__c
             WHERE Session__c = :sessionId
+            WITH SECURITY_ENFORCED
             ORDER BY Question_Index__c
         ];
         for (Quiz_Session_Question__c joinRecord : joinRecords) {
@@ -61,12 +67,14 @@ public class QuizSessionService extends QuizAbstractDataService {
             SELECT Current_Question__c
             FROM Quiz_Session__c
             WHERE Id = :sessionId
+            WITH SECURITY_ENFORCED
         ];
         // Overwrite session questions
         delete [
             SELECT Id
             FROM Quiz_Session_Question__c
             WHERE Session__c = :sessionId
+            WITH SECURITY_ENFORCED
         ];
         List<Quiz_Session_Question__c> questions = new List<Quiz_Session_Question__c>();
         for (Integer i = 0; i < questionIds.size(); i++) {

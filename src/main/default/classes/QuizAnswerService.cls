@@ -8,6 +8,7 @@ public class QuizAnswerService extends QuizAbstractDataService {
             SELECT Player__c, Score__c, IsCorrect__c
             FROM Quiz_Answer__c
             WHERE Player__c = :playerId
+            WITH SECURITY_ENFORCED
         ];
         Integer correctCount = 0;
         for (Quiz_Answer__c answerRes : allAnswersFromPlayer) {
@@ -39,6 +40,7 @@ public class QuizAnswerService extends QuizAbstractDataService {
             SELECT Answer__c answer, COUNT(Id)
             FROM Quiz_Answer__c
             WHERE Question__c = :questionId
+            WITH SECURITY_ENFORCED
             GROUP BY Answer__c
         ];
         for (AggregateResult answerRes : answerCount) {
@@ -91,6 +93,7 @@ public class QuizAnswerService extends QuizAbstractDataService {
             SELECT Id, Player__c, Question__c
             FROM Quiz_Answer__c
             WHERE Player__c IN :playerIds
+            WITH SECURITY_ENFORCED
             FOR UPDATE
         ];
         for (Quiz_Answer__c answer : allAnswers) {
@@ -107,6 +110,7 @@ public class QuizAnswerService extends QuizAbstractDataService {
             WHERE
                 Question__c = :question.Id
                 AND Answer__c = :question.Correct_Answer__c
+            WITH SECURITY_ENFORCED
             ORDER BY Timestamp__c ASC
         ];
     }
@@ -118,6 +122,7 @@ public class QuizAnswerService extends QuizAbstractDataService {
                 SELECT Id, Player__c, Question__c, Answer__c, Score__c
                 FROM Quiz_Answer__c
                 WHERE Player__c = :playerId AND Question__c = :questionId
+                WITH SECURITY_ENFORCED
             ]
         );
     }

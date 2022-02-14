@@ -19,6 +19,7 @@ public class QuizSettingsService extends QuizAbstractDataService {
                         Quiz_API_Key__c,
                         Question_Timer__c
                     FROM Quiz_Settings__mdt
+                    WITH SECURITY_ENFORCED
                 ]
             );
         }

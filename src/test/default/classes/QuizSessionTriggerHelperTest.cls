@@ -26,6 +26,7 @@ public class QuizSessionTriggerHelperTest {
         Quiz_Session__c updatedSession = [
             SELECT Current_Question__c
             FROM Quiz_Session__c
+            WITH SECURITY_ENFORCED
         ];
         System.assertEquals(question1.Id, updatedSession.Current_Question__c);
     }
@@ -55,8 +56,16 @@ public class QuizSessionTriggerHelperTest {
         update session;
         Test.stopTest();
 
-        Integer playerCount = [SELECT COUNT() FROM Quiz_Player__c];
-        Integer answerCount = [SELECT COUNT() FROM Quiz_Answer__c];
+        Integer playerCount = [
+            SELECT COUNT()
+            FROM Quiz_Player__c
+            WITH SECURITY_ENFORCED
+        ];
+        Integer answerCount = [
+            SELECT COUNT()
+            FROM Quiz_Answer__c
+            WITH SECURITY_ENFORCED
+        ];
         System.assertEquals(0, playerCount);
         System.assertEquals(0, answerCount);
     }

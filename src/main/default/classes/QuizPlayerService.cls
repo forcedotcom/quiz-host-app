@@ -6,6 +6,7 @@ public class QuizPlayerService extends QuizAbstractDataService {
                 SELECT Id, Name, Score__c, Ranking__c
                 FROM Quiz_Player__c
                 WHERE Id = :playerId
+                WITH SECURITY_ENFORCED
             ]
         );
     }
@@ -13,12 +14,17 @@ public class QuizPlayerService extends QuizAbstractDataService {
     public Quiz_Player__c getFromName(String name) {
         return (Quiz_Player__c) getSingleRecord(
             'Quiz_Player__c',
-            [SELECT Id FROM Quiz_Player__c WHERE Name = :name]
+            [
+                SELECT Id
+                FROM Quiz_Player__c
+                WHERE Name = :name
+                WITH SECURITY_ENFORCED
+            ]
         );
     }
 
     public List<Quiz_Player__c> getPlayersSortedByScore(Integer maxFetchCount) {
-        String query = 'SELECT Id, Name, Score__c, Ranking__c FROM Quiz_Player__c ORDER BY Score__c DESC';
+        String query = 'SELECT Id, Name, Score__c, Ranking__c FROM Quiz_Player__c WITH SECURITY_ENFORCED ORDER BY Score__c DESC';
         if (maxFetchCount != null) {
             query += ' LIMIT ' + maxFetchCount;
         }
@@ -27,13 +33,13 @@ public class QuizPlayerService extends QuizAbstractDataService {
 
     public Map<Id, Quiz_Player__c> getPlayers() {
         return new Map<Id, Quiz_Player__c>(
-            [SELECT Id, Score__c FROM Quiz_Player__c]
+            [SELECT Id, Score__c FROM Quiz_Player__c WITH SECURITY_ENFORCED]
         );
     }
 
     public void deleteAnswersAndPlayers() {
-        delete [SELECT Id FROM Quiz_Answer__c];
-        delete [SELECT Id FROM Quiz_Player__c];
+        delete [SELECT Id FROM Quiz_Answer__c WITH SECURITY_ENFORCED];
+        delete [SELECT Id FROM Quiz_Player__c WITH SECURITY_ENFORCED];
     }
 
     public void assignRanking() {

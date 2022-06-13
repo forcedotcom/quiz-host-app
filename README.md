@@ -12,7 +12,7 @@
 
 # Multiplayer quiz app built on Salesforce technology (host app)
 
-[![GitHub Workflow](https://github.com/fostive/quiz-host-app/workflows/CI/badge.svg?branch=master)](https://github.com/fostive/quiz-host-app/actions) [![GitHub Workflow](https://github.com/fostive/quiz-host-app/workflows/Packaging/badge.svg)](https://github.com/fostive/quiz-host-app/actions) [![codecov](https://codecov.io/gh/fostive/quiz-host-app/branch/master/graph/badge.svg)](https://codecov.io/gh/fostive/quiz-host-app)
+[![GitHub Workflow](https://github.com/developerforce/quiz-host-app/workflows/CI/badge.svg?branch=master)](https://github.com/developerforce/quiz-host-app/actions) [![GitHub Workflow](https://github.com/developerforce/quiz-host-app/workflows/Packaging/badge.svg)](https://github.com/developerforce/quiz-host-app/actions) [![codecov](https://codecov.io/gh/developerforce/quiz-host-app/branch/master/graph/badge.svg)](https://codecov.io/gh/developerforce/quiz-host-app)
 
 1. [About](#about)
 1. [Installation](#installation)
@@ -79,7 +79,7 @@ We assume that you have a working Salesforce DX environment (Salesforce CLI inst
 1. Open a Terminal and clone the git repository:
 
     ```
-    git clone https://github.com/fostive/quiz-host-app.git
+    git clone https://github.com/developerforce/quiz-host-app.git
     cd quiz-host-app
     ```
 
@@ -104,7 +104,7 @@ We assume that you have a working Salesforce DX environment (Salesforce CLI inst
 1. Generate a [security token](https://help.salesforce.com/articleView?id=user_security_token.htm) for your Salesforce user.
 1. Generate a secure password using [this service](https://passwordsgenerator.net/) or any other. This will be the secret **Quiz API Key** that you'll set later in both applications.
 1. Deploy the **Quiz Player App** to Heroku by clicking this button:
-   <a target="_blank" href="https://heroku.com/deploy?template=https://github.com/fostive/quiz-player-app/edit/master" title="Deploy to Heroku">
+   <a target="_blank" href="https://heroku.com/deploy?template=https://github.com/developerforce/quiz-player-app/edit/master" title="Deploy to Heroku">
    <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku"/>
    </a>
 
@@ -237,7 +237,7 @@ You can reset the game at any time by clicking on the Reset button on top right 
 
 ## Troubleshooting
 
-Review these common problems. If you can't find a solution to your problem, [open a new issue](https://github.com/fostive/quiz-host-app/issues).
+Review these common problems. If you can't find a solution to your problem, [open a new issue](https://github.com/developerforce/quiz-host-app/issues).
 
 **Player app is not starting (Heroku error page is displayed)**
 
@@ -269,15 +269,15 @@ Refresh the page to fix the problem. Refer to the **Player app wake-up** section
 
 If you want to build the project from sources and contribute, run `npm install` to install the project build tools.
 
-Here is the [Quiz Player App repository](https://github.com/fostive/quiz-player-app).
+Here is the [Quiz Player App repository](https://github.com/developerforce/quiz-player-app).
 
 ## Contributing
 
 We love contributions, small or big, from others!
 
-Please see our [CONTRIBUTING](https://github.com/fostive/.github/blob/main/CONTRIBUTING.md) guidelines. The first thing to do is to discuss the change you wish to make via issue, email, or any other method with the owners of this repository.
+Please see our [CONTRIBUTING](https://github.com/developerforce/.github/blob/main/CONTRIBUTING.md) guidelines. The first thing to do is to discuss the change you wish to make via issue, email, or any other method with the owners of this repository.
 
-Also, review our [code of conduct](https://github.com/fostive/.github/blob/main/CODE_OF_CONDUCT.md). Please adhere to it in all your interactions with this project.
+Also, review our [code of conduct](https://github.com/developerforce/.github/blob/main/CODE_OF_CONDUCT.md). Please adhere to it in all your interactions with this project.
 
 Thanks goes to these wonderful ✨ people ([emoji key](https://allcontributors.org/docs/en/emoji-key)) for contributing to the project:
 
@@ -286,8 +286,8 @@ Thanks goes to these wonderful ✨ people ([emoji key](https://allcontributors.o
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://pozil.github.io"><img src="https://avatars1.githubusercontent.com/u/5071767?v=4" width="100px;" alt=""/><br /><sub><b>Philippe Ozil</b></sub></a><br /><a href="https://github.com/fostive/quiz-host-app/commits?author=pozil" title="Code">💻</a> <a href="#design-pozil" title="Design">🎨</a> <a href="#ideas-pozil" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/fostive/quiz-host-app/commits?author=pozil" title="Documentation">📖</a> <a href="https://github.com/fostive/quiz-host-app/pulls?q=is%3Apr+reviewed-by%3Apozil" title="Reviewed Pull Requests">👀</a></td>
-    <td align="center"><a href="https://github.com/mlezer-bd"><img src="https://avatars1.githubusercontent.com/u/29126265?v=4" width="100px;" alt=""/><br /><sub><b>mlezer-bd</b></sub></a><br /><a href="https://github.com/fostive/quiz-host-app/commits?author=mlezer-bd" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://pozil.github.io"><img src="https://avatars1.githubusercontent.com/u/5071767?v=4" width="100px;" alt=""/><br /><sub><b>Philippe Ozil</b></sub></a><br /><a href="https://github.com/developerforce/quiz-host-app/commits?author=pozil" title="Code">💻</a> <a href="#design-pozil" title="Design">🎨</a> <a href="#ideas-pozil" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/developerforce/quiz-host-app/commits?author=pozil" title="Documentation">📖</a> <a href="https://github.com/developerforce/quiz-host-app/pulls?q=is%3Apr+reviewed-by%3Apozil" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/mlezer-bd"><img src="https://avatars1.githubusercontent.com/u/29126265?v=4" width="100px;" alt=""/><br /><sub><b>mlezer-bd</b></sub></a><br /><a href="https://github.com/developerforce/quiz-host-app/commits?author=mlezer-bd" title="Documentation">📖</a></td>
     <td align="center"><a href="https://www.mhamza.com"><img src="https://avatars3.githubusercontent.com/u/4003164?v=4" width="100px;" alt=""/><br /><sub><b>M Hamza Siddiqui</b></sub></a><br /><a href="#security-mhamzas" title="Security">🛡️</a></td>
   </tr>
 </table>
@@ -300,7 +300,7 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 
 ## 📄 Code of Conduct
 
-Please review and adhere to our [CODE_OF_CONDUCT.md](https://github.com/fostive/.github/blob/main/CODE_OF_CONDUCT.md) before contributing to this project in any way (e.g. creating an issue, writing code, etc).
+Please review and adhere to our [CODE_OF_CONDUCT.md](https://github.com/developerforce/.github/blob/main/CODE_OF_CONDUCT.md) before contributing to this project in any way (e.g. creating an issue, writing code, etc).
 
 ## 📝 License
 

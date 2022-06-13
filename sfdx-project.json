@@ -7,7 +7,10 @@
             "postInstallScript": "QuizPostInstallScript",
             "versionName": "ver 2.9.0",
             "versionNumber": "2.9.0.NEXT",
-            "ancestorVersion": "HIGHEST"
+            "ancestorVersion": "HIGHEST",
+            "apexTestAccess": {
+                "permissionSets": ["Quiz_Host"]
+            }
         }
     ],
     "namespace": "",

@@ -9,7 +9,9 @@
             "versionNumber": "2.10.0.NEXT",
             "ancestorVersion": "HIGHEST",
             "apexTestAccess": {
-                "permissionSets": ["Quiz_Host"]
+                "permissionSets": [
+                    "Quiz_Host"
+                ]
             }
         }
     ],
@@ -18,6 +20,6 @@
     "sourceApiVersion": "55.0",
     "packageAliases": {
         "Quiz": "0Ho0N000000KyksSAC",
-        "Quiz@2.7.0-1": "04t5p0000013n96AAA"
+        "Quiz@2.10.0-1": "04t5p0000013nkIAAQ"
     }
 }

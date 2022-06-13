@@ -1,0 +1,20 @@
+[
+    {
+        "sobject": "sfqz__Quiz_Question__c",
+        "saveRefs": true,
+        "resolveRefs": false,
+        "files": ["Quiz_Question__cs.json"]
+    },
+    {
+        "sobject": "sfqz__Quiz_Session__c",
+        "saveRefs": true,
+        "resolveRefs": true,
+        "files": ["Quiz_Session__cs.json"]
+    },
+    {
+        "sobject": "sfqz__Quiz_Session_Question__c",
+        "saveRefs": false,
+        "resolveRefs": true,
+        "files": ["Quiz_Session_Question__cs.json"]
+    }
+]

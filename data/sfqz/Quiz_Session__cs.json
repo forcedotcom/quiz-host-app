@@ -1,0 +1,12 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "sfqz__Quiz_Session__c",
+                "referenceId": "Quiz_Session__cRef1"
+            },
+            "sfqz__Phase__c": "Registration",
+            "sfqz__Current_Question__c": "@Quiz_Question__cRef1"
+        }
+    ]
+}

@@ -1,0 +1,40 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "sfqz__Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef1"
+            },
+            "sfqz__Label__c": "What does SLDS stand for?",
+            "sfqz__Answer_A__c": "Super Light Debugging Solution",
+            "sfqz__Answer_B__c": "Salesforce Lightning Design System",
+            "sfqz__Answer_C__c": "Salesforce Limited Design System",
+            "sfqz__Answer_D__c": "Salesforce Lightning Design Solution",
+            "sfqz__Correct_Answer__c": "B"
+        },
+        {
+            "attributes": {
+                "type": "sfqz__Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef2"
+            },
+            "sfqz__Label__c": "There are how many major Salesforce releases each year?",
+            "sfqz__Answer_A__c": "1",
+            "sfqz__Answer_B__c": "2",
+            "sfqz__Answer_C__c": "3",
+            "sfqz__Answer_D__c": "4",
+            "sfqz__Correct_Answer__c": "C"
+        },
+        {
+            "attributes": {
+                "type": "sfqz__Quiz_Question__c",
+                "referenceId": "Quiz_Question__cRef3"
+            },
+            "sfqz__Label__c": "Which mascot represents architects?",
+            "sfqz__Answer_A__c": "Earnie",
+            "sfqz__Answer_B__c": "Ruth",
+            "sfqz__Answer_C__c": "Hootie",
+            "sfqz__Answer_D__c": "Max",
+            "sfqz__Correct_Answer__c": "B"
+        }
+    ]
+}

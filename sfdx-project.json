@@ -9,9 +9,7 @@
             "versionNumber": "2.10.0.NEXT",
             "ancestorVersion": "HIGHEST",
             "apexTestAccess": {
-                "permissionSets": [
-                    "Quiz_Host"
-                ]
+                "permissionSets": ["Quiz_Host"]
             }
         }
     ],

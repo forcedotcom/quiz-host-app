@@ -152,40 +152,6 @@ public class QuizSessionHelperTest {
     }
 
     @isTest
-    static void updateScoreOnAnswerWithFullMarks() {
-        Test.setMock(
-            HttpCalloutMock.class,
-            new QuizTestUtils.MockSuccessHttpResponse()
-        );
-
-        Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
-        Quiz_Question__c question = session.Current_Question__r;
-        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(
-            session.Id,
-            1
-        )[0];
-
-        Test.startTest();
-        session.Phase__c = PHASE_QUESTION_RESULTS;
-        Quiz_Answer__c quizAnswer = QuizSessionTestFactory.createQuizAnswer(
-            player.Id,
-            question.Id,
-            question.Correct_Answer__c
-        );
-        update session;
-        Test.stopTest();
-
-        Integer score = [
-                SELECT Id, Score__c
-                FROM Quiz_Answer__c
-                WHERE Id = :quizAnswer.Id
-                WITH SECURITY_ENFORCED
-            ]
-            .Score__c.intValue();
-        System.assertEquals(1000, score);
-    }
-
-    @isTest
     static void lastCorrectAnswerGets500Points() {
         Test.setMock(
             HttpCalloutMock.class,
@@ -200,34 +166,37 @@ public class QuizSessionHelperTest {
         );
 
         Test.startTest();
-        session.Phase__c = PHASE_QUESTION_RESULTS;
-        Quiz_Answer__c quizAnswer = QuizSessionTestFactory.createQuizAnswer(
+
+        // Question 1
+        helper.triggerNextPhase(session.Id); // Pre-question
+        helper.triggerNextPhase(session.Id); // Question 1
+
+        QuizSessionTestFactory.createQuizAnswer(
             players[0].Id,
             question.Id,
             question.Correct_Answer__c
         );
-        Quiz_Answer__c lastQuizAnswer = QuizSessionTestFactory.createQuizAnswer(
+        QuizSessionTestFactory.createQuizAnswer(
             players[1].Id,
             question.Id,
             question.Correct_Answer__c
         );
-        Set<Id> quizAnswerIds = new Set<Id>();
-        quizAnswerIds.add(quizAnswer.Id);
-        quizAnswerIds.add(lastQuizAnswer.Id);
-        update session;
+
+        helper.triggerNextPhase(session.Id); // Question 1 results
+
         Test.stopTest();
 
         List<Quiz_Answer__c> updatedQuizAnswers = [
             SELECT Id, Score__c
             FROM Quiz_Answer__c
-            WHERE Id IN :quizAnswerIds
             WITH SECURITY_ENFORCED
+            ORDER BY Timestamp__c
         ];
         System.assertEquals(500, updatedQuizAnswers[1].Score__c);
     }
 
     @isTest
-    static void doNotUpdatePlayerScoreIfAnswerWrong() {
+    static void doNotUpdatePlayerScoreIfAnswerIsWrong() {
         Test.setMock(
             HttpCalloutMock.class,
             new QuizTestUtils.MockSuccessHttpResponse()
@@ -241,57 +210,16 @@ public class QuizSessionHelperTest {
         )[0];
 
         Test.startTest();
-        session.Phase__c = PHASE_QUESTION_RESULTS;
-        Quiz_Answer__c quizAnswer = QuizSessionTestFactory.createQuizAnswer(
-            player.Id,
-            question.Id,
-            'a'
-        );
-        update session;
+
+        helper.triggerNextPhase(session.Id); // Pre-question
+        helper.triggerNextPhase(session.Id); // Question 1
+        QuizSessionTestFactory.createQuizAnswer(player.Id, question.Id, 'a');
+        helper.triggerNextPhase(session.Id); // Question 1 results
+
         Test.stopTest();
 
-        Integer score = [
-                SELECT Id, Score__c
-                FROM Quiz_Player__c
-                WHERE Id = :player.Id
-                WITH SECURITY_ENFORCED
-            ]
-            .Score__c.intValue();
-        System.assertEquals(0, score);
-    }
-
-    @isTest
-    static void doNotUpdateAnswerScoreIfAnswerWrong() {
-        Test.setMock(
-            HttpCalloutMock.class,
-            new QuizTestUtils.MockSuccessHttpResponse()
-        );
-
-        Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
-        Quiz_Question__c question = session.Current_Question__r;
-        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(
-            session.Id,
-            1
-        )[0];
-
-        Test.startTest();
-        session.Phase__c = PHASE_QUESTION_RESULTS;
-        Quiz_Answer__c quizAnswer = QuizSessionTestFactory.createQuizAnswer(
-            player.Id,
-            question.Id,
-            'a'
-        );
-        update session;
-        Test.stopTest();
-
-        Integer score = [
-                SELECT Id, Score__c
-                FROM Quiz_Answer__c
-                WHERE Id = :quizAnswer.Id
-                WITH SECURITY_ENFORCED
-            ]
-            .Score__c.intValue();
-        System.assertEquals(0, score);
+        player = playerService.getFromId(player.Id);
+        System.assertEquals(0, player.Score__c);
     }
 
     @isTest
@@ -306,9 +234,11 @@ public class QuizSessionHelperTest {
         Quiz_Question__c question2 = QuizSessionTestFactory.createQuizQuestion();
         QuizSessionTestFactory.createQuizSessionQuestion(session, question2, 1);
 
-        session.Current_Question__r = question2;
-        session.Phase__c = PHASE_QUESTION;
-        update session;
+        helper.triggerNextPhase(session.Id); // Pre-question
+        helper.triggerNextPhase(session.Id); // Question 1
+        helper.triggerNextPhase(session.Id); // Question 1 results
+        helper.triggerNextPhase(session.Id); // Pre-question
+        helper.triggerNextPhase(session.Id); // Question 2
 
         Test.startTest();
         session = new QuizSessionHelper().resetSession(session.Id);
@@ -336,10 +266,6 @@ public class QuizSessionHelperTest {
             question.Id,
             question.Correct_Answer__c
         );
-
-        // change to Registration from non-Registration phase
-        session.Phase__c = PHASE_QUESTION;
-        update session;
 
         Test.startTest();
         new QuizSessionHelper().resetSession(session.Id);

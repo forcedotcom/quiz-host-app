@@ -6,17 +6,23 @@ public class QuizControllerTest {
     @isTest
     static void getWinnerStats_works() {
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
-        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(1)[0];
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(
+            session.Id,
+            1
+        )[0];
 
         Test.startTest();
-        QuizAnswerService.PlayerStats stats = QuizController.getWinnerStats();
+        QuizAnswerService.PlayerStats stats = QuizController.getWinnerStats(
+            session.Id
+        );
         Test.stopTest();
     }
 
     @isTest
     static void getWinnerStats_failsWhenNoPlayers() {
+        Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
         try {
-            QuizController.getWinnerStats();
+            QuizController.getWinnerStats(session.Id);
             // expect to fail
             System.assert(false);
         } catch (AuraHandledException e) {
@@ -27,7 +33,10 @@ public class QuizControllerTest {
     @isTest
     static void getPlayerAnswerStats_works() {
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
-        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(1)[0];
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(
+            session.Id,
+            1
+        )[0];
 
         Test.startTest();
         QuizController.getPlayerAnswerStats(player.Id);
@@ -65,7 +74,10 @@ public class QuizControllerTest {
         );
 
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
-        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(1)[0];
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(
+            session.Id,
+            1
+        )[0];
         Quiz_Question__c question1 = session.Current_Question__r;
         Quiz_Question__c question2 = QuizSessionTestFactory.createQuizQuestion();
         Quiz_Answer__c quizAnswer1 = QuizSessionTestFactory.createQuizAnswer(
@@ -78,7 +90,7 @@ public class QuizControllerTest {
         update session;
 
         Test.startTest();
-        QuizController.resetGame();
+        QuizController.resetGame(session.Id);
         Test.stopTest();
 
         Integer playerCount = Database.countQuery(
@@ -90,7 +102,9 @@ public class QuizControllerTest {
         );
         System.assertEquals(0, answerCount);
         QuizSessionService sessionService = new QuizSessionService();
-        Quiz_Session__c updatedSession = sessionService.getQuizSession();
+        Quiz_Session__c updatedSession = sessionService.getQuizSession(
+            session.Id
+        );
         System.assertEquals(PHASE_REGISTRATION, updatedSession.Phase__c);
         System.assertEquals(question1.Id, updatedSession.Current_Question__c);
     }

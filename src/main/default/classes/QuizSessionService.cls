@@ -8,11 +8,25 @@ public class QuizSessionService extends QuizAbstractDataService {
     }
 
     public Quiz_Session__c getQuizSession() {
+        Id userId = UserInfo.getUserId();
         return (Quiz_Session__c) getSingleRecord(
             'Quiz_Session__c',
             [
                 SELECT Id, Phase__c, Current_Question__c
                 FROM Quiz_Session__c
+                WHERE OwnerId = :userId
+                WITH SECURITY_ENFORCED
+            ]
+        );
+    }
+
+    public Quiz_Session__c getQuizSession(Id sessionId) {
+        return (Quiz_Session__c) getSingleRecord(
+            'Quiz_Session__c',
+            [
+                SELECT Id, Phase__c, Current_Question__c
+                FROM Quiz_Session__c
+                WHERE Id = :sessionId
                 WITH SECURITY_ENFORCED
             ]
         );

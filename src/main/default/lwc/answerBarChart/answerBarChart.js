@@ -11,13 +11,14 @@ export default class AnswerBarChart extends LightningElement {
     answerStats;
     error;
 
+    @api sessionId;
     @api correctAnswer; // A, B, C, or D
 
     chart;
     chartjsInitialized = false;
 
     connectedCallback() {
-        getAnswerStats()
+        getAnswerStats({ sessionId: this.sessionId })
             .then((data) => {
                 this.answerStats = ANSWER_LABELS.map((label) => data[label]);
                 this.error = undefined;

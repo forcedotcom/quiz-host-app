@@ -16,7 +16,10 @@ public class QuizAnswerRestResourceTest {
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
         session.Phase__c = PHASE_QUESTION;
         update session;
-        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(1)[0];
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(
+            session.Id,
+            1
+        )[0];
 
         Test.startTest();
         QuizAnswerRestResource.submitAnswer(player.Id, TEST_ANSWER);
@@ -30,8 +33,11 @@ public class QuizAnswerRestResourceTest {
         RestResponse response = new RestResponse();
         RestContext.response = response;
 
-        QuizSessionTestFactory.createQuizSession();
-        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(1)[0];
+        Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(
+            session.Id,
+            1
+        )[0];
 
         Test.startTest();
         QuizAnswerRestResource.submitAnswer(player.Id, TEST_ANSWER);
@@ -55,7 +61,10 @@ public class QuizAnswerRestResourceTest {
         session.Phase__c = PHASE_QUESTION;
         update session;
         Quiz_Question__c question = session.Current_Question__r;
-        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(1)[0];
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(
+            session.Id,
+            1
+        )[0];
         QuizSessionTestFactory.createQuizAnswer(
             player.Id,
             question.Id,

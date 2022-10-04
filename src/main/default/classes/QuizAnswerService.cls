@@ -27,8 +27,8 @@ public class QuizAnswerService extends QuizAbstractDataService {
         );
     }
 
-    public Map<String, Integer> getAnswerStats() {
-        Quiz_Session__c session = sessionService.getQuizSession();
+    public Map<String, Integer> getAnswerStats(Id sessionId) {
+        Quiz_Session__c session = sessionService.getQuizSession(sessionId);
         Id questionId = session.Current_Question__c;
         Map<String, Integer> answerMap = new Map<String, Integer>{
             'A' => 0,
@@ -53,8 +53,13 @@ public class QuizAnswerService extends QuizAbstractDataService {
     }
 
     public Quiz_Answer__c create(Id playerId, String answer) {
+        // Get Player
+        Quiz_Player__c player = playerService.getFromId(playerId);
+
         // Check game phase and question
-        Quiz_Session__c session = sessionService.getQuizSession();
+        Quiz_Session__c session = sessionService.getQuizSession(
+            player.Session__c
+        );
         if (session.Phase__c != QuizSessionService.Phase.Question.name()) {
             throw new InvalidPhaseException();
         }

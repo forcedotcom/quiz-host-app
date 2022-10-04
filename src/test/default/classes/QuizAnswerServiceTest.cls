@@ -6,6 +6,7 @@ public class QuizAnswerServiceTest {
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
         Quiz_Question__c question = session.Current_Question__r;
         List<Quiz_Player__c> players = QuizSessionTestFactory.createQuizPlayers(
+            session.Id,
             2
         );
         QuizSessionTestFactory.createQuizAnswer(
@@ -20,7 +21,7 @@ public class QuizAnswerServiceTest {
         );
 
         Test.startTest();
-        Map<String, Integer> stats = service.getAnswerStats();
+        Map<String, Integer> stats = service.getAnswerStats(session.Id);
         Test.stopTest();
 
         System.assertEquals(0, stats.get('A'));

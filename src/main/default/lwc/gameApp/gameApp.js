@@ -1,107 +1,114 @@
-import { LightningElement, wire } from 'lwc';
+import { LightningElement } from 'lwc';
+import LightningConfirm from 'lightning/confirm';
 import getCurrentQuestion from '@salesforce/apex/QuizController.getCurrentQuestion';
 import resetGame from '@salesforce/apex/QuizController.resetGame';
-import checkSettings from '@salesforce/apex/QuizController.checkSettings';
+import getAndCheckSettings from '@salesforce/apex/QuizController.getAndCheckSettings';
 import getQuizSession from '@salesforce/apex/QuizController.getQuizSession';
-import getQuizSettings from '@salesforce/apex/QuizController.getQuizSettings';
 import triggerNextPhase from '@salesforce/apex/QuizController.triggerNextPhase';
 import { reduceErrors } from 'c/errorUtils';
 
+const PHASES = {
+    Registration: { label: 'Registration', nextButtonLabel: 'Start!' },
+    PreQuestion: { label: 'Get Ready!', nextButtonLabel: 'Ready!' },
+    Question: { label: 'Question', nextButtonLabel: 'Next' },
+    QuestionResults: { label: 'Answer', nextButtonLabel: 'Next' },
+    GameResults: { label: 'Game Over', nextButtonLabel: 'New Game' }
+};
+
 export default class GameApp extends LightningElement {
     error;
+    isNextButtonDisabled = true;
     quizSession;
     quizSettings;
-    isNextButtonDisabled = true;
     currentQuestion;
 
-    HOST_APP_VERSION = '2.9.0';
+    HOST_APP_VERSION = '4.0.0';
 
-    @wire(getQuizSettings)
-    wiredQuizSettings({ error, data }) {
-        if (data) {
-            this.quizSettings = data;
-        } else if (error) {
-            this.error = reduceErrors(error);
+    connectedCallback() {
+        this.loadQuiz();
+    }
+
+    async loadQuiz() {
+        try {
+            // Reset vars
+            this.error = undefined;
+            this.isNextButtonDisabled = true;
+            this.quizSession = undefined;
             this.quizSettings = undefined;
+            this.currentQuestion = undefined;
+            // Load data
+            [this.quizSettings, this.quizSession] = await Promise.all([
+                getAndCheckSettings(),
+                getQuizSession()
+            ]);
+            await this.refreshCurrentQuestion();
+        } catch (error) {
+            this.error = reduceErrors(error);
+            this.isNextButtonDisabled = true;
         }
     }
 
-    connectedCallback() {
-        checkSettings().catch((error) => {
+    async refreshCurrentQuestion() {
+        try {
+            this.currentQuestion = await getCurrentQuestion({
+                sessionId: this.quizSession.id
+            });
+            // Double phase change click prevention
+            // eslint-disable-next-line @lwc/lwc/no-async-operation
+            setTimeout(() => {
+                if (!this.error) {
+                    this.isNextButtonDisabled = false;
+                }
+            }, 2000);
+        } catch (error) {
             this.error = reduceErrors(error);
+            this.currentQuestion = undefined;
             this.isNextButtonDisabled = true;
-        });
-        getQuizSession()
-            .then((quizSession) => {
-                this.quizSession = quizSession;
-                this.refreshCurrentQuestion();
-            })
-            .catch((error) => {
-                this.error = reduceErrors(error);
-                this.quizSession = undefined;
-            });
+        }
     }
 
-    refreshCurrentQuestion() {
-        getCurrentQuestion({ sessionId: this.quizSession.id })
-            .then((currentQuestion) => {
-                this.currentQuestion = currentQuestion;
-                // Double phase change click prevention
-                // eslint-disable-next-line @lwc/lwc/no-async-operation
-                setTimeout(() => {
-                    if (!this.error) {
-                        this.isNextButtonDisabled = false;
-                    }
-                }, 2000);
-            })
-            .catch((error) => {
-                this.error = reduceErrors(error);
-                this.currentQuestion = undefined;
-                this.isNextButtonDisabled = true;
-            });
-    }
-
-    handleNextPhaseClick() {
+    async handleNextPhaseClick() {
         this.isNextButtonDisabled = true;
         this.answerCount = undefined;
-        triggerNextPhase({ sessionId: this.quizSession.id })
-            .then((updatedSession) => {
-                this.quizSession = updatedSession;
-                this.error = undefined;
-                this.refreshCurrentQuestion();
-            })
-            .catch((error) => {
-                this.error = reduceErrors(error);
-                this.quizSession = undefined;
+        try {
+            this.quizSession = await triggerNextPhase({
+                sessionId: this.quizSession.id
             });
+            this.error = undefined;
+            this.refreshCurrentQuestion();
+        } catch (error) {
+            this.error = reduceErrors(error);
+            this.quizSession = undefined;
+        }
     }
 
-    handleResetClick() {
-        // eslint-disable-next-line no-alert
-        if (window.confirm('Delete game data (players and answers)?')) {
-            resetGame().then(() => {
-                window.location.reload();
-            });
+    async handleResetClick() {
+        const isConfirmed = await LightningConfirm.open({
+            label: 'Reset game',
+            message: 'Delete game data (players and answers)?',
+            theme: 'warning'
+        });
+        if (isConfirmed) {
+            try {
+                await resetGame({ sessionId: this.quizSession.id });
+                await this.loadQuiz();
+            } catch (error) {
+                this.error = reduceErrors(error);
+                this.quizSession = undefined;
+            }
         }
     }
 
     get quizPhaseLabel() {
         if (this.quizSession) {
-            if (this.isRegistrationPhase) return 'Registration';
-            if (this.isPreQuestionPhase) return 'Get Ready!';
-            if (this.isQuestionPhase) return 'Question';
-            if (this.isQuestionResultsPhase) return 'Answer';
-            if (this.isGameResultsPhase) return 'Game Over';
+            return PHASES[this.quizSession.phase].label;
         }
         return 'Loading...';
     }
 
     get nextButtonText() {
         if (this.quizSession) {
-            if (this.isRegistrationPhase) return 'Start!';
-            if (this.isPreQuestionPhase) return 'Ready!';
-            if (this.isGameResultsPhase) return 'New Game';
-            return 'Next';
+            return PHASES[this.quizSession.phase].nextButtonLabel;
         }
         return 'Loading...';
     }
@@ -138,5 +145,13 @@ export default class GameApp extends LightningElement {
 
     get isGameResultsPhase() {
         return this.quizSession.phase === 'GameResults';
+    }
+
+    get isDoneLoading() {
+        return (
+            this.quizSession !== undefined &&
+            this.quizSettings !== undefined &&
+            this.currentQuestion !== undefined
+        );
     }
 }

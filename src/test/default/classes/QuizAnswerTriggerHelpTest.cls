@@ -4,7 +4,10 @@ public class QuizAnswerTriggerHelpTest {
     static void duplicateAnswerNotCreated() {
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
         Quiz_Question__c question = session.Current_Question__r;
-        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(1)[0];
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(
+            session.Id,
+            1
+        )[0];
 
         try {
             Quiz_Answer__c quizAnswer1 = QuizSessionTestFactory.createQuizAnswer(
@@ -34,7 +37,10 @@ public class QuizAnswerTriggerHelpTest {
     static void millisecondFieldExistsOnAnswer() {
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
         Quiz_Question__c question = session.Current_Question__r;
-        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(1)[0];
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(
+            session.Id,
+            1
+        )[0];
         Quiz_Answer__c quizAnswer = QuizSessionTestFactory.createQuizAnswer(
             player.Id,
             question.Id,

@@ -1,4 +1,6 @@
 <template>
-    <p class="mobile-url">{shortMobileAppUrl}</p>
-    <c-qr-code size="400" url={quizSettings.playerAppUrl}></c-qr-code>
+    <h1>Scan this QR code to join the game:</h1>
+    <a if:true={qrCodeImageUrl} href={sessionUrl} target="_blank">
+        <img src={qrCodeImageUrl} alt="QR code" />
+    </a>
 </template>

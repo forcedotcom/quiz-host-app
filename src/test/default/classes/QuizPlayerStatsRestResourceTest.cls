@@ -7,7 +7,10 @@ public class QuizPlayerStatsRestResourceTest {
     @isTest
     static void getPlayerStats_works() {
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
-        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(1)[0];
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(
+            session.Id,
+            1
+        )[0];
 
         RestRequest request = new RestRequest();
         request.requestUri = '/services/apexrest/quiz/player/stats';

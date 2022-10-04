@@ -8,14 +8,10 @@ public with sharing class QuizController {
     private static final QuizSettingsService settingsService = new QuizSettingsService();
 
     @AuraEnabled(cacheable=true)
-    public static QuizSettings getQuizSettings() {
-        Quiz_Settings__mdt settings = settingsService.get();
-        return new QuizSettings(settings);
-    }
-
-    @AuraEnabled(cacheable=true)
-    public static QuizAnswerService.PlayerStats getWinnerStats() {
+    public static QuizAnswerService.PlayerStats getWinnerStats(Id sessionId) {
+        requireSessionId(sessionId);
         List<Quiz_Player__c> playerList = playerService.getPlayersSortedByScore(
+            sessionId,
             1
         );
         if (playerList.isEmpty()) {
@@ -42,9 +38,7 @@ public with sharing class QuizController {
 
     @AuraEnabled
     public static QuizQuestion getCurrentQuestion(Id sessionId) {
-        if (sessionId == null) {
-            throw new AuraHandledException('Missing session Id.');
-        }
+        requireSessionId(sessionId);
         Quiz_Question__c question = sessionService.getCurrentQuestion(
             sessionId
         );
@@ -57,15 +51,19 @@ public with sharing class QuizController {
     }
 
     @AuraEnabled
-    public static Map<String, Integer> getAnswerStats() {
-        return answerService.getAnswerStats();
+    public static Map<String, Integer> getAnswerStats(Id sessionId) {
+        requireSessionId(sessionId);
+        return answerService.getAnswerStats(sessionId);
     }
 
     @AuraEnabled
     public static List<QuizPlayer> getPlayersSortedByScore(
+        Id sessionId,
         Integer maxFetchCount
     ) {
+        requireSessionId(sessionId);
         List<Quiz_Player__c> players = playerService.getPlayersSortedByScore(
+            sessionId,
             maxFetchCount
         );
         return QuizPlayer.fromRecordList(players);
@@ -79,17 +77,16 @@ public with sharing class QuizController {
 
     @AuraEnabled
     public static QuizSession triggerNextPhase(Id sessionId) {
-        if (sessionId == null) {
-            throw new AuraHandledException('Missing session Id.');
-        }
+        requireSessionId(sessionId);
         Quiz_Session__c session = sessionHelper.triggerNextPhase(sessionId);
         return new QuizSession(session);
     }
 
     @AuraEnabled
-    public static void resetGame() {
+    public static void resetGame(Id sessionId) {
+        requireSessionId(sessionId);
         // Reset session (current question, phase)
-        Quiz_Session__c session = sessionService.getQuizSession();
+        Quiz_Session__c session = sessionService.getQuizSession(sessionId);
         List<Quiz_Question__c> questions = sessionService.getSessionQuestions(
             session.Id
         );
@@ -99,19 +96,29 @@ public with sharing class QuizController {
         session.Phase__c = PHASE_REGISTRATION;
         update session;
         // Delete all players and answers
-        playerService.deleteAnswersAndPlayers();
+        playerService.deletePlayers(session.Id);
         // Push phase change to player app
-        QuizSessionHelper.pushPhaseUpdateToPlayerApp(session.Phase__c);
+        QuizSessionHelper.pushPhaseUpdateToPlayerApp(
+            sessionId,
+            session.Phase__c
+        );
     }
 
     @AuraEnabled
-    public static void checkSettings() {
+    public static QuizSettings getAndCheckSettings() {
         try {
-            settingsService.checkSettings();
+            Quiz_Settings__mdt settings = settingsService.getAndCheckSettings();
+            return new QuizSettings(settings);
         } catch (Exception e) {
             throw new AuraHandledException(
                 'Failed to validate Quiz app settings: ' + e.getMessage()
             );
+        }
+    }
+
+    private static void requireSessionId(Id sessionId) {
+        if (sessionId == null) {
+            throw new AuraHandledException('Missing session Id.');
         }
     }
 }

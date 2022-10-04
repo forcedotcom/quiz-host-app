@@ -10,37 +10,36 @@
     </template>
 
     <div class="slds-card">
-        <template if:true={currentQuestion}>
-            <div class="slds-card__header slds-grid">
-                <div class="slds-col slds-size_2-of-12 slds-align-middle">
-                    <!-- Reset button -->
-                    <lightning-button
-                        label="Reset"
-                        onclick={handleResetClick}
-                    ></lightning-button>
-                </div>
-                <div
-                    class="slds-col slds-size_8-of-12 slds-align-middle header-title"
-                >
-                    {quizPhaseLabel}
-                </div>
-                <div
-                    class="slds-col slds-size_2-of-12 slds-align-middle slds-text-align_right"
-                >
-                    <!-- Next phase button -->
-                    <lightning-button
-                        disabled={isNextButtonDisabled}
-                        label={nextButtonText}
-                        variant="brand"
-                        onclick={handleNextPhaseClick}
-                    ></lightning-button>
-                </div>
+        <div class="slds-card__header slds-grid">
+            <div class="slds-col slds-size_2-of-12 slds-align-middle">
+                <!-- Reset button -->
+                <lightning-button
+                    if:true={isDoneLoading}
+                    label="Reset"
+                    onclick={handleResetClick}
+                ></lightning-button>
             </div>
-        </template>
+            <div
+                class="slds-col slds-size_8-of-12 slds-align-middle header-title"
+            >
+                {quizPhaseLabel}
+            </div>
+            <div
+                class="slds-col slds-size_2-of-12 slds-align-middle slds-text-align_right"
+            >
+                <!-- Next phase button -->
+                <lightning-button
+                    disabled={isNextButtonDisabled}
+                    label={nextButtonText}
+                    variant="brand"
+                    onclick={handleNextPhaseClick}
+                ></lightning-button>
+            </div>
+        </div>
         <div class={cardBodyClasses}>
             <template if:false={error}>
                 <!-- Session and questions are loading -->
-                <template if:false={currentQuestion}>
+                <template if:false={isDoneLoading}>
                     <lightning-spinner
                         alternative-text="Loading session data"
                         variant="brand"
@@ -48,17 +47,20 @@
                 </template>
 
                 <!-- Session and questions are loaded -->
-                <template if:true={currentQuestion}>
+                <template if:true={isDoneLoading}>
                     <!-- Registration -->
                     <template if:true={isRegistrationPhase}>
                         <div class="slds-grid slds-gutters">
                             <div class="slds-col slds-size_1-of-2">
                                 <c-registration
+                                    session-id={quizSession.id}
                                     quiz-settings={quizSettings}
                                 ></c-registration>
                             </div>
                             <div class="slds-col slds-size_1-of-2">
-                                <c-player-list></c-player-list>
+                                <c-player-list
+                                    session-id={quizSession.id}
+                                ></c-player-list>
                             </div>
                         </div>
                     </template>
@@ -88,11 +90,14 @@
                         <div class="slds-grid slds-gutters">
                             <div class="slds-col slds-size_1-of-2">
                                 <c-answer-bar-chart
+                                    session-id={quizSession.id}
                                     correct-answer={currentQuestion.correctAnswer}
                                 ></c-answer-bar-chart>
                             </div>
                             <div class="slds-col slds-size_1-of-2">
-                                <c-leader-board></c-leader-board>
+                                <c-leader-board
+                                    session-id={quizSession.id}
+                                ></c-leader-board>
                             </div>
                         </div>
                     </template>
@@ -101,10 +106,14 @@
                     <template if:true={isGameResultsPhase}>
                         <div class="slds-grid slds-gutters">
                             <div class="slds-col slds-size_1-of-2">
-                                <c-winner></c-winner>
+                                <c-winner
+                                    session-id={quizSession.id}
+                                ></c-winner>
                             </div>
                             <div class="slds-col slds-size_1-of-2">
-                                <c-leader-board></c-leader-board>
+                                <c-leader-board
+                                    session-id={quizSession.id}
+                                ></c-leader-board>
                             </div>
                         </div>
                     </template>

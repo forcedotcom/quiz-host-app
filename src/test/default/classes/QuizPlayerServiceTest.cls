@@ -2,12 +2,15 @@
 public class QuizPlayerServiceTest {
     @isTest
     static void getFromName_works() {
+        Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
         List<Quiz_Player__c> players = QuizSessionTestFactory.createQuizPlayers(
+            session.Id,
             1
         );
 
         QuizPlayerService playerService = new QuizPlayerService();
         Quiz_Player__c player = playerService.getFromName(
+            session.Id,
             QuizSessionTestFactory.PLAYER_NAME_PREFIX + '0'
         );
 
@@ -15,11 +18,12 @@ public class QuizPlayerServiceTest {
     }
 
     @isTest
-    static void assignRanking_works_with_one_player() {
-        QuizSessionTestFactory.createQuizPlayers(1);
+    static void assignRanks_works_with_one_player() {
+        Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
+        QuizSessionTestFactory.createQuizPlayers(session.Id, 1);
 
         QuizPlayerService playerService = new QuizPlayerService();
-        playerService.assignRanking();
+        playerService.assignRanks(session.Id);
 
         List<Quiz_Player__c> updatedPlayers = [
             SELECT Id, Ranking__c
@@ -31,17 +35,20 @@ public class QuizPlayerServiceTest {
     }
 
     @isTest
-    static void assignRanking_works_with_two_player_same_score() {
+    static void assignRanks_works_with_two_player_same_score() {
+        Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
         Quiz_Player__c player1 = QuizSessionTestFactory.createQuizPlayerWithScore(
+            session.Id,
             'one',
             100
         );
         Quiz_Player__c player2 = QuizSessionTestFactory.createQuizPlayerWithScore(
+            session.Id,
             'two',
             100
         );
         QuizPlayerService playerService = new QuizPlayerService();
-        playerService.assignRanking();
+        playerService.assignRanks(session.Id);
 
         Integer ranking1 = [
                 SELECT Id, Ranking__c
@@ -63,17 +70,20 @@ public class QuizPlayerServiceTest {
     }
 
     @isTest
-    static void assignRanking_works_with_two_player_different_score() {
+    static void assignRanks_works_with_two_player_different_score() {
+        Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
         Quiz_Player__c player1 = QuizSessionTestFactory.createQuizPlayerWithScore(
+            session.Id,
             'one',
             100
         );
         Quiz_Player__c player2 = QuizSessionTestFactory.createQuizPlayerWithScore(
+            session.Id,
             'two',
             50
         );
         QuizPlayerService playerService = new QuizPlayerService();
-        playerService.assignRanking();
+        playerService.assignRanks(session.Id);
 
         Integer ranking1 = [
                 SELECT Id, Ranking__c
@@ -95,21 +105,25 @@ public class QuizPlayerServiceTest {
     }
 
     @isTest
-    static void assignRanking_works_with_three_players() {
+    static void assignRanks_works_with_three_players() {
+        Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
         Quiz_Player__c player1 = QuizSessionTestFactory.createQuizPlayerWithScore(
+            session.Id,
             'one',
             100
         );
         Quiz_Player__c player2 = QuizSessionTestFactory.createQuizPlayerWithScore(
+            session.Id,
             'two',
             100
         );
         Quiz_Player__c player3 = QuizSessionTestFactory.createQuizPlayerWithScore(
+            session.Id,
             'three',
             10
         );
         QuizPlayerService playerService = new QuizPlayerService();
-        playerService.assignRanking();
+        playerService.assignRanks(session.Id);
 
         Integer ranking1 = [
                 SELECT Id, Ranking__c

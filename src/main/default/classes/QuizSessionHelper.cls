@@ -27,10 +27,10 @@ public with sharing class QuizSessionHelper {
         return (Long) (1000 * (1.00 - (speedFactor / 2.00)));
     }
 
-    public void updatePlayerScores() {
+    public void updatePlayerScores(Id sessionId) {
         // Get current question
         QuizSessionService sessionService = new QuizSessionService();
-        Quiz_Session__c session = sessionService.getQuizSession();
+        Quiz_Session__c session = sessionService.getQuizSession(sessionId);
         Quiz_Question__c currentQuestion = sessionService.getCurrentQuestion(
             session.Id
         );
@@ -46,7 +46,9 @@ public with sharing class QuizSessionHelper {
 
         // Get players
         QuizPlayerService playerService = new QuizPlayerService();
-        Map<Id, Quiz_Player__c> allPlayers = playerService.getPlayers();
+        Map<Id, Quiz_Player__c> allPlayers = playerService.getPlayers(
+            session.Id
+        );
         List<Quiz_Player__c> updatedPlayers = new List<Quiz_Player__c>();
 
         // Get answer min and max timestamps
@@ -74,12 +76,12 @@ public with sharing class QuizSessionHelper {
         update updatedPlayers;
 
         // Refresh ranks
-        playerService.assignRanking();
+        playerService.assignRanks(session.Id);
     }
 
     public Quiz_Session__c triggerNextPhase(Id sessionId) {
         QuizSessionService sessionService = new QuizSessionService();
-        Quiz_Session__c session = sessionService.getQuizSession();
+        Quiz_Session__c session = sessionService.getQuizSession(sessionId);
 
         if (session.Phase__c == PHASE_REGISTRATION) {
             session.Phase__c = PHASE_PRE_QUESTION;
@@ -135,12 +137,16 @@ public with sharing class QuizSessionHelper {
     }
 
     @future(callout=true)
-    public static void pushPhaseUpdateToPlayerApp(String phase) {
+    public static void pushPhaseUpdateToPlayerApp(Id sessionId, String phase) {
         Quiz_Settings__mdt settings = settingsService.get();
 
         HttpRequest request = new HttpRequest();
         request.setMethod('PUT');
-        request.setEndpoint(settings.Player_App_URL__c + '/api/quiz-sessions');
+        request.setEndpoint(
+            settings.Player_App_URL__c +
+            '/api/quiz-sessions/' +
+            sessionId
+        );
         request.setHeader('Content-Type', 'application/json');
         request.setHeader('Api-Key', settings.Quiz_Api_Key__c);
         request.setBody('{ "phase": "' + phase + '" }');

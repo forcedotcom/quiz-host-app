@@ -40,7 +40,10 @@ public class QuizSessionTriggerHelperTest {
 
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
         Quiz_Question__c question = session.Current_Question__r;
-        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(1)[0];
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(
+            session.Id,
+            1
+        )[0];
         QuizSessionTestFactory.createQuizAnswer(
             player.Id,
             question.Id,

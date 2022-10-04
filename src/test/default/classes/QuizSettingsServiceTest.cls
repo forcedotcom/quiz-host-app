@@ -1,18 +1,18 @@
 @isTest(isParallel=true)
 public class QuizSettingsServiceTest {
     @isTest
-    static void checkSettings_works() {
+    static void getAndCheckSettings_works() {
         Test.setMock(
             HttpCalloutMock.class,
             new QuizTestUtils.MockSuccessHttpResponse()
         );
         QuizSettingsService settingsService = new QuizSettingsService();
 
-        settingsService.checkSettings();
+        settingsService.getAndCheckSettings();
     }
 
     @isTest
-    static void checkSettings_failsWhenPlayerAppIsUnreachable() {
+    static void getAndCheckSettings_failsWhenPlayerAppIsUnreachable() {
         Test.setMock(
             HttpCalloutMock.class,
             new QuizTestUtils.MockSimpleHttpResponse(404)
@@ -20,7 +20,7 @@ public class QuizSettingsServiceTest {
         QuizSettingsService settingsService = new QuizSettingsService();
 
         try {
-            settingsService.checkSettings();
+            settingsService.getAndCheckSettings();
             // expect to fail
             System.assert(false);
         } catch (QuizSettingsService.PlayerAppUrlException e) {

@@ -30,21 +30,31 @@ public class QuizSessionTestFactory {
     }
 
     public static Quiz_Player__c createQuizPlayerWithScore(
+        Id sessionId,
         String name,
         Integer Score
     ) {
         Quiz_Player__c player = new Quiz_Player__c(
             Name = name,
-            Score__c = score
+            Score__c = score,
+            Session__c = sessionId
         );
         insert player;
         return player;
     }
 
-    public static List<Quiz_Player__c> createQuizPlayers(Integer playerCount) {
+    public static List<Quiz_Player__c> createQuizPlayers(
+        Id sessionId,
+        Integer playerCount
+    ) {
         List<Quiz_Player__c> players = new List<Quiz_Player__c>();
         for (Integer i = 0; i < playerCount; i++) {
-            players.add(new Quiz_Player__c(Name = PLAYER_NAME_PREFIX + i));
+            players.add(
+                new Quiz_Player__c(
+                    Name = PLAYER_NAME_PREFIX + i,
+                    Session__c = sessionId
+                )
+            );
         }
         insert players;
         return players;

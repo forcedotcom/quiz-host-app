@@ -14,7 +14,10 @@ public class QuizSessionHelperTest {
         );
 
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
-        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(1)[0];
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(
+            session.Id,
+            1
+        )[0];
         Quiz_Question__c question1 = session.Current_Question__r;
         Quiz_Question__c question2 = QuizSessionTestFactory.createQuizQuestion();
         Quiz_Answer__c quizAnswer1 = QuizSessionTestFactory.createQuizAnswer(
@@ -61,6 +64,7 @@ public class QuizSessionHelperTest {
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
         Quiz_Question__c question = session.Current_Question__r;
         List<Quiz_Player__c> players = QuizSessionTestFactory.createQuizPlayers(
+            session.Id,
             NUM_PLAYERS
         );
         List<Quiz_Answer__c> answers = new List<Quiz_Answer__c>();
@@ -112,6 +116,7 @@ public class QuizSessionHelperTest {
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
         Quiz_Question__c question = session.Current_Question__r;
         List<Quiz_Player__c> players = QuizSessionTestFactory.createQuizPlayers(
+            session.Id,
             NUM_PLAYERS
         );
         List<Quiz_Answer__c> answers = new List<Quiz_Answer__c>();
@@ -151,7 +156,10 @@ public class QuizSessionHelperTest {
 
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
         Quiz_Question__c question = session.Current_Question__r;
-        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(1)[0];
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(
+            session.Id,
+            1
+        )[0];
 
         Test.startTest();
         session.Phase__c = PHASE_QUESTION_RESULTS;
@@ -183,6 +191,7 @@ public class QuizSessionHelperTest {
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
         Quiz_Question__c question = session.Current_Question__r;
         List<Quiz_Player__c> players = QuizSessionTestFactory.createQuizPlayers(
+            session.Id,
             2
         );
 
@@ -222,7 +231,10 @@ public class QuizSessionHelperTest {
 
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
         Quiz_Question__c question = session.Current_Question__r;
-        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(1)[0];
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(
+            session.Id,
+            1
+        )[0];
 
         Test.startTest();
         session.Phase__c = PHASE_QUESTION_RESULTS;
@@ -253,7 +265,10 @@ public class QuizSessionHelperTest {
 
         Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
         Quiz_Question__c question = session.Current_Question__r;
-        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(1)[0];
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(
+            session.Id,
+            1
+        )[0];
 
         Test.startTest();
         session.Phase__c = PHASE_QUESTION_RESULTS;

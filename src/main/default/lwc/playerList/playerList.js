@@ -1,17 +1,18 @@
-import { LightningElement, track } from 'lwc';
+import { LightningElement, track, api } from 'lwc';
 import getPlayersSortedByScore from '@salesforce/apex/QuizController.getPlayersSortedByScore';
 import { reduceErrors } from 'c/errorUtils';
 import * as empApi from 'lightning/empApi';
 import PLAYER_OBJECT from '@salesforce/schema/Quiz_Player__c';
 
 export default class PlayerList extends LightningElement {
+    @api sessionId;
     error;
     @track playerNames = [];
 
     subscription;
 
     connectedCallback() {
-        getPlayersSortedByScore()
+        getPlayersSortedByScore({ sessionId: this.sessionId })
             .then((players) => {
                 this.playerNames = players.map((player) => player.name);
                 this.error = undefined;

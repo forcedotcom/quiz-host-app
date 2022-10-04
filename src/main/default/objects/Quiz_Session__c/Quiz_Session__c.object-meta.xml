@@ -166,7 +166,12 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Quiz Sessions</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts>
+        <searchResultsAdditionalFields>Question_Count__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Phase__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Player_Count__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Current_Question__c</searchResultsAdditionalFields>
+    </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

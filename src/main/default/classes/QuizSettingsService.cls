@@ -28,7 +28,7 @@ public class QuizSettingsService extends QuizAbstractDataService {
         return settings;
     }
 
-    public void checkSettings() {
+    public Quiz_Settings__mdt getAndCheckSettings() {
         // Check for a unique settings record
         Quiz_Settings__mdt settings = this.get();
         // Check that player app can be reached (remote site is configured and URL is valid)
@@ -44,6 +44,7 @@ public class QuizSettingsService extends QuizAbstractDataService {
                 settings.Player_App_URL__c
             );
         }
+        return settings;
     }
 
     public class PlayerAppUrlException extends Exception {

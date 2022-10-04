@@ -1,13 +1,17 @@
-import { LightningElement, track } from 'lwc';
+import { LightningElement, track, api } from 'lwc';
 import getPlayersSortedByScore from '@salesforce/apex/QuizController.getPlayersSortedByScore';
 import { reduceErrors } from 'c/errorUtils';
 
 export default class LeaderBoard extends LightningElement {
+    @api sessionId;
     error;
     @track players = [];
 
     connectedCallback() {
-        getPlayersSortedByScore({ maxFetchCount: 10 })
+        getPlayersSortedByScore({
+            sessionId: this.sessionId,
+            maxFetchCount: 10
+        })
             .then((players) => {
                 this.error = undefined;
                 this.displayPlayers(players);

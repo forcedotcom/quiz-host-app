@@ -26,12 +26,12 @@ public class QuizPlayerServiceTest {
         playerService.assignRanks(session.Id);
 
         List<Quiz_Player__c> updatedPlayers = [
-            SELECT Id, Ranking__c
+            SELECT Id, Rank__c
             FROM Quiz_Player__c
             WITH SECURITY_ENFORCED
         ];
         System.assertEquals(1, updatedPlayers.size());
-        System.assertEquals(1, updatedPlayers[0].Ranking__c);
+        System.assertEquals(1, updatedPlayers[0].Rank__c);
     }
 
     @isTest
@@ -50,23 +50,23 @@ public class QuizPlayerServiceTest {
         QuizPlayerService playerService = new QuizPlayerService();
         playerService.assignRanks(session.Id);
 
-        Integer ranking1 = [
-                SELECT Id, Ranking__c
+        Integer rank1 = [
+                SELECT Id, Rank__c
                 FROM Quiz_Player__c
                 WHERE Id = :player1.Id
                 WITH SECURITY_ENFORCED
             ]
-            .Ranking__c.intValue();
-        Integer ranking2 = [
-                SELECT Id, Ranking__c
+            .Rank__c.intValue();
+        Integer rank2 = [
+                SELECT Id, Rank__c
                 FROM Quiz_Player__c
                 WHERE Id = :player2.Id
                 WITH SECURITY_ENFORCED
             ]
-            .Ranking__c.intValue();
+            .Rank__c.intValue();
 
-        System.assertEquals(1, ranking1);
-        System.assertEquals(1, ranking2);
+        System.assertEquals(1, rank1);
+        System.assertEquals(1, rank2);
     }
 
     @isTest
@@ -85,23 +85,23 @@ public class QuizPlayerServiceTest {
         QuizPlayerService playerService = new QuizPlayerService();
         playerService.assignRanks(session.Id);
 
-        Integer ranking1 = [
-                SELECT Id, Ranking__c
+        Integer rank1 = [
+                SELECT Id, Rank__c
                 FROM Quiz_Player__c
                 WHERE Id = :player1.Id
                 WITH SECURITY_ENFORCED
             ]
-            .Ranking__c.intValue();
-        Integer ranking2 = [
-                SELECT Id, Ranking__c
+            .Rank__c.intValue();
+        Integer rank2 = [
+                SELECT Id, Rank__c
                 FROM Quiz_Player__c
                 WHERE Id = :player2.Id
                 WITH SECURITY_ENFORCED
             ]
-            .Ranking__c.intValue();
+            .Rank__c.intValue();
 
-        System.assertEquals(1, ranking1);
-        System.assertEquals(2, ranking2);
+        System.assertEquals(1, rank1);
+        System.assertEquals(2, rank2);
     }
 
     @isTest
@@ -125,30 +125,30 @@ public class QuizPlayerServiceTest {
         QuizPlayerService playerService = new QuizPlayerService();
         playerService.assignRanks(session.Id);
 
-        Integer ranking1 = [
-                SELECT Id, Ranking__c
+        Integer rank1 = [
+                SELECT Id, Rank__c
                 FROM Quiz_Player__c
                 WHERE Id = :player1.Id
                 WITH SECURITY_ENFORCED
             ]
-            .Ranking__c.intValue();
-        Integer ranking2 = [
-                SELECT Id, Ranking__c
+            .Rank__c.intValue();
+        Integer rank2 = [
+                SELECT Id, Rank__c
                 FROM Quiz_Player__c
                 WHERE Id = :player2.Id
                 WITH SECURITY_ENFORCED
             ]
-            .Ranking__c.intValue();
-        Integer ranking3 = [
-                SELECT Id, Ranking__c
+            .Rank__c.intValue();
+        Integer rank3 = [
+                SELECT Id, Rank__c
                 FROM Quiz_Player__c
                 WHERE Id = :player3.Id
                 WITH SECURITY_ENFORCED
             ]
-            .Ranking__c.intValue();
+            .Rank__c.intValue();
 
-        System.assertEquals(1, ranking1);
-        System.assertEquals(1, ranking2);
-        System.assertEquals(2, ranking3);
+        System.assertEquals(1, rank1);
+        System.assertEquals(1, rank2);
+        System.assertEquals(2, rank3);
     }
 }

@@ -32,14 +32,22 @@ public class QuizSessionTestFactory {
     public static Quiz_Player__c createQuizPlayerWithScore(
         Id sessionId,
         String name,
-        Integer Score
+        Integer score
     ) {
         Quiz_Player__c player = new Quiz_Player__c(
             Name = name,
-            Score__c = score,
             Session__c = sessionId
         );
         insert player;
+
+        Quiz_Question__c question = QuizSessionTestFactory.createQuizQuestion();
+        QuizSessionTestFactory.createQuizAnswerWithScore(
+            player.Id,
+            question.Id,
+            question.Correct_Answer__c,
+            score
+        );
+
         return player;
     }
 
@@ -69,6 +77,22 @@ public class QuizSessionTestFactory {
             Player__c = playerId,
             Question__c = questionId,
             Answer__c = answer
+        );
+        insert answerRecord;
+        return answerRecord;
+    }
+
+    public static Quiz_Answer__c createQuizAnswerWithScore(
+        String playerId,
+        String questionId,
+        String answer,
+        Integer score
+    ) {
+        Quiz_Answer__c answerRecord = new Quiz_Answer__c(
+            Player__c = playerId,
+            Question__c = questionId,
+            Answer__c = answer,
+            Score__c = score
         );
         insert answerRecord;
         return answerRecord;

@@ -68,6 +68,19 @@ export default class GameApp extends LightningElement {
     }
 
     async handleNextPhaseClick() {
+        // Request confirmation for new game
+        if (this.quizSession.phase === 'GameResults') {
+            const isConfirmed = await LightningConfirm.open({
+                label: 'Start new game',
+                message:
+                    "Starting a new game will clear the current game's data. Do you wish to proceed?",
+                theme: 'warning'
+            });
+            if (!isConfirmed) {
+                return;
+            }
+        }
+
         this.isNextButtonDisabled = true;
         this.answerCount = undefined;
         try {
@@ -90,6 +103,7 @@ export default class GameApp extends LightningElement {
         });
         if (isConfirmed) {
             try {
+                this.template.querySelector('.player-list').reset();
                 await resetGame({ sessionId: this.quizSession.id });
                 await this.loadQuiz();
             } catch (error) {

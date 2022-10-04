@@ -3,7 +3,7 @@ public class QuizPlayerService extends QuizAbstractDataService {
         return (Quiz_Player__c) getSingleRecord(
             'Quiz_Player__c',
             [
-                SELECT Id, Name, Score__c, Ranking__c, Session__c
+                SELECT Id, Name, Score__c, Rank__c, Session__c
                 FROM Quiz_Player__c
                 WHERE Id = :playerId
                 WITH SECURITY_ENFORCED
@@ -28,7 +28,7 @@ public class QuizPlayerService extends QuizAbstractDataService {
         Integer maxFetchCount
     ) {
         String query =
-            'SELECT Id, Name, Score__c, Ranking__c' +
+            'SELECT Id, Name, Score__c, Rank__c' +
             ' FROM Quiz_Player__c' +
             ' WHERE Session__c = \'' +
             sessionId +
@@ -70,7 +70,7 @@ public class QuizPlayerService extends QuizAbstractDataService {
             if (lastScore > player.Score__c) {
                 rank++;
             }
-            player.Ranking__c = rank;
+            player.Rank__c = rank;
             lastScore = player.Score__c;
         }
         update players;

@@ -24,6 +24,12 @@ export default class PlayerList extends LightningElement {
             });
     }
 
+    @api
+    reset() {
+        this.error = undefined;
+        this.playerNames = [];
+    }
+
     initEmpApi() {
         const ns = PlayerList.getNamespacePrefix(PLAYER_OBJECT.objectApiName);
         empApi.onError((error) => {

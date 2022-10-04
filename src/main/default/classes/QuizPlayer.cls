@@ -15,7 +15,7 @@ global with sharing class QuizPlayer {
         this.id = player.Id;
         this.name = player.Name;
         this.score = player.Score__c;
-        this.rank = player.Ranking__c;
+        this.rank = player.Rank__c;
     }
 
     global static List<QuizPlayer> fromRecordList(

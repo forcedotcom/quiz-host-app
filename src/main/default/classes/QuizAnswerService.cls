@@ -21,8 +21,8 @@ public class QuizAnswerService extends QuizAbstractDataService {
             totalCount - correctCount,
             correctCount,
             totalCount,
-            player.Score__c,
-            player.Ranking__c.intValue(),
+            player.Score__c.intValue(),
+            player.Rank__c.intValue(),
             player.Name
         );
     }
@@ -145,7 +145,7 @@ public class QuizAnswerService extends QuizAbstractDataService {
         @AuraEnabled
         public Integer totalCount;
         @AuraEnabled
-        public Decimal score;
+        public Integer score;
         @AuraEnabled
         public Integer rank;
         @AuraEnabled
@@ -155,7 +155,7 @@ public class QuizAnswerService extends QuizAbstractDataService {
             Integer wrongCount,
             Integer correctCount,
             Integer totalCount,
-            Decimal score,
+            Integer score,
             Integer rank,
             String name
         ) {

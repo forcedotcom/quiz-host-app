@@ -85,23 +85,7 @@ public with sharing class QuizController {
     @AuraEnabled
     public static void resetGame(Id sessionId) {
         requireSessionId(sessionId);
-        // Reset session (current question, phase)
-        Quiz_Session__c session = sessionService.getQuizSession(sessionId);
-        List<Quiz_Question__c> questions = sessionService.getSessionQuestions(
-            session.Id
-        );
-        if (questions.size() > 0) {
-            session.Current_Question__c = questions[0].Id;
-        }
-        session.Phase__c = PHASE_REGISTRATION;
-        update session;
-        // Delete all players and answers
-        playerService.deletePlayers(session.Id);
-        // Push phase change to player app
-        QuizSessionHelper.pushPhaseUpdateToPlayerApp(
-            sessionId,
-            session.Phase__c
-        );
+        sessionHelper.resetSession(sessionId);
     }
 
     @AuraEnabled

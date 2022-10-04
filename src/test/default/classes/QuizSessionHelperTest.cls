@@ -6,6 +6,9 @@ public class QuizSessionHelperTest {
         PHASE_QUESTION = QuizSessionService.Phase.Question.name(),
         PHASE_QUESTION_RESULTS = QuizSessionService.Phase.QuestionResults.name();
 
+    private static QuizSessionHelper helper = new QuizSessionHelper();
+    private static QuizPlayerService playerService = new QuizPlayerService();
+
     @isTest
     static void playerAccumulatesScore() {
         Test.setMock(
@@ -20,38 +23,33 @@ public class QuizSessionHelperTest {
         )[0];
         Quiz_Question__c question1 = session.Current_Question__r;
         Quiz_Question__c question2 = QuizSessionTestFactory.createQuizQuestion();
+        QuizSessionTestFactory.createQuizSessionQuestion(session, question2, 1);
+
+        Test.startTest();
+
+        // Question 1
+        helper.triggerNextPhase(session.Id); // Pre-question
+        helper.triggerNextPhase(session.Id); // Question 1
         Quiz_Answer__c quizAnswer1 = QuizSessionTestFactory.createQuizAnswer(
             player.Id,
             question1.Id,
             question1.Correct_Answer__c
         );
-
-        Test.startTest();
-        session.Phase__c = PHASE_QUESTION_RESULTS;
-        update session;
-
-        // update quiz session's 'current question
-        session.Phase__c = PHASE_QUESTION;
-        session.Current_Question__c = question2.Id;
-        update session;
-
+        helper.triggerNextPhase(session.Id); // Question 1 results
+        // Question 2
+        helper.triggerNextPhase(session.Id); // Pre-question
+        helper.triggerNextPhase(session.Id); // Question 2
         Quiz_Answer__c quizAnswer2 = QuizSessionTestFactory.createQuizAnswer(
             player.Id,
             question2.Id,
             question2.Correct_Answer__c
         );
-        session.Phase__c = PHASE_QUESTION_RESULTS;
-        update session;
+        helper.triggerNextPhase(session.Id); // Question 2 results
+
         Test.stopTest();
 
-        Integer score = [
-                SELECT Id, Score__c
-                FROM Quiz_Player__c
-                WHERE Id = :player.Id
-                WITH SECURITY_ENFORCED
-            ]
-            .Score__c.intValue();
-        System.assertEquals(2000, score);
+        player = playerService.getFromId(player.Id);
+        System.assertEquals(2000, player.Score__c);
     }
 
     @isTest
@@ -68,7 +66,6 @@ public class QuizSessionHelperTest {
             NUM_PLAYERS
         );
         List<Quiz_Answer__c> answers = new List<Quiz_Answer__c>();
-
         for (Integer j = 0; j < NUM_PLAYERS; j++) {
             answers.add(
                 new Quiz_Answer__c(
@@ -80,9 +77,13 @@ public class QuizSessionHelperTest {
         }
 
         Test.startTest();
+
+        // Question 1
+        helper.triggerNextPhase(session.Id); // Pre-question
+        helper.triggerNextPhase(session.Id); // Question 1
         insert answers;
-        session.Phase__c = PHASE_QUESTION_RESULTS;
-        update session;
+        helper.triggerNextPhase(session.Id); // Question 1 results
+
         Test.stopTest();
 
         // get answers ordered by oldest first, loop through them to get player Ids
@@ -120,7 +121,6 @@ public class QuizSessionHelperTest {
             NUM_PLAYERS
         );
         List<Quiz_Answer__c> answers = new List<Quiz_Answer__c>();
-
         for (Integer j = 0; j < NUM_PLAYERS; j++) {
             answers.add(
                 new Quiz_Answer__c(
@@ -132,9 +132,13 @@ public class QuizSessionHelperTest {
         }
 
         Test.startTest();
+
+        // Question 1
+        helper.triggerNextPhase(session.Id); // Pre-question
+        helper.triggerNextPhase(session.Id); // Question 1
         insert answers;
-        session.Phase__c = PHASE_QUESTION_RESULTS;
-        update session;
+        helper.triggerNextPhase(session.Id); // Question 1 results
+
         Test.stopTest();
 
         List<Quiz_Answer__c> updatedAnswers = [
@@ -288,5 +292,70 @@ public class QuizSessionHelperTest {
             ]
             .Score__c.intValue();
         System.assertEquals(0, score);
+    }
+
+    @isTest
+    static void resetSessionResetsCurrentQuestionAndPhase() {
+        Test.setMock(
+            HttpCalloutMock.class,
+            new QuizTestUtils.MockSuccessHttpResponse()
+        );
+
+        Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
+        Quiz_Question__c question1 = session.Current_Question__r;
+        Quiz_Question__c question2 = QuizSessionTestFactory.createQuizQuestion();
+        QuizSessionTestFactory.createQuizSessionQuestion(session, question2, 1);
+
+        session.Current_Question__r = question2;
+        session.Phase__c = PHASE_QUESTION;
+        update session;
+
+        Test.startTest();
+        session = new QuizSessionHelper().resetSession(session.Id);
+        Test.stopTest();
+
+        System.assertEquals(PHASE_REGISTRATION, session.Phase__c);
+        System.assertEquals(question1.Id, session.Current_Question__c);
+    }
+
+    @isTest
+    static void resetSessionRemovesPlayersAndAnswers() {
+        Test.setMock(
+            HttpCalloutMock.class,
+            new QuizTestUtils.MockSuccessHttpResponse()
+        );
+
+        Quiz_Session__c session = QuizSessionTestFactory.createQuizSession();
+        Quiz_Question__c question = session.Current_Question__r;
+        Quiz_Player__c player = QuizSessionTestFactory.createQuizPlayers(
+            session.Id,
+            1
+        )[0];
+        QuizSessionTestFactory.createQuizAnswer(
+            player.Id,
+            question.Id,
+            question.Correct_Answer__c
+        );
+
+        // change to Registration from non-Registration phase
+        session.Phase__c = PHASE_QUESTION;
+        update session;
+
+        Test.startTest();
+        new QuizSessionHelper().resetSession(session.Id);
+        Test.stopTest();
+
+        Integer playerCount = [
+            SELECT COUNT()
+            FROM Quiz_Player__c
+            WITH SECURITY_ENFORCED
+        ];
+        Integer answerCount = [
+            SELECT COUNT()
+            FROM Quiz_Answer__c
+            WITH SECURITY_ENFORCED
+        ];
+        System.assertEquals(0, playerCount);
+        System.assertEquals(0, answerCount);
     }
 }

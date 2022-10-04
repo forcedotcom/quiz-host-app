@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Score__c</fullName>
-    <defaultValue>0</defaultValue>
     <externalId>false</externalId>
     <label>Score</label>
-    <precision>8</precision>
-    <required>false</required>
-    <scale>0</scale>
+    <summarizedField>Quiz_Answer__c.Score__c</summarizedField>
+    <summaryForeignKey>Quiz_Answer__c.Player__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
     <trackTrending>false</trackTrending>
-    <type>Number</type>
-    <unique>false</unique>
+    <type>Summary</type>
 </CustomField>

@@ -6,6 +6,7 @@ public with sharing class QuizSessionHelper {
         PHASE_GAME_RESULTS = QuizSessionService.Phase.GameResults.name();
 
     private static final QuizSettingsService settingsService = new QuizSettingsService();
+    private static final QuizSessionService sessionService = new QuizSessionService();
 
     // When curAnswerTimestamp == minAnswerTimestamp, score = 1000
     // With curAnswerTimestamp == maxAnswerTimestamp, score = 500
@@ -29,7 +30,6 @@ public with sharing class QuizSessionHelper {
 
     public void updatePlayerScores(Id sessionId) {
         // Get current question
-        QuizSessionService sessionService = new QuizSessionService();
         Quiz_Session__c session = sessionService.getQuizSession(sessionId);
         Quiz_Question__c currentQuestion = sessionService.getCurrentQuestion(
             session.Id
@@ -43,13 +43,6 @@ public with sharing class QuizSessionHelper {
         if (answers.isEmpty()) {
             return;
         }
-
-        // Get players
-        QuizPlayerService playerService = new QuizPlayerService();
-        Map<Id, Quiz_Player__c> allPlayers = playerService.getPlayers(
-            session.Id
-        );
-        List<Quiz_Player__c> updatedPlayers = new List<Quiz_Player__c>();
 
         // Get answer min and max timestamps
         Decimal minTimestamp = answers[0].Timestamp__c;
@@ -66,21 +59,15 @@ public with sharing class QuizSessionHelper {
             );
             answer.IsCorrect__c = true;
             answer.Score__c = score;
-            // Update player score
-            Quiz_Player__c player = allPlayers.get(answer.Player__c);
-            player.Score__c += score;
-            updatedPlayers.add(player);
         }
-
         update answers;
-        update updatedPlayers;
 
         // Refresh ranks
+        QuizPlayerService playerService = new QuizPlayerService();
         playerService.assignRanks(session.Id);
     }
 
     public Quiz_Session__c triggerNextPhase(Id sessionId) {
-        QuizSessionService sessionService = new QuizSessionService();
         Quiz_Session__c session = sessionService.getQuizSession(sessionId);
 
         if (session.Phase__c == PHASE_REGISTRATION) {
@@ -89,6 +76,7 @@ public with sharing class QuizSessionHelper {
             session.Phase__c = PHASE_QUESTION;
         } else if (session.Phase__c == PHASE_QUESTION) {
             session.Phase__c = PHASE_QUESTION_RESULTS;
+            updatePlayerScores(session.Id);
         } else if (session.Phase__c == PHASE_QUESTION_RESULTS) {
             List<Quiz_Question__c> questions = sessionService.getSessionQuestions(
                 sessionId
@@ -97,9 +85,11 @@ public with sharing class QuizSessionHelper {
                 session,
                 questions
             );
+            // Last question, show game results
             if (currentQuestionIndex == questions.size() - 1) {
                 session.Phase__c = PHASE_GAME_RESULTS;
             } else {
+                // Move to next question
                 session.Phase__c = PHASE_PRE_QUESTION;
                 Quiz_Question__c nextQuestion = questions[
                     currentQuestionIndex + 1
@@ -115,6 +105,34 @@ public with sharing class QuizSessionHelper {
         }
 
         update session;
+        // Push phase change to player app
+        QuizSessionHelper.pushPhaseUpdateToPlayerApp(
+            session.Id,
+            session.Phase__c
+        );
+        return session;
+    }
+
+    public Quiz_Session__c resetSession(Id sessionId) {
+        // Reset session
+        Quiz_Session__c session = sessionService.getQuizSession(sessionId);
+        session.Phase__c = PHASE_REGISTRATION;
+        // Reset current question
+        List<Quiz_Question__c> questions = sessionService.getSessionQuestions(
+            session.Id
+        );
+        if (questions.size() > 0) {
+            session.Current_Question__c = questions[0].Id;
+        }
+        update session;
+        // Delete all players and answers
+        QuizPlayerService playerService = new QuizPlayerService();
+        playerService.deletePlayers(session.Id);
+        // Push phase change to player app
+        QuizSessionHelper.pushPhaseUpdateToPlayerApp(
+            session.Id,
+            session.Phase__c
+        );
         return session;
     }
 

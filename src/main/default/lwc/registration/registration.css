@@ -3,3 +3,11 @@ h1 {
     font-size: 2rem;
     margin-bottom: 1rem;
 }
+a,
+a:hover,
+a:visited {
+    color: #000000;
+}
+p {
+    margin-top: 1rem;
+}

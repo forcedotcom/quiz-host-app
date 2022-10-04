@@ -2,5 +2,6 @@
     <h1>Scan this QR code to join the game:</h1>
     <a if:true={qrCodeImageUrl} href={sessionUrl} target="_blank">
         <img src={qrCodeImageUrl} alt="QR code" />
+        <p>{sessionUrl}</p>
     </a>
 </template>

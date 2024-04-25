@@ -150,9 +150,9 @@ public with sharing class QuizSessionHelper {
         if (response.getStatusCode() != 200) {
             throw new QuizPhasePushException(
                 'Failed to push quiz phase update: HTTP' +
-                response.getStatusCode() +
-                ' ' +
-                response.getBody()
+                    response.getStatusCode() +
+                    ' ' +
+                    response.getBody()
             );
         }
     }

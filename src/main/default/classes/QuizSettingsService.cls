@@ -39,9 +39,9 @@ public class QuizSettingsService extends QuizAbstractDataService {
         if (res.getStatusCode() < 200 || res.getStatusCode() > 300) {
             throw new PlayerAppUrlException(
                 'Failed to reach player app (HTTP ' +
-                res.getStatusCode() +
-                '). Check if URL is valid: ' +
-                settings.Player_App_URL__c
+                    res.getStatusCode() +
+                    '). Check if URL is valid: ' +
+                    settings.Player_App_URL__c
             );
         }
     }

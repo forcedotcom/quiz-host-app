@@ -3,16 +3,12 @@ public virtual class QuizAbstractDataService {
         Integer count = objects.size();
         if (count == 0) {
             throw new NoRecordFoundException(
-                'No ' +
-                objectName +
-                ' record found'
+                'No ' + objectName + ' record found'
             );
         }
         if (count > 1) {
             throw new TooManyRecordFoundException(
-                'Too many records, expected single ' +
-                objectName +
-                ' record'
+                'Too many records, expected single ' + objectName + ' record'
             );
         }
         return objects.get(0);

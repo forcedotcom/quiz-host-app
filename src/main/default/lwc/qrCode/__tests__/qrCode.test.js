@@ -22,7 +22,7 @@ describe('qr-code', () => {
 
         const img = element.shadowRoot.querySelector('img');
         expect(img.src).toBe(
-            `https://chart.googleapis.com/chart?chs=${IMAGE_SIZE}x${IMAGE_SIZE}&cht=qr&chl=${encodeURIComponent(
+            `https://api.qrserver.com/v1/create-qr-code/?size=${IMAGE_SIZE}x${IMAGE_SIZE}&data=${encodeURIComponent(
                 IMAGE_BASE_URL
             )}`
         );

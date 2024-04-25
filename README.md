@@ -63,7 +63,7 @@ If installing on a Developer Edition org, you first need to set up **My Domain**
 
 1. Click [this link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t5p0000013nkIAAQ) to install the host app package and choose **Install for All Users**.
 
-    You'll need to approve access to `https://chart.googleapis.com`. We use this library to draw leaderboards.
+    You'll need to approve access to `https://api.qrserver.com`. We use this library to draw a QR Code.
 
 1. Set up permissions:
     1. Navigate to **Setup > Users > Permission Sets**, click **Quiz Host**

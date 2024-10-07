@@ -49,7 +49,7 @@ The quiz requires two applications: a host app and a player app.
 The host app is a Lightning Web Component (LWC) app running on a Salesforce org.
 
 The player app is a mobile app built with Lightning Web Component Open Source (LWC OSS). It runs on Node.js deployed on Heroku.
-You'll need a free [Heroku account](https://signup.heroku.com) to set it up. A free account lets you run the game with a small group of players. If you run the game with a larger group, consider upgrading to a [Hobby Dyno](https://www.heroku.com/dynos).
+You'll need a [Heroku account](https://signup.heroku.com) to set it up.
 
 <img src="doc-media/architecture.jpg" alt="Quiz app architecture"/>
 
@@ -104,7 +104,7 @@ We assume that you have a working Salesforce DX environment (Salesforce CLI inst
 1. Generate a [security token](https://help.salesforce.com/articleView?id=user_security_token.htm) for your Salesforce user.
 1. Generate a secure password using [this service](https://passwordsgenerator.net/) or any other. This will be the secret **Quiz API Key** that you'll set later in both applications.
 1. Deploy the **Quiz Player App** to Heroku by clicking this button:
-   <a target="_blank" href="https://heroku.com/deploy?template=https://github.com/forcedotcom/quiz-player-app" title="Deploy to Heroku">
+   <a target="_blank" href="https://www.heroku.com/deploy?template=https://github.com/forcedotcom/quiz-player-app" title="Deploy to Heroku">
    <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku"/>
    </a>
 
@@ -117,7 +117,7 @@ We assume that you have a working Salesforce DX environment (Salesforce CLI inst
     | `SF_PASSWORD`           | Your Salesforce user's password.                                                                                                                                                |
     | `SF_TOKEN`              | Your Salesforce user's security token.                                                                                                                                          |
     | `SF_USERNAME`           | Your Salesforce username.                                                                                                                                                       |
-    | `SF_NAMESPACE`          | The Salesforce package namespace (leave the `sfqz` default value unless you are developing with a Scratch org).                                                                 |
+    | `SF_NAMESPACE`          | The Salesforce package namespace (leave the `sfq` default value unless you are developing with a Scratch org).                                                                 |
     | `COLLECT_PLAYER_EMAILS` | Whether the app should collect player emails (true/false).                                                                                                                      |
 
 ### Step 3: Host App Configuration

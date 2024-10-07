@@ -104,7 +104,7 @@ We assume that you have a working Salesforce DX environment (Salesforce CLI inst
 1. Generate a [security token](https://help.salesforce.com/articleView?id=user_security_token.htm) for your Salesforce user.
 1. Generate a secure password using [this service](https://passwordsgenerator.net/) or any other. This will be the secret **Quiz API Key** that you'll set later in both applications.
 1. Deploy the **Quiz Player App** to Heroku by clicking this button:
-   <a target="_blank" href="https://heroku.com/deploy?template=https://github.com/forcedotcom/quiz-player-app/edit/master" title="Deploy to Heroku">
+   <a target="_blank" href="https://heroku.com/deploy?template=https://github.com/forcedotcom/quiz-player-app" title="Deploy to Heroku">
    <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku"/>
    </a>
 

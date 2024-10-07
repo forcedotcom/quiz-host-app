@@ -3,6 +3,7 @@ name: Packaging
 
 # Definition when the workflow should run
 on:
+    workflow_dispatch:
     release:
         types: [released]
 

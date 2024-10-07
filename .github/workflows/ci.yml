@@ -4,6 +4,7 @@ name: CI
 # Definition when the workflow should run
 on:
     push:
+        workflow_dispatch:
         branches:
             - master
         paths-ignore:

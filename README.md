@@ -61,7 +61,7 @@ There are two installation options for the host app:
 
 If installing on a Developer Edition org, you first need to set up **My Domain** by following [these instructions](https://help.salesforce.com/articleView?id=environment_hub_get_started_my_domain.htm&type=5) and keeping the default login policy.
 
-1. Click [this link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t5p0000013nkIAAQ) to install the host app package and choose **Install for All Users**.
+1. Click [this link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04tJ9000000Y15cIAC) to install the host app package and choose **Install for All Users**.
 
     You'll need to approve access to `https://api.qrserver.com`. We use this library to draw a QR Code.
 

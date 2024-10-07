@@ -5,8 +5,9 @@
             "default": true,
             "package": "Quiz",
             "postInstallScript": "QuizPostInstallScript",
-            "versionName": "ver 2.10.1",
-            "versionNumber": "2.10.1.NEXT",
+            "versionName": "ver 2.11.0",
+            "versionNumber": "2.11.0.NEXT",
+            "versionDescription": "Multiplayer quiz app built on Salesforce technology",
             "ancestorVersion": "HIGHEST",
             "apexTestAccess": {
                 "permissionSets": ["Quiz_Host"]
@@ -17,7 +18,7 @@
     "sfdcLoginUrl": "https://login.salesforce.com",
     "sourceApiVersion": "61.0",
     "packageAliases": {
-        "Quiz": "0Ho0N000000KyksSAC",
-        "Quiz@2.10.0-1": "04t5p0000013nkIAAQ"
+        "Quiz": "0HoJ9000000KyjGKAS",
+        "Quiz@2.11.0-1": "04tJ9000000Y15cIAC"
     }
 }

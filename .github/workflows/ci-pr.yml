@@ -96,6 +96,11 @@ jobs:
             - name: 'Authenticate Dev Hub'
               run: sf org login sfdx-url -f ./DEVHUB_SFDX_URL.txt -a devhub -d
 
+            # Add namespace to project config
+            - name: Add namespace to project config
+              run: |
+                  sed -i 's,"namespace": "","namespace": "sfq",' sfdx-project.json
+
             # Create prerelease scratch org
             - name: 'Create prerelease scratch org'
               if: ${{ env.IS_PRERELEASE }}

@@ -46,7 +46,7 @@ jobs:
             # Add namespace to project config
             - name: Add namespace to project config
               run: |
-                  sed -i 's,"namespace": "","namespace": "sfqz",' sfdx-project.json
+                  sed -i 's,"namespace": "","namespace": "sfq",' sfdx-project.json
 
             # Remove unpackageable metadata
             - name: Remove unpackageable metadata (PlatformEventChannelMember)

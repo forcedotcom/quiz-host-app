@@ -20,31 +20,36 @@ echo - Data:           %DATA%
 
 rem Install script
 echo Cleaning previous scratch org...
-cmd.exe /c sfdx force:org:delete -p -u %ORG_ALIAS% 2>NUL
+cmd.exe /c sf org delete scratch -p -o %ORG_ALIAS% 2>NUL
 @echo:
 
 echo Creating scratch org...
-cmd.exe /c sfdx force:org:create -c -s -f config/project-scratch-def.json -a %ORG_ALIAS% -d 30
+cmd.exe /c sf org create scratch -f config/project-scratch-def.json -a %ORG_ALIAS% -d -y 30 --no-ancestors --no-namespace
 call :checkForError
 @echo:
 
 echo Pushing source...
-cmd.exe /c sfdx force:source:push -f -u %ORG_ALIAS%
+cmd.exe /c sf project deploy start
 call :checkForError
 @echo:
 
 echo Assigning permissions...
-cmd.exe /c sfdx force:user:permset:assign -n Quiz_Host -u %ORG_ALIAS%
+cmd.exe /c sf org assign permset -n Quiz_Host
 call :checkForError
 @echo:
 
 echo Importing data...
-cmd.exe /c sfdx force:data:tree:import -p data/%DATA%/plan.json -u %ORG_ALIAS%
+cmd.exe /c sf data tree import -p data/%DATA%/plan.json
 call :checkForError
 @echo:
 
 echo Generating user password...
-cmd.exe /c sfdx force:user:password:generate -u %ORG_ALIAS%
+cmd.exe /c sf org generate password
+call :checkForError
+@echo:
+
+echo Opening org...
+cmd.exe /c sf org open -p lightning/setup/SecurityRemoteProxy/home
 call :checkForError
 @echo:
 
@@ -52,8 +57,6 @@ rem Check exit code
 @echo:
 if ["%errorlevel%"]==["0"] (
   echo Installation completed.
-  @echo:
-  cmd.exe /c sfdx force:org:open -p /lightning/setup/SecurityremoteProxy/home -u %ORG_ALIAS%
 )
 
 :: ======== FN ======
